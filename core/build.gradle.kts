@@ -1,14 +1,18 @@
+val groupId = "dev.kmpx"
+val artifactId = "core"
+val version = "0.1.0-SNAPSHOT"
+
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
-    `maven-publish`
+    alias(libs.plugins.vanniktech.mavenPublish)
 }
 
 repositories {
     mavenCentral()
 }
 
-group = "dev.kmpx"
-version = "0.1.0-SNAPSHOT"
+this@Project.group = groupId
+this@Project.version = version
 
 kotlin {
     jvm()
@@ -28,56 +32,43 @@ kotlin {
     }
 }
 
-val configurePublishing = providers.gradleProperty("configurePublishing").orNull
+mavenPublishing {
+    publishToMavenCentral()
 
-if (configurePublishing == "true") {
-    val ghRepository: String =
-        System.getenv("GITHUB_REPOSITORY") ?: throw IllegalStateException("GITHUB_REPOSITORY is not set")
-    val ghActor = System.getenv("GITHUB_ACTOR") ?: throw IllegalStateException("GITHUB_ACTOR is not set")
-    val ghToken = System.getenv("GITHUB_TOKEN") ?: throw IllegalStateException("GITHUB_TOKEN is not set")
+    signAllPublications()
 
-    publishing {
-        publications {
-            withType<MavenPublication> {
-                pom {
-                    name.set("KMPX Core")
-                    description.set("Utility libraries for Kotlin Multiplatform")
-                    url.set("https://github.com/$ghRepository")
+    coordinates(
+        groupId = groupId,
+        artifactId = artifactId,
+        version = version,
+    )
 
-                    licenses {
-                        license {
-                            name.set("The Apache License, Version 2.0")
-                            url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
-                        }
-                    }
+    pom {
+        name = "KMPX Core"
+        description = "Utility libraries for Kotlin Multiplatform"
+        inceptionYear = "2025"
+        url = "https://kmpx.dev/"
 
-                    developers {
-                        developer {
-                            id.set(ghActor)
-                            name.set("KMPX Authors")
-                            email.set("contact@kmpx.dev")
-                        }
-                    }
-
-                    scm {
-                        connection.set("scm:git:git://github.com/$ghRepository.git")
-                        developerConnection.set("scm:git:ssh://github.com:$ghRepository.git")
-                        url.set("https://github.com/$ghRepository")
-                    }
-                }
+        licenses {
+            license {
+                name = "The Apache License, Version 2.0"
+                url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+                distribution = "https://www.apache.org/licenses/LICENSE-2.0.txt"
             }
         }
 
-        repositories {
-            maven {
-                name = "GithubPackages"
-                url = uri("https://maven.pkg.github.com/${ghRepository}")
-
-                credentials {
-                    username = ghActor
-                    password = ghToken
-                }
+        developers {
+            developer {
+                id = "kmpx"
+                name = "KMPX Authors"
+                url = "https://kmpx.dev/"
             }
+        }
+
+        scm {
+            url = "https://github.com/kmpx-toolkit/kmpx/"
+            connection = "scm:git:git://github.com/kmpx-toolkit/kmpx.git"
+            developerConnection = "scm:git:ssh://git@github.com/kmpx-toolkit/kmpx.git"
         }
     }
 }
