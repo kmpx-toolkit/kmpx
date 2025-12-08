@@ -1,5 +1,9 @@
 name: CI
 
+env:
+  JAVA_VERSION: "21"
+  JAVA_DISTRIBUTION: "temurin"
+
 on:
   push:
     branches: [ "main" ]
@@ -12,6 +16,7 @@ on:
 permissions:
   contents: read
   pull-requests: read
+  packages: write
 
 jobs:
   check-commits:
@@ -40,14 +45,40 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v4
 
-      - name: Setup Java JDK
+      - name: Setup JDK
         uses: actions/setup-java@v4.7.1
         with:
-          java-version: "21"
-          distribution: "temurin"
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
       - name: Build & test with Gradle
         run: ./gradlew allTest
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: test
+# TODO: Run only on the main branch
+#    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4.7.1
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Publish to GitHub Packages
+        run: ./gradlew publish -PconfigurePublishing=true
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
