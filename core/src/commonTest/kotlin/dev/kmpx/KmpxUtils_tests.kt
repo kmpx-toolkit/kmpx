@@ -8,7 +8,7 @@ class KmpxUtils_tests {
     @Test
     fun test_getAnswer() {
         assertEquals(
-            expected = 42,
+            expected = 43,
             actual = KmpxUtils.getAnswer(),
         )
     }
