@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.vanniktech.mavenPublish)
 }
 
-val version = "0.1.0-SNAPSHOT"
+val version = "0.1.1-SNAPSHOT"
 
 this@Project.group = groupId
 this@Project.version = version
