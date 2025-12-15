@@ -14,4 +14,5 @@ dependencyResolutionManagement {
 
 include(
     "gradle-core-api-utils",
+    "gradle-kotlin-api-utils",
 )

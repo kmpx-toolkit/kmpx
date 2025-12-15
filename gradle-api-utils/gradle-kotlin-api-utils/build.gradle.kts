@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.vanniktech.mavenPublish)
 }
 
-val version = "0.1.1-SNAPSHOT"
+val version = "0.1.0-SNAPSHOT"
 
 this@Project.group = groupId
 this@Project.version = version
@@ -17,15 +17,15 @@ kotlin {
 }
 
 dependencies {
-    api(gradleApi())
+    api(libs.kotlin.gradlePlugin.api)
 }
 
 mavenPublishing {
     mavenPublishingDefaults(
-        artifactId = "gradle-core-api-utils",
+        artifactId = "gradle-kotlin-api-utils",
         version = version,
-        name = "Core Gradle API utils",
-        description = "Utilities for core Gradle API",
+        name = "Kotlin Gradle API utils",
+        description = "Utilities for Kotlin-related Gradle API",
         inceptionYear = 2025,
     )
 }
