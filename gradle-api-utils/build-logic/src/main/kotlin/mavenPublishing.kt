@@ -1,6 +1,6 @@
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
 
-fun MavenPublishBaseExtension.mavenPublishingDefaults(
+fun MavenPublishBaseExtension.configureMavenPublishing(
     artifactId: String,
     version: String,
     name: String,

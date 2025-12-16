@@ -9,11 +9,11 @@ this@Project.group = groupId
 this@Project.version = version
 
 repositories {
-    repositoriesDefaults()
+    configureRepositories()
 }
 
 kotlin {
-    kotlinDefaults()
+    configureKotlin()
 }
 
 dependencies {
@@ -21,7 +21,7 @@ dependencies {
 }
 
 mavenPublishing {
-    mavenPublishingDefaults(
+    configureMavenPublishing(
         artifactId = "gradle-core-api-utils",
         version = version,
         name = "Core Gradle API utils",
