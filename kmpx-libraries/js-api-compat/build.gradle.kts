@@ -18,7 +18,7 @@ kotlin {
 
 mavenPublishing {
     configureMavenPublishing(
-        artifactId = "platform",
+        artifactId = "js-api-compat",
         version = version,
         name = "KMPX JS API Compat",
         description = "JS API compatibility library",

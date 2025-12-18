@@ -1,7 +1,9 @@
 rootProject.name = "kmpx-libraries"
 
 pluginManagement {
-    includeBuild("build-logic")
+    includeBuild("build-logic") {
+        name = "kmpx-libraries-build-logic"
+    }
 }
 
 include(
