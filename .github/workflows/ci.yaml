@@ -53,7 +53,12 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Build
+      - name: Build (:kmpx-gradle-api-utils)
+        working-directory: ./kmpx-gradle-api-utils
+        run: ./gradlew build
+
+      - name: Build (:kmpx-libraries)
+        working-directory: ./kmpx-libraries
         run: ./gradlew build
 
   publish:
@@ -81,7 +86,13 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Publish to Maven Central (:gradle-core-api-utils)
-        run: ./gradlew :gradle-api-utils:gradle-core-api-utils:publishToMavenCentral --no-configuration-cache
+        working-directory: ./kmpx-gradle-api-utils
+        run: ./gradlew :gradle-core-api-utils:publishToMavenCentral --no-configuration-cache
 
       - name: Publish to Maven Central (:gradle-kotlin-api-utils)
-        run: ./gradlew :gradle-api-utils:gradle-kotlin-api-utils:publishToMavenCentral --no-configuration-cache
+        working-directory: ./kmpx-gradle-api-utils
+        run: ./gradlew :gradle-kotlin-api-utils:publishToMavenCentral --no-configuration-cache
+
+      - name: Publish to Maven Central (:collections)
+        working-directory: ./kmpx-libraries
+        run: ./gradlew :collections:publishToMavenCentral --no-configuration-cache
