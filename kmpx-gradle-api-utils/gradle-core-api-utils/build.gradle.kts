@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.vanniktech.mavenPublish)
 }
 
-val version = "0.1.1-SNAPSHOT"
+val version = "0.1.2-SNAPSHOT"
 
 this@Project.group = groupId
 this@Project.version = version
@@ -18,6 +18,15 @@ kotlin {
 
 dependencies {
     api(gradleApi())
+}
+
+gradlePlugin {
+    plugins {
+        create("gradle-core-api-utils") {
+            id = "dev.kmpx.gradle-core-api-utils"
+            implementationClass = ""
+        }
+    }
 }
 
 mavenPublishing {
