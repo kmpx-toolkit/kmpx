@@ -20,6 +20,15 @@ dependencies {
     api(gradleApi())
 }
 
+gradlePlugin {
+    plugins {
+        create("gradle-core-api-utils") {
+            id = "dev.kmpx.gradle-core-api-utils"
+            implementationClass = ""
+        }
+    }
+}
+
 mavenPublishing {
     configureMavenPublishing(
         artifactId = "gradle-core-api-utils",
