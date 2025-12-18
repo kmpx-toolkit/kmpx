@@ -13,7 +13,7 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        create("buildLogicPlugin") {
+        create("build-logic") {
             id = "build-logic"
             implementationClass = ""
         }
