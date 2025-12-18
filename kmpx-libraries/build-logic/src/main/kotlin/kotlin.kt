@@ -17,6 +17,7 @@ fun KotlinMultiplatformExtension.configureKotlin() {
     compilerOptions {
         experimentalLanguageFeatures.addAll(
             ExperimentalLanguageFeature.ConsistentDataClassCopyVisibility,
+            ExperimentalLanguageFeature.ExpectActualClasses,
         )
     }
 }

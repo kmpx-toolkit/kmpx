@@ -7,4 +7,6 @@ pluginManagement {
 include(
     "collections",
     "collections:data-structures",
+    "js-api-compat",
+    "platform",
 )
