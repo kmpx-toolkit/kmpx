@@ -96,3 +96,11 @@ jobs:
       - name: Publish to Maven Central (:collections)
         working-directory: ./kmpx-libraries
         run: ./gradlew :collections:publishToMavenCentral --no-configuration-cache
+
+      - name: Publish to Maven Central (:js-api-compat)
+        working-directory: ./kmpx-libraries
+        run: ./gradlew :js-api-compat:publishToMavenCentral --no-configuration-cache
+
+      - name: Publish to Maven Central (:platform)
+        working-directory: ./kmpx-libraries
+        run: ./gradlew :platform:publishToMavenCentral --no-configuration-cache
