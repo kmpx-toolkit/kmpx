@@ -19,7 +19,7 @@ class TreeList_tests {
     fun test_initial() {
         val treeList = treeListOf<Fruit>()
 
-        ListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(treeList)
 
         assertTrue(
             treeList.isEmpty(),
@@ -38,7 +38,7 @@ class TreeList_tests {
 
         treeList[1] = Fruit.Raspberry
 
-        ListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(treeList)
 
         assertEquals(
             expected = Fruit.Raspberry,
@@ -56,7 +56,7 @@ class TreeList_tests {
 
         val addedElementHandle = treeList.addEx(Fruit.Banana)
 
-        ListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(treeList)
 
         assertEquals(
             expected = listOf(
@@ -82,7 +82,7 @@ class TreeList_tests {
             actual = treeList.add(Fruit.Grape),
         )
 
-        ListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(treeList)
 
         assertEquals(
             expected = listOf(
@@ -103,7 +103,7 @@ class TreeList_tests {
             actual = treeList.add(Fruit.Orange),
         )
 
-        ListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(treeList)
 
         assertEquals(
             expected = listOf(
@@ -128,7 +128,7 @@ class TreeList_tests {
             actual = treeList.add(Fruit.Apple),
         )
 
-        ListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(treeList)
 
         assertEquals(
             expected = listOf(
@@ -155,7 +155,7 @@ class TreeList_tests {
             element = Fruit.Apple,
         )
 
-        ListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(treeList)
 
         assertEquals(
             expected = listOf(
@@ -181,7 +181,7 @@ class TreeList_tests {
             element = Fruit.Apple,
         )
 
-        ListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(treeList)
 
         assertEquals(
             expected = listOf(
@@ -213,7 +213,7 @@ class TreeList_tests {
             element = Fruit.Apple,
         )
 
-        ListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(treeList)
 
         assertEquals(
             expected = listOf(
@@ -241,7 +241,7 @@ class TreeList_tests {
             element = Fruit.Watermelon,
         )
 
-        ListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(treeList)
 
         assertEquals(
             expected = listOf(
@@ -268,7 +268,7 @@ class TreeList_tests {
             element = Fruit.Apple,
         )
 
-        ListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(treeList)
 
         assertEquals(
             expected = listOf(
@@ -294,7 +294,7 @@ class TreeList_tests {
             element = Fruit.Apple,
         )
 
-        ListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(treeList)
 
         assertEquals(
             expected = listOf(
@@ -324,7 +324,7 @@ class TreeList_tests {
             ),
         )
 
-        ListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(treeList)
 
         assertEquals(
             expected = listOf(
@@ -349,7 +349,7 @@ class TreeList_tests {
 
         treeList.removeAt(0)
 
-        ListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(treeList)
 
         assertEquals(
             expected = listOf(
@@ -370,7 +370,7 @@ class TreeList_tests {
 
         treeList.removeAt(1)
 
-        ListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(treeList)
 
         assertEquals(
             expected = listOf(
@@ -391,7 +391,7 @@ class TreeList_tests {
 
         treeList.removeAt(2)
 
-        ListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(treeList)
 
         assertEquals(
             expected = listOf(
@@ -416,7 +416,7 @@ class TreeList_tests {
             },
         )
 
-        ListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(treeList)
 
         assertEquals(
             expected = listOf(
@@ -442,7 +442,7 @@ class TreeList_tests {
             ),
         )
 
-        ListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(treeList)
 
         assertEquals(
             expected = listOf(
@@ -465,7 +465,7 @@ class TreeList_tests {
             actual = treeList.remove(Fruit.Apple),
         )
 
-        ListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(treeList)
 
         assertEquals(
             expected = listOf(
@@ -497,7 +497,7 @@ class TreeList_tests {
             ),
         )
 
-        ListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(treeList)
 
         assertNull(
             actual = treeList.getVia(handle = addedElementHandle),

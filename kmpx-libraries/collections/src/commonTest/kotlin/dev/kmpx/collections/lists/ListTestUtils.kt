@@ -8,14 +8,11 @@ import kotlin.test.assertTrue
 
 object ListTestUtils {
     fun <E> verifyIntegrity(list: List<E>) {
-        val iterator = list.iterator()
         var index = 0
         val iteratedElements = mutableListOf<E>()
         val iteratedFirstIndexByElement = mutableMapOf<E, Int>()
 
-        while (iterator.hasNext()) {
-            val iteratedElement = iterator.next()
-
+        for (iteratedElement in list) {
             iteratedElements.add(iteratedElement)
 
             val gotElement = list[index]
