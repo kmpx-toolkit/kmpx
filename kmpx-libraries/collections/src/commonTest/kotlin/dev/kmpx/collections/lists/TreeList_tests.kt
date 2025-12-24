@@ -24,7 +24,7 @@ class TreeList_tests {
 
     @Test
     fun test_set() {
-        val mutableTreeList = mutableTreeListOf(
+        val mutableTreeList = treeListOf(
             Fruit.Banana,
             Fruit.Orange,
             Fruit.Kiwi,
@@ -45,7 +45,7 @@ class TreeList_tests {
 
     @Test
     fun test_addEx() {
-        val mutableTreeList = mutableTreeListOf(
+        val mutableTreeList = treeListOf(
             Fruit.Banana,
             Fruit.Orange,
             Fruit.Pineapple,
@@ -68,7 +68,7 @@ class TreeList_tests {
 
     @Test
     fun test_set_duplicate() {
-        val mutableTreeList = mutableTreeListOf(
+        val mutableTreeList = treeListOf(
             Fruit.Banana,
             Fruit.Orange,
             Fruit.Kiwi,
@@ -104,7 +104,7 @@ class TreeList_tests {
 
     @Test
     fun test_add_append_nonEmpty() {
-        val mutableTreeList = mutableTreeListOf(
+        val mutableTreeList = treeListOf(
             Fruit.Grape,
             Fruit.Strawberry,
         )
@@ -124,7 +124,7 @@ class TreeList_tests {
 
     @Test
     fun test_add_append_duplicate() {
-        val mutableTreeList = mutableTreeListOf(
+        val mutableTreeList = treeListOf(
             Fruit.Grape,
             Fruit.Strawberry,
             Fruit.Apple,
@@ -148,7 +148,7 @@ class TreeList_tests {
 
     @Test
     fun test_add_atIndex_first() {
-        val mutableTreeList = mutableTreeListOf(
+        val mutableTreeList = treeListOf(
             Fruit.Grape,
             Fruit.Strawberry,
             Fruit.Orange,
@@ -169,7 +169,7 @@ class TreeList_tests {
 
     @Test
     fun test_addEx_atIndex() {
-        val mutableTreeList = mutableTreeListOf(
+        val mutableTreeList = treeListOf(
             Fruit.Grape,
             Fruit.Strawberry,
             Fruit.Orange,
@@ -195,7 +195,7 @@ class TreeList_tests {
 
     @Test
     fun test_add_atIndex_middle() {
-        val mutableTreeList = mutableTreeListOf(
+        val mutableTreeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Watermelon,
@@ -218,7 +218,7 @@ class TreeList_tests {
 
     @Test
     fun test_add_atIndex_duplicate() {
-        val mutableTreeList = mutableTreeListOf(
+        val mutableTreeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Watermelon,
@@ -241,7 +241,7 @@ class TreeList_tests {
 
     @Test
     fun test_add_atIndex_last() {
-        val mutableTreeList = mutableTreeListOf(
+        val mutableTreeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Orange,
@@ -262,7 +262,7 @@ class TreeList_tests {
 
     @Test
     fun test_add_atIndex_onePastLast() {
-        val mutableTreeList = mutableTreeListOf(
+        val mutableTreeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Orange,
@@ -283,7 +283,7 @@ class TreeList_tests {
 
     @Test
     fun test_addAllAt() {
-        val mutableTreeList = mutableTreeListOf(
+        val mutableTreeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Orange,
@@ -310,7 +310,7 @@ class TreeList_tests {
 
     @Test
     fun test_removeAt_first() {
-        val mutableTreeList = mutableTreeListOf(
+        val mutableTreeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Orange,
@@ -326,7 +326,7 @@ class TreeList_tests {
 
     @Test
     fun test_removeAt_middle() {
-        val mutableTreeList = mutableTreeListOf(
+        val mutableTreeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Kiwi,
             Fruit.Orange,
@@ -342,7 +342,7 @@ class TreeList_tests {
 
     @Test
     fun test_removeAt_last() {
-        val mutableTreeList = mutableTreeListOf(
+        val mutableTreeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Orange,
@@ -358,7 +358,7 @@ class TreeList_tests {
 
     @Test
     fun test_removeAt_pastLast() {
-        val mutableTreeList = mutableTreeListOf(
+        val mutableTreeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Orange,
@@ -373,7 +373,7 @@ class TreeList_tests {
 
     @Test
     fun test_remove_contained() {
-        val mutableTreeList = mutableTreeListOf(
+        val mutableTreeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Orange,
@@ -393,7 +393,7 @@ class TreeList_tests {
 
     @Test
     fun test_remove_nonContained() {
-        val mutableTreeList = mutableTreeListOf(
+        val mutableTreeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Kiwi,
             Fruit.Orange,
@@ -414,7 +414,7 @@ class TreeList_tests {
 
     @Test
     fun test_removeVia() {
-        val mutableTreeList = mutableTreeListOf(
+        val mutableTreeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Kiwi,
             Fruit.Orange,
@@ -453,7 +453,7 @@ class TreeList_tests {
 
     @Test
     fun test_indexOfVia() {
-        val mutableTreeList = mutableTreeListOf(
+        val mutableTreeList = treeListOf(
             Fruit.Strawberry,
             // +Mango
             Fruit.Kiwi,
@@ -518,7 +518,7 @@ class TreeList_tests {
 
     @Test
     fun test_findEx() {
-        val mutableTreeList = mutableTreeListOf(
+        val mutableTreeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Kiwi,
             Fruit.Orange,

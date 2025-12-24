@@ -47,4 +47,4 @@ interface MutableStableMap<K, V> : MutableMap<K, V>, StableMap<K, V> {
 
 fun <K : Comparable<K>, V> mutableStableMapOf(
     vararg pairs: Pair<K, V>,
-): MutableStableMap<K, V> = mutableTreeMapOf(*pairs)
+): MutableStableMap<K, V> = treeMapOf(*pairs)

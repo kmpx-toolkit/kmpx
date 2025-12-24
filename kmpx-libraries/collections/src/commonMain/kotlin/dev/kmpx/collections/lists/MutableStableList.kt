@@ -35,4 +35,4 @@ interface MutableStableList<E> : MutableList<E>, MutableStableCollection<E>, Sta
 @Suppress("NOTHING_TO_INLINE")
 inline fun <E> mutableStableListOf(
     vararg elements: E,
-): MutableStableList<E> = mutableTreeListOf(*elements)
+): MutableStableList<E> = treeListOf(*elements)

@@ -9,7 +9,7 @@ import kotlin.test.assertNull
 class TreeMap_tests {
     @Test
     fun test_initial() {
-        val map = mutableTreeMapOf<Int, String>()
+        val map = treeMapOf<Int, String>()
 
         assertEquals(
             expected = 0,
@@ -28,7 +28,7 @@ class TreeMap_tests {
 
     @Test
     fun test_put_empty() {
-        val map = mutableTreeMapOf<Int, String>()
+        val map = treeMapOf<Int, String>()
 
         assertNull(
             actual = map.put(
@@ -55,7 +55,7 @@ class TreeMap_tests {
 
     @Test
     fun test_put_overwrite() {
-        val map = mutableTreeMapOf(
+        val map = treeMapOf(
             10 to "a",
             20 to "b",
         )
@@ -91,7 +91,7 @@ class TreeMap_tests {
 
     @Test
     fun test_put_new() {
-        val map = mutableTreeMapOf(
+        val map = treeMapOf(
             10 to "a",
             20 to "b",
         )
@@ -121,7 +121,7 @@ class TreeMap_tests {
 
     @Test
     fun test_addEntryEx_duplicate() {
-        val map = mutableTreeMapOf(
+        val map = treeMapOf(
             10 to "a",
             20 to "b",
         )
@@ -151,7 +151,7 @@ class TreeMap_tests {
 
     @Test
     fun test_addEntryEx_nonDuplicate() {
-        val map = mutableTreeMapOf(
+        val map = treeMapOf(
             10 to "a",
             20 to "b",
         )
@@ -183,7 +183,7 @@ class TreeMap_tests {
 
     @Test
     fun test_setValueVia() {
-        val map = mutableTreeMapOf(
+        val map = treeMapOf(
             10 to "a",
             20 to "b1",
             30 to "c",
@@ -213,7 +213,7 @@ class TreeMap_tests {
 
     @Test
     fun test_remove() {
-        val map = mutableTreeMapOf(
+        val map = treeMapOf(
             10 to "a",
             20 to "b",
             30 to "c",
@@ -266,7 +266,7 @@ class TreeMap_tests {
 
     @Test
     fun test_remove_notContained() {
-        val map = mutableTreeMapOf(
+        val map = treeMapOf(
             10 to "a",
             20 to "b",
         )
@@ -288,7 +288,7 @@ class TreeMap_tests {
 
     @Test
     fun test_removeEntryVia() {
-        val map = mutableTreeMapOf(
+        val map = treeMapOf(
             10 to "a",
             20 to "b",
             30 to "c",
@@ -323,7 +323,7 @@ class TreeMap_tests {
 
     @Test
     fun test_getValueVia() {
-        val map = mutableTreeMapOf(
+        val map = treeMapOf(
             10 to "a",
             20 to "b",
         )
