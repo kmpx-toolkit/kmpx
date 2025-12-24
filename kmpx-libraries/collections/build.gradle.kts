@@ -16,6 +16,10 @@ kotlin {
     configureKotlin()
 
     sourceSets {
+        commonMain.dependencies {
+            implementation(project(":collections:data-structures"))
+        }
+
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }

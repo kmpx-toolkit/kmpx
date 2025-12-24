@@ -452,7 +452,7 @@ class OrderedBinaryTree<PayloadT> private constructor() {
     }
 
     companion object {
-        internal fun <PayloadT> create(): OrderedBinaryTree<PayloadT> = OrderedBinaryTree()
+        fun <PayloadT> create(): OrderedBinaryTree<PayloadT> = OrderedBinaryTree()
     }
 
     private var mutableRootNode: Node<PayloadT>? = null
@@ -704,8 +704,7 @@ class OrderedBinaryTree<PayloadT> private constructor() {
 
         // The target's parent before the swap. If the source and the target node are separated by exactly one node,
         // this will be the top node's swap-side child.
-        val originalTargetNodeParent =
-            targetNode.parent ?: fail("The target node is not expected to be the root")
+        val originalTargetNodeParent = targetNode.parent ?: fail("The target node is not expected to be the root")
 
         // As the target node is the in-order neighbour descendant, its opposite down-link should be a neighbour link...
         val originalTargetLoopLink = targetNode.getDownLink(
