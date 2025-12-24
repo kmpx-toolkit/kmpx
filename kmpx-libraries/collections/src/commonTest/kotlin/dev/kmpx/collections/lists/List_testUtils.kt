@@ -3,27 +3,16 @@ package dev.kmpx.collections.lists
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-fun <E> List<E>.verifyContentUnique(
-    vararg elements: E,
-) {
-    verifyContent(
-        elements = elements.toList(),
-        unique = true,
-    )
-}
-
 fun <E> List<E>.verifyContent(
     vararg elements: E,
 ) {
     verifyContent(
         elements = elements.toList(),
-        unique = false,
     )
 }
 
 fun <E> List<E>.verifyContent(
     elements: List<E>,
-    unique: Boolean,
 ) {
     assertEquals(
         expected = elements.size,
@@ -44,23 +33,5 @@ fun <E> List<E>.verifyContent(
             actual = contains(element),
             message = "List does not contain expected element: $element",
         )
-
-        if (unique) {
-            val foundIndex = indexOf(element)
-
-            assertEquals(
-                expected = index,
-                actual = foundIndex,
-                message = "Index-of $index does not match expected index: expected $index, got $foundIndex",
-            )
-
-            val foundLastIndex = lastIndexOf(element)
-
-            assertEquals(
-                expected = foundIndex,
-                actual = foundLastIndex,
-                message = "Last-index-of $index does not match index-of: expected $foundIndex, got $foundLastIndex",
-            )
-        }
     }
 }
