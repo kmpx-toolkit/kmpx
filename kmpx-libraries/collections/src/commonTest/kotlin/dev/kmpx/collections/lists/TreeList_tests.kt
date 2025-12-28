@@ -30,6 +30,35 @@ class TreeList_tests {
     }
 
     /**
+     * Test the [List.get] method implementation.
+     */
+    @Test
+    fun test_get() {
+        val linkedList = treeListOf(
+            Fruit.Banana,
+            Fruit.Orange,
+            Fruit.Kiwi,
+            Fruit.Strawberry,
+            Fruit.Pineapple,
+        )
+
+        assertEquals(
+            expected = Fruit.Banana,
+            actual = linkedList[0],
+        )
+
+        assertEquals(
+            expected = Fruit.Kiwi,
+            actual = linkedList[2],
+        )
+
+        assertEquals(
+            expected = Fruit.Pineapple,
+            actual = linkedList[4],
+        )
+    }
+
+    /**
      * Test the [MutableList.set] method implementation.
      */
     @Test
