@@ -342,7 +342,7 @@ class TreeList_tests {
      * Test the [MutableStableList.addAtEx] method implementation.
      */
     @Test
-    fun test_addEx_atIndex() {
+    fun test_addAtEx() {
         val treeList = treeListOf(
             Fruit.Grape,
             Fruit.Strawberry,
