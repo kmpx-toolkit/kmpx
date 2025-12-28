@@ -15,6 +15,9 @@ class TreeList_tests {
         Apple, Raspberry, Banana, Orange, Kiwi, Mango, Pineapple, Strawberry, Watermelon, Grape,
     }
 
+    /**
+     * Test initial state of an empty list.
+     */
     @Test
     fun test_initial() {
         val treeList = treeListOf<Fruit>()
@@ -26,6 +29,9 @@ class TreeList_tests {
         )
     }
 
+    /**
+     * Test the [MutableList.set] method implementation.
+     */
     @Test
     fun test_set() {
         val treeList = treeListOf(
@@ -45,7 +51,10 @@ class TreeList_tests {
             actual = treeList[1],
         )
     }
-
+    
+    /**
+     * Test the [MutableList.add] method implementation appending to an empty list.
+     */
     @Test
     fun test_add_append_empty() {
         val treeList = treeListOf<Fruit>()
@@ -64,6 +73,9 @@ class TreeList_tests {
         )
     }
 
+    /**
+     * Test the [MutableList.add] method implementation appending to a non-empty list.
+     */
     @Test
     fun test_add_append_nonEmpty() {
         val treeList = treeListOf(
@@ -87,6 +99,9 @@ class TreeList_tests {
         )
     }
 
+    /**
+     * Test the [MutableList.add] method implementation appending a duplicate element.
+     */
     @Test
     fun test_add_append_duplicate() {
         val treeList = treeListOf(
@@ -114,6 +129,9 @@ class TreeList_tests {
         )
     }
 
+    /**
+     * Test the [MutableStableList.addEx] method implementation.
+     */
     @Test
     fun test_addEx() {
         val treeList = treeListOf(
@@ -142,6 +160,9 @@ class TreeList_tests {
         )
     }
 
+    /**
+     * Test the [MutableList.add] method implementation inserting at index 0.
+     */
     @Test
     fun test_add_atIndex_first() {
         val treeList = treeListOf(
@@ -168,6 +189,9 @@ class TreeList_tests {
         )
     }
 
+    /**
+     * Test the [MutableList.add] method implementation inserting at a middle index.
+     */
     @Test
     fun test_add_atIndex_middle() {
         val treeList = treeListOf(
@@ -196,6 +220,9 @@ class TreeList_tests {
         )
     }
 
+    /**
+     * Test the [MutableList.add] method implementation inserting an element equal to an existing one.
+     */
     @Test
     fun test_add_atIndex_duplicate() {
         val treeList = treeListOf(
@@ -224,6 +251,9 @@ class TreeList_tests {
         )
     }
 
+    /**
+     * Test the [MutableList.add] method implementation inserting at the last index.
+     */
     @Test
     fun test_add_atIndex_last() {
         val treeList = treeListOf(
@@ -250,6 +280,9 @@ class TreeList_tests {
         )
     }
 
+    /**
+     * Test the [MutableList.add] method implementation inserting one past the last index.
+     */
     @Test
     fun test_add_atIndex_onePastLast() {
         val treeList = treeListOf(
@@ -276,6 +309,9 @@ class TreeList_tests {
         )
     }
 
+    /**
+     * Test the [MutableStableList.addAtEx] method implementation.
+     */
     @Test
     fun test_addEx_atIndex() {
         val treeList = treeListOf(
@@ -307,6 +343,9 @@ class TreeList_tests {
         )
     }
 
+    /**
+     * Test the [MutableList.addAll] method implementation inserting at the last index.
+     */
     @Test
     fun test_addAllAt() {
         val treeList = treeListOf(
@@ -339,6 +378,9 @@ class TreeList_tests {
         )
     }
 
+    /**
+     * Test the [MutableList.removeAt] method implementation removing from the first index.
+     */
     @Test
     fun test_removeAt_first() {
         val treeList = treeListOf(
@@ -360,6 +402,9 @@ class TreeList_tests {
         )
     }
 
+    /**
+     * Test the [MutableList.removeAt] method implementation removing from a middle index.
+     */
     @Test
     fun test_removeAt_middle() {
         val treeList = treeListOf(
@@ -381,6 +426,9 @@ class TreeList_tests {
         )
     }
 
+    /**
+     * Test the [MutableList.removeAt] method implementation removing from the last index.
+     */
     @Test
     fun test_removeAt_last() {
         val treeList = treeListOf(
@@ -402,6 +450,9 @@ class TreeList_tests {
         )
     }
 
+    /**
+     * Test the [MutableList.removeAt] method implementation removing from an index past the last index.
+     */
     @Test
     fun test_removeAt_pastLast() {
         val treeList = treeListOf(
@@ -428,6 +479,9 @@ class TreeList_tests {
         )
     }
 
+    /**
+     * Test the [MutableList.remove] method implementation removing a contained element.
+     */
     @Test
     fun test_remove_contained() {
         val treeList = treeListOf(
@@ -453,6 +507,9 @@ class TreeList_tests {
         )
     }
 
+    /**
+     * Test the [MutableList.remove] method implementation removing a non-contained element.
+     */
     @Test
     fun test_remove_nonContained() {
         val treeList = treeListOf(
@@ -477,6 +534,9 @@ class TreeList_tests {
         )
     }
 
+    /**
+     * Test the [MutableStableList.removeVia] method implementation.
+     */
     @Test
     fun test_removeVia() {
         val treeList = treeListOf(
@@ -521,6 +581,9 @@ class TreeList_tests {
         )
     }
 
+    /**
+     * Test the [MutableStableList.indexOfVia] method implementation.
+     */
     @Test
     fun test_indexOfVia() {
         val treeList = treeListOf(
@@ -586,6 +649,9 @@ class TreeList_tests {
         )
     }
 
+    /**
+     * Test the [StableList.findEx] method implementation.
+     */
     @Test
     fun test_findEx() {
         val treeList = treeListOf(
