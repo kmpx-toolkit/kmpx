@@ -17,14 +17,18 @@ class TreeList_tests {
 
     @Test
     fun test_initial() {
-        val treeList = TreeList<Fruit>()
+        val treeList = treeListOf<Fruit>()
 
-        treeList.verifyContent()
+        StableListTestUtils.verifyIntegrity(treeList)
+
+        assertTrue(
+            treeList.isEmpty(),
+        )
     }
 
     @Test
     fun test_set() {
-        val mutableTreeList = mutableTreeListOf(
+        val treeList = treeListOf(
             Fruit.Banana,
             Fruit.Orange,
             Fruit.Kiwi,
@@ -32,99 +36,60 @@ class TreeList_tests {
             Fruit.Pineapple,
         )
 
-        mutableTreeList[1] = Fruit.Raspberry
+        treeList[1] = Fruit.Raspberry
 
-        mutableTreeList.verifyContent(
-            Fruit.Banana,
-            Fruit.Raspberry,
-            Fruit.Kiwi,
-            Fruit.Strawberry,
-            Fruit.Pineapple,
-        )
-    }
-
-    @Test
-    fun test_addEx() {
-        val mutableTreeList = mutableTreeListOf(
-            Fruit.Banana,
-            Fruit.Orange,
-            Fruit.Pineapple,
-        )
-
-        val bananaHandle = mutableTreeList.addEx(Fruit.Banana)
-
-        mutableTreeList.verifyContent(
-            Fruit.Banana,
-            Fruit.Orange,
-            Fruit.Pineapple,
-            Fruit.Banana,
-        )
+        StableListTestUtils.verifyIntegrity(treeList)
 
         assertEquals(
-            expected = Fruit.Banana,
-            actual = mutableTreeList.getVia(handle = bananaHandle),
-        )
-    }
-
-    @Test
-    fun test_set_duplicate() {
-        val mutableTreeList = mutableTreeListOf(
-            Fruit.Banana,
-            Fruit.Orange,
-            Fruit.Kiwi,
-            Fruit.Strawberry,
-            Fruit.Watermelon,
-        )
-
-        mutableTreeList[3] = Fruit.Orange
-
-        mutableTreeList.verifyContent(
-            Fruit.Banana,
-            Fruit.Orange,
-            Fruit.Kiwi,
-            Fruit.Orange,
-            Fruit.Watermelon,
+            expected = Fruit.Raspberry,
+            actual = treeList[1],
         )
     }
 
     @Test
     fun test_add_append_empty() {
-        val treeList = TreeList<Fruit>()
+        val treeList = treeListOf<Fruit>()
 
         assertTrue(
-            actual = treeList.add(
-                Fruit.Grape,
-            )
+            actual = treeList.add(Fruit.Grape),
         )
 
-        treeList.verifyContent(
-            Fruit.Grape,
+        StableListTestUtils.verifyIntegrity(treeList)
+
+        assertEquals(
+            expected = listOf(
+                Fruit.Grape,
+            ),
+            actual = treeList,
         )
     }
 
     @Test
     fun test_add_append_nonEmpty() {
-        val mutableTreeList = mutableTreeListOf(
+        val treeList = treeListOf(
             Fruit.Grape,
             Fruit.Strawberry,
         )
 
         assertTrue(
-            actual = mutableTreeList.add(
-                Fruit.Orange,
-            ),
+            actual = treeList.add(Fruit.Orange),
         )
 
-        mutableTreeList.verifyContent(
-            Fruit.Grape,
-            Fruit.Strawberry,
-            Fruit.Orange,
+        StableListTestUtils.verifyIntegrity(treeList)
+
+        assertEquals(
+            expected = listOf(
+                Fruit.Grape,
+                Fruit.Strawberry,
+                Fruit.Orange,
+            ),
+            actual = treeList,
         )
     }
 
     @Test
     fun test_add_append_duplicate() {
-        val mutableTreeList = mutableTreeListOf(
+        val treeList = treeListOf(
             Fruit.Grape,
             Fruit.Strawberry,
             Fruit.Apple,
@@ -132,164 +97,225 @@ class TreeList_tests {
         )
 
         assertTrue(
-            actual = mutableTreeList.add(
-                Fruit.Apple,
-            ),
+            actual = treeList.add(Fruit.Apple),
         )
 
-        mutableTreeList.verifyContent(
-            Fruit.Grape,
-            Fruit.Strawberry,
-            Fruit.Apple,
-            Fruit.Mango,
-            Fruit.Apple,
+        StableListTestUtils.verifyIntegrity(treeList)
+
+        assertEquals(
+            expected = listOf(
+                Fruit.Grape,
+                Fruit.Strawberry,
+                Fruit.Apple,
+                Fruit.Mango,
+                Fruit.Apple,
+            ),
+            actual = treeList,
+        )
+    }
+
+    @Test
+    fun test_addEx() {
+        val treeList = treeListOf(
+            Fruit.Banana,
+            Fruit.Orange,
+            Fruit.Pineapple,
+        )
+
+        val addedElementHandle = treeList.addEx(Fruit.Banana)
+
+        StableListTestUtils.verifyIntegrity(treeList)
+
+        assertEquals(
+            expected = listOf(
+                Fruit.Banana,
+                Fruit.Orange,
+                Fruit.Pineapple,
+                Fruit.Banana,
+            ),
+            actual = treeList,
+        )
+
+        assertEquals(
+            expected = Fruit.Banana,
+            actual = treeList.getVia(handle = addedElementHandle),
         )
     }
 
     @Test
     fun test_add_atIndex_first() {
-        val mutableTreeList = mutableTreeListOf(
+        val treeList = treeListOf(
             Fruit.Grape,
             Fruit.Strawberry,
             Fruit.Orange,
         )
 
-        mutableTreeList.add(
+        treeList.add(
             index = 0,
             element = Fruit.Apple,
         )
 
-        mutableTreeList.verifyContent(
-            Fruit.Apple,
-            Fruit.Grape,
-            Fruit.Strawberry,
-            Fruit.Orange,
-        )
-    }
-
-    @Test
-    fun test_addEx_atIndex() {
-        val mutableTreeList = mutableTreeListOf(
-            Fruit.Grape,
-            Fruit.Strawberry,
-            Fruit.Orange,
-        )
-
-        val appleHandle = mutableTreeList.addAtEx(
-            index = 1,
-            element = Fruit.Apple,
-        )
-
-        mutableTreeList.verifyContent(
-            Fruit.Grape,
-            Fruit.Apple,
-            Fruit.Strawberry,
-            Fruit.Orange,
-        )
+        StableListTestUtils.verifyIntegrity(treeList)
 
         assertEquals(
-            expected = Fruit.Apple,
-            actual = mutableTreeList.getVia(handle = appleHandle),
+            expected = listOf(
+                Fruit.Apple,
+                Fruit.Grape,
+                Fruit.Strawberry,
+                Fruit.Orange,
+            ),
+            actual = treeList,
         )
     }
 
     @Test
     fun test_add_atIndex_middle() {
-        val mutableTreeList = mutableTreeListOf(
+        val treeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Watermelon,
             Fruit.Orange,
         )
 
-        mutableTreeList.add(
+        treeList.add(
             index = 2,
             element = Fruit.Apple,
         )
 
-        mutableTreeList.verifyContent(
-            Fruit.Strawberry,
-            Fruit.Grape,
-            Fruit.Apple,
-            Fruit.Watermelon,
-            Fruit.Orange,
+        StableListTestUtils.verifyIntegrity(treeList)
+
+        assertEquals(
+            expected = listOf(
+                Fruit.Strawberry,
+                Fruit.Grape,
+                Fruit.Apple,
+                Fruit.Watermelon,
+                Fruit.Orange,
+            ),
+            actual = treeList,
         )
     }
 
     @Test
     fun test_add_atIndex_duplicate() {
-        val mutableTreeList = mutableTreeListOf(
+        val treeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Watermelon,
             Fruit.Orange,
         )
 
-        mutableTreeList.add(
+        treeList.add(
             index = 2,
             element = Fruit.Watermelon,
         )
 
-        mutableTreeList.verifyContent(
-            Fruit.Strawberry,
-            Fruit.Grape,
-            Fruit.Watermelon,
-            Fruit.Watermelon,
-            Fruit.Orange,
+        StableListTestUtils.verifyIntegrity(treeList)
+
+        assertEquals(
+            expected = listOf(
+                Fruit.Strawberry,
+                Fruit.Grape,
+                Fruit.Watermelon,
+                Fruit.Watermelon,
+                Fruit.Orange,
+            ),
+            actual = treeList,
         )
     }
 
     @Test
     fun test_add_atIndex_last() {
-        val mutableTreeList = mutableTreeListOf(
+        val treeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Orange,
         )
 
-        mutableTreeList.add(
+        treeList.add(
             index = 2,
             element = Fruit.Apple,
         )
 
-        mutableTreeList.verifyContent(
-            Fruit.Strawberry,
-            Fruit.Grape,
-            Fruit.Apple,
-            Fruit.Orange,
+        StableListTestUtils.verifyIntegrity(treeList)
+
+        assertEquals(
+            expected = listOf(
+                Fruit.Strawberry,
+                Fruit.Grape,
+                Fruit.Apple,
+                Fruit.Orange,
+            ),
+            actual = treeList,
         )
     }
 
     @Test
     fun test_add_atIndex_onePastLast() {
-        val mutableTreeList = mutableTreeListOf(
+        val treeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Orange,
         )
 
-        mutableTreeList.add(
+        treeList.add(
             index = 3,
             element = Fruit.Apple,
         )
 
-        mutableTreeList.verifyContent(
-            Fruit.Strawberry,
+        StableListTestUtils.verifyIntegrity(treeList)
+
+        assertEquals(
+            expected = listOf(
+                Fruit.Strawberry,
+                Fruit.Grape,
+                Fruit.Orange,
+                Fruit.Apple,
+            ),
+            actual = treeList,
+        )
+    }
+
+    @Test
+    fun test_addEx_atIndex() {
+        val treeList = treeListOf(
             Fruit.Grape,
+            Fruit.Strawberry,
             Fruit.Orange,
-            Fruit.Apple,
+        )
+
+        val addedElementHandle = treeList.addAtEx(
+            index = 1,
+            element = Fruit.Apple,
+        )
+
+        StableListTestUtils.verifyIntegrity(treeList)
+
+        assertEquals(
+            expected = listOf(
+                Fruit.Grape,
+                Fruit.Apple,
+                Fruit.Strawberry,
+                Fruit.Orange,
+            ),
+            actual = treeList,
+        )
+
+        assertEquals(
+            expected = Fruit.Apple,
+            actual = treeList.getVia(handle = addedElementHandle),
         )
     }
 
     @Test
     fun test_addAllAt() {
-        val mutableTreeList = mutableTreeListOf(
+        val treeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Orange,
         )
 
-        mutableTreeList.addAllAt(
+        treeList.addAllAt(
             index = 2,
             elements = listOf(
                 Fruit.Pineapple,
@@ -298,67 +324,87 @@ class TreeList_tests {
             ),
         )
 
-        mutableTreeList.verifyContent(
-            Fruit.Strawberry,
-            Fruit.Grape,
-            Fruit.Pineapple,
-            Fruit.Apple,
-            Fruit.Raspberry,
-            Fruit.Orange,
+        StableListTestUtils.verifyIntegrity(treeList)
+
+        assertEquals(
+            expected = listOf(
+                Fruit.Strawberry,
+                Fruit.Grape,
+                Fruit.Pineapple,
+                Fruit.Apple,
+                Fruit.Raspberry,
+                Fruit.Orange,
+            ),
+            actual = treeList,
         )
     }
 
     @Test
     fun test_removeAt_first() {
-        val mutableTreeList = mutableTreeListOf(
+        val treeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Orange,
         )
 
-        mutableTreeList.removeAt(0)
+        treeList.removeAt(0)
 
-        mutableTreeList.verifyContent(
-            Fruit.Grape,
-            Fruit.Orange,
+        StableListTestUtils.verifyIntegrity(treeList)
+
+        assertEquals(
+            expected = listOf(
+                Fruit.Grape,
+                Fruit.Orange,
+            ),
+            actual = treeList,
         )
     }
 
     @Test
     fun test_removeAt_middle() {
-        val mutableTreeList = mutableTreeListOf(
+        val treeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Kiwi,
             Fruit.Orange,
         )
 
-        mutableTreeList.removeAt(1)
+        treeList.removeAt(1)
 
-        mutableTreeList.verifyContent(
-            Fruit.Strawberry,
-            Fruit.Orange,
+        StableListTestUtils.verifyIntegrity(treeList)
+
+        assertEquals(
+            expected = listOf(
+                Fruit.Strawberry,
+                Fruit.Orange,
+            ),
+            actual = treeList,
         )
     }
 
     @Test
     fun test_removeAt_last() {
-        val mutableTreeList = mutableTreeListOf(
+        val treeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Orange,
         )
 
-        mutableTreeList.removeAt(2)
+        treeList.removeAt(2)
 
-        mutableTreeList.verifyContent(
-            Fruit.Strawberry,
-            Fruit.Grape,
+        StableListTestUtils.verifyIntegrity(treeList)
+
+        assertEquals(
+            expected = listOf(
+                Fruit.Strawberry,
+                Fruit.Grape,
+            ),
+            actual = treeList,
         )
     }
 
     @Test
     fun test_removeAt_pastLast() {
-        val mutableTreeList = mutableTreeListOf(
+        val treeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Orange,
@@ -366,94 +412,118 @@ class TreeList_tests {
 
         assertIs<IndexOutOfBoundsException>(
             assertFails {
-                mutableTreeList.removeAt(3)
+                treeList.removeAt(3)
             },
+        )
+
+        StableListTestUtils.verifyIntegrity(treeList)
+
+        assertEquals(
+            expected = listOf(
+                Fruit.Strawberry,
+                Fruit.Grape,
+                Fruit.Orange,
+            ),
+            actual = treeList,
         )
     }
 
     @Test
     fun test_remove_contained() {
-        val mutableTreeList = mutableTreeListOf(
+        val treeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Orange,
         )
 
         assertTrue(
-            actual = mutableTreeList.remove(
+            actual = treeList.remove(
                 Fruit.Strawberry,
             ),
         )
 
-        mutableTreeList.verifyContent(
-            Fruit.Grape,
-            Fruit.Orange,
+        StableListTestUtils.verifyIntegrity(treeList)
+
+        assertEquals(
+            expected = listOf(
+                Fruit.Grape,
+                Fruit.Orange,
+            ),
+            actual = treeList,
         )
     }
 
     @Test
     fun test_remove_nonContained() {
-        val mutableTreeList = mutableTreeListOf(
+        val treeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Kiwi,
             Fruit.Orange,
         )
 
         assertFalse(
-            actual = mutableTreeList.remove(
-                Fruit.Apple,
-            ),
+            actual = treeList.remove(Fruit.Apple),
         )
 
-        mutableTreeList.verifyContent(
-            Fruit.Strawberry,
-            Fruit.Kiwi,
-            Fruit.Orange,
+        StableListTestUtils.verifyIntegrity(treeList)
+
+        assertEquals(
+            expected = listOf(
+                Fruit.Strawberry,
+                Fruit.Kiwi,
+                Fruit.Orange,
+            ),
+            actual = treeList,
         )
     }
 
     @Test
     fun test_removeVia() {
-        val mutableTreeList = mutableTreeListOf(
+        val treeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Kiwi,
             Fruit.Orange,
         )
 
-        val mangoHandle = mutableTreeList.addAtEx(
+        val addedElementHandle = treeList.addAtEx(
             index = 2,
             element = Fruit.Mango,
         )
 
         assertEquals(
             expected = Fruit.Mango,
-            actual = mutableTreeList.removeVia(
-                handle = mangoHandle,
+            actual = treeList.removeVia(
+                handle = addedElementHandle,
             ),
         )
 
+        StableListTestUtils.verifyIntegrity(treeList)
+
         assertNull(
-            actual = mutableTreeList.getVia(handle = mangoHandle),
+            actual = treeList.getVia(handle = addedElementHandle),
         )
 
         assertNull(
-            actual = mutableTreeList.removeVia(handle = mangoHandle),
+            actual = treeList.removeVia(handle = addedElementHandle),
         )
 
         assertNull(
-            actual = mutableTreeList.indexOfVia(handle = mangoHandle),
+            actual = treeList.indexOfVia(handle = addedElementHandle),
         )
 
-        mutableTreeList.verifyContent(
-            Fruit.Strawberry,
-            Fruit.Kiwi,
-            Fruit.Orange,
+        assertEquals(
+            expected = listOf(
+                Fruit.Strawberry,
+                Fruit.Kiwi,
+                Fruit.Orange,
+            ),
+            actual = treeList,
         )
     }
 
     @Test
     fun test_indexOfVia() {
-        val mutableTreeList = mutableTreeListOf(
+        val treeList = treeListOf(
             Fruit.Strawberry,
             // +Mango
             Fruit.Kiwi,
@@ -465,52 +535,52 @@ class TreeList_tests {
             Fruit.Orange,
         )
 
-        val kiwiHandle = mutableTreeList.addAtEx(
+        val kiwiHandle = treeList.addAtEx(
             index = 5,
             element = Fruit.Kiwi,
         )
 
         assertEquals(
             expected = 5,
-            actual = mutableTreeList.indexOfVia(
+            actual = treeList.indexOfVia(
                 handle = kiwiHandle,
             ),
         )
 
-        val pineappleHandle = mutableTreeList.addAtEx(
+        val pineappleHandle = treeList.addAtEx(
             index = 3,
             element = Fruit.Pineapple,
         )
 
         assertEquals(
             expected = 3,
-            actual = mutableTreeList.indexOfVia(
+            actual = treeList.indexOfVia(
                 handle = pineappleHandle,
             ),
         )
 
-        val mangoHandle = mutableTreeList.addAtEx(
+        val mangoHandle = treeList.addAtEx(
             index = 1,
             element = Fruit.Mango,
         )
 
         assertEquals(
             expected = 1,
-            actual = mutableTreeList.indexOfVia(
+            actual = treeList.indexOfVia(
                 handle = mangoHandle,
             ),
         )
 
         assertEquals(
             expected = 4,
-            actual = mutableTreeList.indexOfVia(
+            actual = treeList.indexOfVia(
                 handle = pineappleHandle,
             ),
         )
 
         assertEquals(
             expected = 7,
-            actual = mutableTreeList.indexOfVia(
+            actual = treeList.indexOfVia(
                 handle = kiwiHandle,
             ),
         )
@@ -518,7 +588,7 @@ class TreeList_tests {
 
     @Test
     fun test_findEx() {
-        val mutableTreeList = mutableTreeListOf(
+        val treeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Kiwi,
             Fruit.Orange,
@@ -526,17 +596,17 @@ class TreeList_tests {
         )
 
         val handle = assertNotNull(
-            mutableTreeList.findEx(Fruit.Kiwi),
+            treeList.findEx(Fruit.Kiwi),
         )
 
         assertEquals(
             expected = Fruit.Kiwi,
-            actual = mutableTreeList.getVia(handle = handle),
+            actual = treeList.getVia(handle = handle),
         )
 
         assertEquals(
             expected = 1,
-            actual = mutableTreeList.indexOfVia(handle = handle),
+            actual = treeList.indexOfVia(handle = handle),
         )
     }
 }

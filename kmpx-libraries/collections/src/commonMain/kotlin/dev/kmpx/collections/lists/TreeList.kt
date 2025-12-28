@@ -309,7 +309,7 @@ class TreeList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
     override fun indexOf(element: E): Int = super.indexOf(element)
 }
 
-fun <E> mutableTreeListOf(
+fun <E> treeListOf(
     vararg elements: E,
 ): TreeList<E> {
     val treeList = TreeList<E>()

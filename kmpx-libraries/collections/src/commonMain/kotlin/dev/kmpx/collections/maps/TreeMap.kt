@@ -175,7 +175,7 @@ class TreeMap<K : Comparable<K>, V> internal constructor(
     }
 }
 
-fun <K : Comparable<K>, V> mutableTreeMapOf(
+fun <K : Comparable<K>, V> treeMapOf(
     vararg pairs: Pair<K, V>,
 ): TreeMap<K, V> {
     val map = TreeMap<K, V>()
