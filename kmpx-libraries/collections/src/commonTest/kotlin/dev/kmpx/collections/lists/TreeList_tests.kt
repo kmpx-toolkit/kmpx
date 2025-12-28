@@ -80,7 +80,7 @@ class TreeList_tests {
             actual = treeList[1],
         )
     }
-    
+
     /**
      * Test the [MutableList.add] method implementation appending to an empty list.
      */
@@ -339,10 +339,10 @@ class TreeList_tests {
     }
 
     /**
-     * Test the [MutableStableList.addAtEx] method implementation.
+     * Test the [MutableStableList.addAtEx] method implementation (adding a single element).
      */
     @Test
-    fun test_addAtEx() {
+    fun test_addAtEx_single() {
         val treeList = treeListOf(
             Fruit.Grape,
             Fruit.Strawberry,
@@ -369,6 +369,59 @@ class TreeList_tests {
         assertEquals(
             expected = Fruit.Apple,
             actual = treeList.getVia(handle = addedElementHandle),
+        )
+    }
+
+    /**
+     * Test the [MutableStableList.addAtEx] method implementation (adding multiple elements).
+     */
+    @Test
+    fun test_addAtEx_multiple() {
+        val treeList = treeListOf(
+            Fruit.Strawberry,
+            // +Mango
+            Fruit.Kiwi,
+            Fruit.Orange,
+            // +Pineapple
+            Fruit.Grape,
+            Fruit.Raspberry,
+            // +Kiwi
+            Fruit.Orange,
+        )
+
+        treeList.addAtEx(
+            index = 5,
+            element = Fruit.Kiwi,
+        )
+
+        StableListTestUtils.verifyIntegrity(treeList)
+
+        treeList.addAtEx(
+            index = 3,
+            element = Fruit.Pineapple,
+        )
+
+        StableListTestUtils.verifyIntegrity(treeList)
+
+        treeList.addAtEx(
+            index = 1,
+            element = Fruit.Mango,
+        )
+        StableListTestUtils.verifyIntegrity(treeList)
+
+        assertEquals(
+            expected = listOf(
+                Fruit.Strawberry,
+                Fruit.Mango,
+                Fruit.Kiwi,
+                Fruit.Orange,
+                Fruit.Pineapple,
+                Fruit.Grape,
+                Fruit.Raspberry,
+                Fruit.Kiwi,
+                Fruit.Orange,
+            ),
+            actual = treeList,
         )
     }
 
@@ -617,63 +670,17 @@ class TreeList_tests {
     fun test_indexOfVia() {
         val treeList = treeListOf(
             Fruit.Strawberry,
-            // +Mango
             Fruit.Kiwi,
             Fruit.Orange,
-            // +Pineapple
             Fruit.Grape,
-            Fruit.Raspberry,
-            // +Kiwi
-            Fruit.Orange,
         )
 
-        val kiwiHandle = treeList.addAtEx(
-            index = 5,
-            element = Fruit.Kiwi,
-        )
+        val elementHandle = treeList.findEx(Fruit.Orange)!!
 
         assertEquals(
-            expected = 5,
+            expected = 2,
             actual = treeList.indexOfVia(
-                handle = kiwiHandle,
-            ),
-        )
-
-        val pineappleHandle = treeList.addAtEx(
-            index = 3,
-            element = Fruit.Pineapple,
-        )
-
-        assertEquals(
-            expected = 3,
-            actual = treeList.indexOfVia(
-                handle = pineappleHandle,
-            ),
-        )
-
-        val mangoHandle = treeList.addAtEx(
-            index = 1,
-            element = Fruit.Mango,
-        )
-
-        assertEquals(
-            expected = 1,
-            actual = treeList.indexOfVia(
-                handle = mangoHandle,
-            ),
-        )
-
-        assertEquals(
-            expected = 4,
-            actual = treeList.indexOfVia(
-                handle = pineappleHandle,
-            ),
-        )
-
-        assertEquals(
-            expected = 7,
-            actual = treeList.indexOfVia(
-                handle = kiwiHandle,
+                handle = elementHandle,
             ),
         )
     }
