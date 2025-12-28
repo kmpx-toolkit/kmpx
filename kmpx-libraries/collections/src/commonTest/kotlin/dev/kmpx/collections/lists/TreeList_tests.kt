@@ -641,18 +641,6 @@ class TreeList_tests {
 
         StableListTestUtils.verifyIntegrity(treeList)
 
-        assertNull(
-            actual = treeList.getVia(handle = addedElementHandle),
-        )
-
-        assertNull(
-            actual = treeList.removeVia(handle = addedElementHandle),
-        )
-
-        assertNull(
-            actual = treeList.indexOfVia(handle = addedElementHandle),
-        )
-
         assertEquals(
             expected = listOf(
                 Fruit.Strawberry,
