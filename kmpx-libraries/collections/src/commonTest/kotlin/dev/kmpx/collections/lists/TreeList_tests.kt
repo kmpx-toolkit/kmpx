@@ -47,34 +47,6 @@ class TreeList_tests {
     }
 
     @Test
-    fun test_addEx() {
-        val treeList = treeListOf(
-            Fruit.Banana,
-            Fruit.Orange,
-            Fruit.Pineapple,
-        )
-
-        val addedElementHandle = treeList.addEx(Fruit.Banana)
-
-        StableListTestUtils.verifyIntegrity(treeList)
-
-        assertEquals(
-            expected = listOf(
-                Fruit.Banana,
-                Fruit.Orange,
-                Fruit.Pineapple,
-                Fruit.Banana,
-            ),
-            actual = treeList,
-        )
-
-        assertEquals(
-            expected = Fruit.Banana,
-            actual = treeList.getVia(handle = addedElementHandle),
-        )
-    }
-
-    @Test
     fun test_add_append_empty() {
         val treeList = treeListOf<Fruit>()
 
@@ -143,6 +115,34 @@ class TreeList_tests {
     }
 
     @Test
+    fun test_addEx() {
+        val treeList = treeListOf(
+            Fruit.Banana,
+            Fruit.Orange,
+            Fruit.Pineapple,
+        )
+
+        val addedElementHandle = treeList.addEx(Fruit.Banana)
+
+        StableListTestUtils.verifyIntegrity(treeList)
+
+        assertEquals(
+            expected = listOf(
+                Fruit.Banana,
+                Fruit.Orange,
+                Fruit.Pineapple,
+                Fruit.Banana,
+            ),
+            actual = treeList,
+        )
+
+        assertEquals(
+            expected = Fruit.Banana,
+            actual = treeList.getVia(handle = addedElementHandle),
+        )
+    }
+
+    @Test
     fun test_add_atIndex_first() {
         val treeList = treeListOf(
             Fruit.Grape,
@@ -165,37 +165,6 @@ class TreeList_tests {
                 Fruit.Orange,
             ),
             actual = treeList,
-        )
-    }
-
-    @Test
-    fun test_addEx_atIndex() {
-        val treeList = treeListOf(
-            Fruit.Grape,
-            Fruit.Strawberry,
-            Fruit.Orange,
-        )
-
-        val addedElementHandle = treeList.addAtEx(
-            index = 1,
-            element = Fruit.Apple,
-        )
-
-        StableListTestUtils.verifyIntegrity(treeList)
-
-        assertEquals(
-            expected = listOf(
-                Fruit.Grape,
-                Fruit.Apple,
-                Fruit.Strawberry,
-                Fruit.Orange,
-            ),
-            actual = treeList,
-        )
-
-        assertEquals(
-            expected = Fruit.Apple,
-            actual = treeList.getVia(handle = addedElementHandle),
         )
     }
 
@@ -304,6 +273,37 @@ class TreeList_tests {
                 Fruit.Apple,
             ),
             actual = treeList,
+        )
+    }
+
+    @Test
+    fun test_addEx_atIndex() {
+        val treeList = treeListOf(
+            Fruit.Grape,
+            Fruit.Strawberry,
+            Fruit.Orange,
+        )
+
+        val addedElementHandle = treeList.addAtEx(
+            index = 1,
+            element = Fruit.Apple,
+        )
+
+        StableListTestUtils.verifyIntegrity(treeList)
+
+        assertEquals(
+            expected = listOf(
+                Fruit.Grape,
+                Fruit.Apple,
+                Fruit.Strawberry,
+                Fruit.Orange,
+            ),
+            actual = treeList,
+        )
+
+        assertEquals(
+            expected = Fruit.Apple,
+            actual = treeList.getVia(handle = addedElementHandle),
         )
     }
 
