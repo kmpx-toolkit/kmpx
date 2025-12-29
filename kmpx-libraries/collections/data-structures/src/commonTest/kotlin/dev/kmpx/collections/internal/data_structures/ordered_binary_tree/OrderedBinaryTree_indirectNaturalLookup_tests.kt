@@ -12,7 +12,7 @@ import kotlin.test.assertEquals
 @Suppress("ClassName")
 class OrderedBinaryTree_indirectNaturalLookup_tests {
     @Test
-    fun testFindBy() {
+    fun test_findBy() {
         fun <K, V> selectKey(pair: Pair<K, V>): K = pair.first
 
         val tree: OrderedBinaryTree<Pair<Int, String>> = OrderedBinaryTree.load(

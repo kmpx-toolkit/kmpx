@@ -14,7 +14,7 @@ import kotlin.test.assertNull
 @Suppress("ClassName")
 class OrderedBinaryTree_redBlackBalancing_tests {
     @Test
-    fun testInitial() {
+    fun test_initial() {
         val tree = OrderedBinaryTree.create<Int>()
 
         assertNull(
@@ -23,7 +23,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
     }
 
     @Test
-    fun testInsert_root() {
+    fun test_insert_root() {
         val tree = OrderedBinaryTree.create<Int>()
 
         val node100 = tree.insertVerified(
@@ -54,7 +54,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Case #1: Parent is black (and is root)
      */
     @Test
-    fun testInsert_blackRootParent() {
+    fun test_insert_blackRootParent() {
         val tree = RedBlackTreeTestUtils.loadVerified(
             rootData = NodeData(
                 payload = 10,
@@ -77,7 +77,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * No fixup required
      */
     @Test
-    fun testInsert_ordinaryBlackParent() {
+    fun test_insert_ordinaryBlackParent() {
         val tree = RedBlackTreeTestUtils.loadVerified(
             rootData = NodeData(
                 payload = 100,
@@ -108,7 +108,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Leads to Case #1
      */
     @Test
-    fun testInsert_redParentRedUncle_blackGreatGrandparent() {
+    fun test_insert_redParentRedUncle_blackGreatGrandparent() {
         // Black height: 3
         val tree = RedBlackTreeTestUtils.loadVerified(
             // Grandparent's grandparent
@@ -165,7 +165,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      *
      */
     @Test
-    fun testInsert_redParentRedUncle_redGreatGrandparentRedGreatUncle() {
+    fun test_insert_redParentRedUncle_redGreatGrandparentRedGreatUncle() {
         // Black height: 3
         val tree = RedBlackTreeTestUtils.loadVerified(
             // Grandparent's grandparent
@@ -229,7 +229,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Case #2 from the left side
      */
     @Test
-    fun testInsert_redParentRedUncle_rootGrandparent() {
+    fun test_insert_redParentRedUncle_rootGrandparent() {
         // Black height: 2
         val tree = RedBlackTreeTestUtils.loadVerified(
             // Grandparent
@@ -266,7 +266,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Case #2 from the right side,
      */
     @Test
-    fun testInsert_redParentRedUncle_redRootGreatGrandparent() {
+    fun test_insert_redParentRedUncle_redRootGreatGrandparent() {
         // Black height: 2
         val tree = RedBlackTreeTestUtils.loadVerified(
             // Grandparent's parent
@@ -312,7 +312,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Leads to Case #5
      */
     @Test
-    fun testInsert_redParentRedUncle_redGreatGrandparentBlackGreatUncle_inner() {
+    fun test_insert_redParentRedUncle_redGreatGrandparentBlackGreatUncle_inner() {
         // Black height: 3
         val tree = RedBlackTreeTestUtils.loadVerified(
             // Grandparent's grandparent
@@ -367,7 +367,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Leads to Case #6
      */
     @Test
-    fun testInsert_redParentRedUncle_redGreatGrandparentBlackGreatUncle_outer() {
+    fun test_insert_redParentRedUncle_redGreatGrandparentBlackGreatUncle_outer() {
         // Black height: 3
         val tree = RedBlackTreeTestUtils.loadVerified(
             // Grandparent's grandparent
@@ -421,7 +421,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Immediate fixup
      */
     @Test
-    fun testInsert_redRootParent() {
+    fun test_insert_redRootParent() {
         // Black height: 1
         val tree = RedBlackTreeTestUtils.loadVerified(
             rootData = NodeData(
@@ -446,7 +446,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Goes through Case #6 internally
      */
     @Test
-    fun testInsert_redParentBlackUncle_inner() {
+    fun test_insert_redParentBlackUncle_inner() {
         // Black height: 2
         val tree = RedBlackTreeTestUtils.loadVerified(
             // Grandparent's parent
@@ -488,7 +488,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Immediate fixup
      */
     @Test
-    fun testInsert_redParentBlackUncle_outer() {
+    fun test_insert_redParentBlackUncle_outer() {
         // Black height: 2
         val tree = RedBlackTreeTestUtils.loadVerified(
             // Grandparent's parent
@@ -525,7 +525,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Simple removal (two children, successor: leaf)
      */
     @Test
-    fun testRemove_twoChildren_leaf() {
+    fun test_remove_twoChildren_leaf() {
         // Black height: 4
         val tree = RedBlackTreeTestUtils.loadVerified(
             rootData = NodeData(
@@ -606,7 +606,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Simple removal (two children, successor: one child)
      */
     @Test
-    fun testRemove_twoChildren_oneChild() {
+    fun test_remove_twoChildren_oneChild() {
         // Black height: 4
         val tree = RedBlackTreeTestUtils.loadVerified(
             rootData = NodeData(
@@ -675,7 +675,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Simple removal (one child)
      */
     @Test
-    fun testRemove_oneChild() {
+    fun test_remove_oneChild() {
         // Black height: 3
         val tree = RedBlackTreeTestUtils.loadVerified(
             rootData = NodeData(
@@ -723,7 +723,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Simple removal (leaf, red root)
      */
     @Test
-    fun testRemove_leaf_redRoot() {
+    fun test_remove_leaf_redRoot() {
         val tree = RedBlackTreeTestUtils.loadVerified(
             rootData = NodeData(
                 payload = 1000.0,
@@ -746,7 +746,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Simple removal (leaf, red root)
      */
     @Test
-    fun testRemove_leaf_blackRoot() {
+    fun test_remove_leaf_blackRoot() {
         val tree = RedBlackTreeTestUtils.loadVerified(
             rootData = NodeData(
                 payload = 2000.0,
@@ -769,7 +769,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Simple removal (leaf, red)
      */
     @Test
-    fun testRemove_leaf_red() {
+    fun test_remove_leaf_red() {
         // Black height: 3
         val tree = RedBlackTreeTestUtils.loadVerified(
             // Predecessor
@@ -820,7 +820,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * No fixup required
      */
     @Test
-    fun testRemove_blackLeaf_rootParent() {
+    fun test_remove_blackLeaf_rootParent() {
         // Black height: 3
         val tree = RedBlackTreeTestUtils.loadVerified(
             // Predecessor
@@ -859,7 +859,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Leads to Case #1
      */
     @Test
-    fun testRemove_blackLeaf_blackCloseFamily_to_rootParent() {
+    fun test_remove_blackLeaf_blackCloseFamily_to_rootParent() {
         // Black height: ?
         val tree = RedBlackTreeTestUtils.loadVerified(
             // Parent
@@ -898,7 +898,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * proper black nodes
      */
     @Test
-    fun testRemove_blackLeaf_blackCloseFamily_to_blackCloseFamily() {
+    fun test_remove_blackLeaf_blackCloseFamily_to_blackCloseFamily() {
         // Black height: 4
         val tree = RedBlackTreeTestUtils.loadVerified(
             // Parent's parent (grandparent) / predecessor
@@ -958,7 +958,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Leads to Case #3, then Cases #4/#5/#6, then done
      */
     @Test
-    fun testRemove_blackLeaf_blackCloseFamily_to_redSibling() {
+    fun test_remove_blackLeaf_blackCloseFamily_to_redSibling() {
         // Black height: 4
         val tree = RedBlackTreeTestUtils.loadVerified(
             // Parent's grandparent
@@ -1027,7 +1027,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Leads to Case #4, then done
      */
     @Test
-    fun testRemove_blackLeaf_blackCloseFamily_to_blackParentBlackNephews() {
+    fun test_remove_blackLeaf_blackCloseFamily_to_blackParentBlackNephews() {
         // Black height: 3
         val tree = RedBlackTreeTestUtils.loadVerified(
             // Parent's parent (grandparent) / predecessor
@@ -1087,7 +1087,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Leads to Case #5, then (internally) Case 6, then done
      */
     @Test
-    fun testRemove_blackLeaf_blackCloseFamily_to_redCloseNephewBlackDistantNephew() {
+    fun test_remove_blackLeaf_blackCloseFamily_to_redCloseNephewBlackDistantNephew() {
         // Black height: 3
         val tree = RedBlackTreeTestUtils.loadVerified(
             // Parent's parent (grandparent)
@@ -1155,7 +1155,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Leads to Case #6, then done
      */
     @Test
-    fun testRemove_blackLeaf_blackCloseFamily_to_redDistantNephew() {
+    fun test_remove_blackLeaf_blackCloseFamily_to_redDistantNephew() {
         // Black height: 4
         val tree = RedBlackTreeTestUtils.loadVerified(
             // Parent's parent (grandparent)
@@ -1229,7 +1229,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Leads to Case #4, then done
      */
     @Test
-    fun testRemove_blackLeaf_redSibling_to_blackParentBlackNephews() {
+    fun test_remove_blackLeaf_redSibling_to_blackParentBlackNephews() {
         // Black height: 3
         val tree = RedBlackTreeTestUtils.loadVerified(
             // Grandparent
@@ -1299,7 +1299,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Leads to Case #5, then Case #6, then done
      */
     @Test
-    fun testRemove_blackLeaf_redSibling_to_redCloseNephewBlackDistantNephew() {
+    fun test_remove_blackLeaf_redSibling_to_redCloseNephewBlackDistantNephew() {
         // Black height: 4
         val tree = RedBlackTreeTestUtils.loadVerified(
             // Grandparent / predecessor
@@ -1377,7 +1377,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Leads to Case #6, then done
      */
     @Test
-    fun testRemove_blackLeaf_redSibling_to_redDistantNephew() {
+    fun test_remove_blackLeaf_redSibling_to_redDistantNephew() {
         // Black height: 3
         val tree = RedBlackTreeTestUtils.loadVerified(
             // Grandparent
@@ -1451,7 +1451,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Case #4: Parent is red, nephews are nil (effectively black) (sibling is black)
      */
     @Test
-    fun testRemove_blackLeaf_blackParentBlackNephews() {
+    fun test_remove_blackLeaf_blackParentBlackNephews() {
         // Black height: 3
         val tree = RedBlackTreeTestUtils.loadVerified(
             // Grandparent
@@ -1497,7 +1497,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Case #5: Close nephew is red (sibling is black), distant nephew is nil (effectively black)
      */
     @Test
-    fun testRemove_blackLeaf_redCloseNephewBlackDistantNephew() {
+    fun test_remove_blackLeaf_redCloseNephewBlackDistantNephew() {
         // Black height: 3
         val tree = RedBlackTreeTestUtils.loadVerified(
             // Grandparent
@@ -1550,7 +1550,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Case #6: Distant nephew is red (sibling is black) [parent: black]
      */
     @Test
-    fun testRemove_blackLeaf_redDistantNephew_blackParent() {
+    fun test_remove_blackLeaf_redDistantNephew_blackParent() {
         // Black height: 4
         val tree = RedBlackTreeTestUtils.loadVerified(
             // Grandparent
@@ -1601,7 +1601,7 @@ class OrderedBinaryTree_redBlackBalancing_tests {
      * Case #6: Distant nephew is red (sibling is black) [parent: red]
      */
     @Test
-    fun testRemove_blackLeaf_redDistantNephew_redParent() {
+    fun test_remove_blackLeaf_redDistantNephew_redParent() {
         // Black height: 4
         val tree = RedBlackTreeTestUtils.loadVerified(
             // parent

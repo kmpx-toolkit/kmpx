@@ -10,7 +10,7 @@ import kotlin.test.assertTrue
 @Suppress("ClassName")
 class TreeSet_tests {
     @Test
-    fun testInitial() {
+    fun test_initial() {
         val set = treeSetOf<Int>()
 
         set.verifyContent(
@@ -20,7 +20,7 @@ class TreeSet_tests {
     }
 
     @Test
-    fun testLookup() {
+    fun test_lookup() {
         val set = treeSetOf(
             10, 20, 30, 40,
         )
@@ -36,7 +36,7 @@ class TreeSet_tests {
     }
 
     @Test
-    fun testAdd_empty() {
+    fun test_add_empty() {
         val set = treeSetOf<Int>()
 
         assertTrue(
@@ -50,7 +50,7 @@ class TreeSet_tests {
     }
 
     @Test
-    fun testAdd_nonEmpty() {
+    fun test_add_nonEmpty() {
         val set = treeSetOf<Int>()
 
         set.addAll(
@@ -72,7 +72,7 @@ class TreeSet_tests {
     }
 
     @Test
-    fun testInsert_duplicate() {
+    fun test_insert_duplicate() {
         val set = treeSetOf(
             10, 15, 20, 30,
         )
@@ -90,7 +90,7 @@ class TreeSet_tests {
     }
 
     @Test
-    fun testInsert_nonDuplicate() {
+    fun test_insert_nonDuplicate() {
         val set = treeSetOf(
             10, 15, 20, 30,
         )
@@ -113,7 +113,7 @@ class TreeSet_tests {
     }
 
     @Test
-    fun testRemove() {
+    fun test_remove() {
         val set = treeSetOf<Int>()
 
         set.addAll(
@@ -153,7 +153,7 @@ class TreeSet_tests {
     }
 
     @Test
-    fun testRemoveVia() {
+    fun test_removeVia() {
         val set = treeSetOf(
             10, 15, 20, 30,
         )
@@ -182,7 +182,7 @@ class TreeSet_tests {
     }
 
     @Test
-    fun testRemove_notContained() {
+    fun test_remove_notContained() {
         val set = treeSetOf<Int>()
 
         set.addAll(

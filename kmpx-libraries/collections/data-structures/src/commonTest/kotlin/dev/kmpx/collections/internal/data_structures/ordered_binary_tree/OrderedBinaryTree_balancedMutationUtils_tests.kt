@@ -10,7 +10,7 @@ import kotlin.test.assertEquals
 @Suppress("ClassName")
 class OrderedBinaryTree_balancedMutationUtils_tests {
     @Test
-    fun testInsertAll() {
+    fun test_insertAll() {
         val tree = RedBlackTreeTestUtils.loadVerified(
             // Grandparent's grandparent
             rootData = NodeData(
