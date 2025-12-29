@@ -52,7 +52,7 @@ interface MutableStableList<E> : MutableList<E>, MutableStableCollection<E>, Sta
     fun setVia(
         handle: Handle<E>,
         element: E,
-    ): E?
+    ): E
 }
 
 @Suppress("NOTHING_TO_INLINE")

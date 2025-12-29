@@ -73,7 +73,7 @@ class LinkedList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
      */
     override fun getVia(
         handle: Handle<E>,
-    ): E? {
+    ): E {
         val node = handle.unpack()
 
         return node.payload
@@ -104,7 +104,7 @@ class LinkedList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
     override fun setVia(
         handle: Handle<E>,
         element: E,
-    ): E? {
+    ): E {
         val node = handle.unpack()
 
         val previousElement = node.payload
@@ -282,7 +282,7 @@ class LinkedList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
      */
     override fun removeVia(
         handle: Handle<E>,
-    ): E? {
+    ): E {
         val node = handle.unpack()
 
         val removedElement = node.payload
@@ -303,15 +303,16 @@ class LinkedList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
      */
     override fun indexOfVia(
         handle: Handle<E>,
-    ): Int? {
+    ): Int {
         val node: Node<E> = handle.unpack()
 
         val index = linkedPath.traverse().indexOf(node)
 
-        return when {
-            index < 0 -> null
-            else -> index
+        if (index < 0) {
+            throw IllegalArgumentException("Handle is invalid: $handle")
         }
+
+        return index
     }
 
     /**

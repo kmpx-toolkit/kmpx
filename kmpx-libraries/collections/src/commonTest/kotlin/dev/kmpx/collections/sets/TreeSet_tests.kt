@@ -2,7 +2,9 @@ package dev.kmpx.collections.sets
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFails
 import kotlin.test.assertFalse
+import kotlin.test.assertIs
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
@@ -167,12 +169,16 @@ class TreeSet_tests {
             actual = set.removeVia(handle = handle15),
         )
 
-        assertNull(
-            actual = set.getVia(handle = handle15),
+        assertIs<IllegalArgumentException>(
+            assertFails {
+                set.getVia(handle = handle15)
+            },
         )
 
-        assertNull(
-            actual = set.removeVia(handle = handle15),
+        assertIs<IllegalArgumentException>(
+            assertFails {
+                set.removeVia(handle = handle15)
+            },
         )
 
         set.verifyContent(

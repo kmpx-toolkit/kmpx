@@ -68,8 +68,8 @@ class TreeList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
      */
     override fun getVia(
         handle: Handle<E>,
-    ): E? {
-        val node = handle.unpack() ?: return null
+    ): E {
+        val node = handle.unpack() ?: throw IllegalArgumentException("Handle is invalid: $handle")
 
         return node.payload
     }
@@ -101,8 +101,8 @@ class TreeList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
     override fun setVia(
         handle: Handle<E>,
         element: E,
-    ): E? {
-        val node = handle.unpack() ?: return null
+    ): E {
+        val node = handle.unpack() ?: throw IllegalArgumentException("Handle is invalid: $handle")
 
         val previousElement = node.payload
 
@@ -276,8 +276,8 @@ class TreeList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
      */
     override fun removeVia(
         handle: Handle<E>,
-    ): E? {
-        val node = handle.unpack() ?: return null
+    ): E {
+        val node = handle.unpack() ?: throw IllegalArgumentException("Handle is invalid: $handle")
 
         return elementTree.takeOut(node = node)
     }
@@ -292,8 +292,8 @@ class TreeList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
      */
     override fun indexOfVia(
         handle: Handle<E>,
-    ): Int? {
-        val node = handle.unpack() ?: return null
+    ): Int {
+        val node = handle.unpack() ?: throw IllegalArgumentException("Handle is invalid: $handle")
 
         return elementTree.getRank(node = node)
     }

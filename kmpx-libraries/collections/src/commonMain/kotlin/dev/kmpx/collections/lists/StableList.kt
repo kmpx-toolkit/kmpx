@@ -39,9 +39,9 @@ interface StableList<out E> : StableCollection<E>, List<E> {
      *
      * Guarantees linear time complexity or better.
      *
-     * @return the index of the element or null if the corresponding element has already been removed
+     * @return the index of the element.
      */
     fun indexOfVia(
         handle: Handle<@UnsafeVariance E>,
-    ): Int?
+    ): Int
 }

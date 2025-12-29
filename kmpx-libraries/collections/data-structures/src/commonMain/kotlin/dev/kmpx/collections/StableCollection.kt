@@ -25,9 +25,9 @@ interface StableCollection<out E> : Collection<E> {
      *
      * Guarantees constant time complexity.
      *
-     * @return the element corresponding to the handle, or null if the corresponding element was already removed
+     * @return the element corresponding to the handle.
      */
     fun getVia(
         handle: Handle<@UnsafeVariance E>,
-    ): E?
+    ): E
 }
