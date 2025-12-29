@@ -736,4 +736,58 @@ class LinkedList_tests {
             actual = linkedList.indexOfVia(handle = handle),
         )
     }
+
+    /**
+     * Test the [LinkedList.appendAllRelinking] method implementation.
+     */
+    @Test
+    fun test_appendAllRelinking() {
+        val firstLinkedList = linkedListOf(
+            Fruit.Banana,
+            Fruit.Orange,
+            Fruit.Pineapple,
+        )
+
+        val firstHandle = firstLinkedList.resolveFirst(Fruit.Orange)
+
+        val secondLinkedList = linkedListOf(
+            Fruit.Mango,
+            Fruit.Kiwi,
+        )
+
+        val secondHandle = secondLinkedList.resolveFirst(Fruit.Kiwi)
+
+        firstLinkedList.appendAllRelinking(secondLinkedList)
+
+        StableListTestUtils.verifyIntegrity(firstLinkedList)
+        StableListTestUtils.verifyIntegrity(secondLinkedList)
+
+        assertEquals(
+            expected = listOf(
+                Fruit.Banana,
+                Fruit.Orange,
+                Fruit.Pineapple,
+                Fruit.Mango,
+                Fruit.Kiwi,
+            ),
+            actual = firstLinkedList,
+        )
+
+        assertEquals(
+            expected = emptyList(),
+            actual = secondLinkedList,
+        )
+
+        val newHandles = firstLinkedList.handles.toList()
+
+        assertEquals(
+            expected = firstHandle,
+            actual = newHandles[1],
+        )
+
+        assertEquals(
+            expected = secondHandle,
+            actual = newHandles[4],
+        )
+    }
 }

@@ -165,6 +165,55 @@ class LinkedPath_tests {
         )
     }
 
+
+    /**
+     * Test appending another linked path (relinking) to an empty [LinkedPath].
+     */
+    @Test
+    fun test_appendRelinking_empty() {
+        val firstLinkedPath = LinkedPath.create<Int>()
+        val secondLinkedPath = LinkedPath.createFilled(40, 50, 60)
+
+        firstLinkedPath.appendRelinking(linkedPath = secondLinkedPath)
+
+        val firstPayloads = firstLinkedPath.verifyIntegrity()
+        val secondPayloads = secondLinkedPath.verifyIntegrity()
+
+        assertEquals(
+            expected = listOf(40, 50, 60),
+            actual = firstPayloads,
+        )
+
+        assertEquals(
+            expected = emptyList(),
+            actual = secondPayloads,
+        )
+    }
+
+    /**
+     * Test appending another linked path (relinking) to an non-empty [LinkedPath].
+     */
+    @Test
+    fun test_appendRelinking_nonEmpty_multipleElements() {
+        val firstLinkedPath = LinkedPath.createFilled(10, 20, 30)
+        val secondLinkedPath = LinkedPath.createFilled(40, 50, 60)
+
+        firstLinkedPath.appendRelinking(linkedPath = secondLinkedPath)
+
+        val firstPayloads = firstLinkedPath.verifyIntegrity()
+        val secondPayloads = secondLinkedPath.verifyIntegrity()
+
+        assertEquals(
+            expected = listOf(10, 20, 30, 40, 50, 60),
+            actual = firstPayloads,
+        )
+
+        assertEquals(
+            expected = emptyList(),
+            actual = secondPayloads,
+        )
+    }
+
     /**
      * Test inserting before the single node in a [LinkedPath].
      */

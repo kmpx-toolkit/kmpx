@@ -313,6 +313,30 @@ class LinkedList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
             else -> index
         }
     }
+
+    /**
+     * Appends all the elements of the specified [elements] list to the end of this list by relinking nodes. All handles
+     * previously associated with the [elements] list will remain valid and will now point to elements in this list.
+     *
+     * After this operation, the [elements] list will be empty.
+     *
+     * Guarantees constant time complexity.
+     */
+    fun appendAllRelinking(
+        elements: LinkedList<E>,
+    ) {
+        if (elements.isEmpty()) {
+            return
+        }
+
+        this.linkedPath.appendRelinking(
+            linkedPath = elements.linkedPath,
+        )
+
+        this.mutableSize += elements.size
+
+        elements.mutableSize = 0
+    }
 }
 
 fun <E> linkedListOf(

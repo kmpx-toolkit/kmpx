@@ -107,6 +107,31 @@ class LinkedPath<PayloadT> private constructor() {
         return newNode
     }
 
+    fun appendRelinking(
+        linkedPath: LinkedPath<PayloadT>,
+    ) {
+        val otherHeadNode = linkedPath.headNode ?: return
+        val otherTailNode = linkedPath.tailNode ?: return
+
+        val currentTailNode = this.mutableTailNode
+
+        if (currentTailNode == null) {
+            // Current path is empty: just take over the other path
+            this.mutableHeadNode = otherHeadNode
+            this.mutableTailNode = otherTailNode
+        } else {
+            // Current path is non-empty: link the other path after current tail
+            currentTailNode.setNextNode(otherHeadNode)
+            otherHeadNode.setPreviousNode(currentTailNode)
+
+            this.mutableTailNode = otherTailNode
+        }
+
+        // Detach the other path completely
+        linkedPath.mutableHeadNode = null
+        linkedPath.mutableTailNode = null
+    }
+
     fun insertBefore(
         referenceNode: Node<PayloadT>,
         payload: PayloadT,
