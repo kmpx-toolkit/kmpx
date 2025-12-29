@@ -18,7 +18,7 @@ interface MutableStableMap<K, V> : MutableMap<K, V>, StableMap<K, V> {
      *
      * @return the handle to the added entry or `null` if an entry with the given key is already present in the map
      */
-    fun addEntryEx(
+    fun insertEntry(
         key: K,
         value: V,
     ): EntryHandle<K, V>?
