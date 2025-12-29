@@ -700,7 +700,7 @@ class TreeList_tests {
             Fruit.Grape,
         )
 
-        val elementHandle = treeList.findEx(Fruit.Orange)!!
+        val elementHandle = treeList.resolveFirst(Fruit.Orange)!!
 
         assertEquals(
             expected = 2,
@@ -711,10 +711,10 @@ class TreeList_tests {
     }
 
     /**
-     * Test the [StableList.findEx] method implementation.
+     * Test the [StableList.resolveFirst] method implementation.
      */
     @Test
-    fun test_findEx() {
+    fun test_resolveFirst() {
         val treeList = treeListOf(
             Fruit.Strawberry,
             Fruit.Kiwi,
@@ -723,7 +723,7 @@ class TreeList_tests {
         )
 
         val handle = assertNotNull(
-            treeList.findEx(Fruit.Kiwi),
+            treeList.resolveFirst(Fruit.Kiwi),
         )
 
         assertEquals(

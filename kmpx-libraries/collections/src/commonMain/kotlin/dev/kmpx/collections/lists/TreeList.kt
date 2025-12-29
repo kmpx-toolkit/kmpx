@@ -32,7 +32,7 @@ class TreeList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
     override val handles: Sequence<Handle<E>>
         get() = elementTree.traverse().map { it.pack() }
 
-    override fun findEx(
+    override fun resolveFirst(
         element: E,
     ): Handle<E>? = elementTree.traverse().find { node ->
         node.payload == element

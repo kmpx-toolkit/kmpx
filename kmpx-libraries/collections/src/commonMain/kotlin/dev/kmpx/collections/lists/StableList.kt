@@ -19,7 +19,7 @@ interface StableList<out E> : StableCollection<E>, List<E> {
      *
      * @return the handle to the element or `null` if the list does not contain such element
      */
-    fun findEx(
+    fun resolveFirst(
         element: @UnsafeVariance E,
     ): Handle<@UnsafeVariance E>?
 

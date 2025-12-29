@@ -700,7 +700,7 @@ class LinkedList_tests {
             Fruit.Grape,
         )
 
-        val elementHandle = linkedList.findEx(Fruit.Orange)!!
+        val elementHandle = linkedList.resolveFirst(Fruit.Orange)!!
 
         assertEquals(
             expected = 2,
@@ -711,10 +711,10 @@ class LinkedList_tests {
     }
 
     /**
-     * Test the [StableList.findEx] method implementation.
+     * Test the [StableList.resolveFirst] method implementation.
      */
     @Test
-    fun test_findEx() {
+    fun test_resolveFirst() {
         val linkedList = linkedListOf(
             Fruit.Strawberry,
             Fruit.Kiwi,
@@ -723,7 +723,7 @@ class LinkedList_tests {
         )
 
         val handle = assertNotNull(
-            linkedList.findEx(Fruit.Kiwi),
+            linkedList.resolveFirst(Fruit.Kiwi),
         )
 
         assertEquals(

@@ -30,7 +30,7 @@ class LinkedList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
     override val handles: Sequence<Handle<E>>
         get() = linkedPath.traverse().map { it.pack() }
 
-    override fun findEx(
+    override fun resolveFirst(
         element: E,
     ): Handle<E>? = linkedPath.traverse().find { node ->
         node.payload == element
