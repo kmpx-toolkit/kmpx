@@ -6,7 +6,6 @@ import kotlin.test.assertFails
 import kotlin.test.assertFalse
 import kotlin.test.assertIs
 import kotlin.test.assertNotNull
-import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 @Suppress("ClassName")
@@ -34,7 +33,7 @@ class TreeList_tests {
      */
     @Test
     fun test_get() {
-        val linkedList = treeListOf(
+        val treeList = treeListOf(
             Fruit.Banana,
             Fruit.Orange,
             Fruit.Kiwi,
@@ -44,17 +43,17 @@ class TreeList_tests {
 
         assertEquals(
             expected = Fruit.Banana,
-            actual = linkedList[0],
+            actual = treeList[0],
         )
 
         assertEquals(
             expected = Fruit.Kiwi,
-            actual = linkedList[2],
+            actual = treeList[2],
         )
 
         assertEquals(
             expected = Fruit.Pineapple,
-            actual = linkedList[4],
+            actual = treeList[4],
         )
     }
 
