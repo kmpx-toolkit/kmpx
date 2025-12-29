@@ -46,9 +46,9 @@ class TreeSet<E : Comparable<E>> internal constructor() : AbstractMutableSet<E>(
 
     override fun add(
         element: E,
-    ): Boolean = addEx(element) != null
+    ): Boolean = insert(element) != null
 
-    override fun addEx(element: E): Handle<E>? {
+    override fun insert(element: E): Handle<E>? {
         val location = elementTree.find(element)
 
         val existingNode = elementTree.resolve(location = location)

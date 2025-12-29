@@ -126,7 +126,7 @@ class LinkedList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
     override fun add(
         element: E,
     ): Boolean {
-        addEx(element = element)
+        insert(element = element)
 
         return true
     }
@@ -138,7 +138,7 @@ class LinkedList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
      *
      * @return the handle to the added element.
      */
-    override fun addEx(
+    override fun insert(
         element: E,
     ): Handle<E> {
         val appendedNode = linkedPath.append(element)

@@ -196,17 +196,17 @@ class TreeList_tests {
     }
 
     /**
-     * Test the [MutableStableList.addEx] method implementation.
+     * Test the [MutableStableList.insert] method implementation.
      */
     @Test
-    fun test_addEx() {
+    fun test_insert() {
         val treeList = treeListOf(
             Fruit.Banana,
             Fruit.Orange,
             Fruit.Pineapple,
         )
 
-        val addedElementHandle = treeList.addEx(Fruit.Banana)
+        val addedElementHandle = treeList.insert(Fruit.Banana)
 
         StableListTestUtils.verifyIntegrity(treeList)
 

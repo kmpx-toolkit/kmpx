@@ -72,13 +72,13 @@ class TreeSet_tests {
     }
 
     @Test
-    fun testAddEx_duplicate() {
+    fun testInsert_duplicate() {
         val set = treeSetOf(
             10, 15, 20, 30,
         )
 
         assertNull(
-            actual = set.addEx(
+            actual = set.insert(
                 element = 20,
             ),
         )
@@ -90,13 +90,13 @@ class TreeSet_tests {
     }
 
     @Test
-    fun testAddEx_nonDuplicate() {
+    fun testInsert_nonDuplicate() {
         val set = treeSetOf(
             10, 15, 20, 30,
         )
 
         val handle = assertNotNull(
-            actual = set.addEx(
+            actual = set.insert(
                 element = 25,
             ),
         )

@@ -18,7 +18,7 @@ interface MutableStableCollection<E> : MutableCollection<E>, StableCollection<E>
      *
      * @return the handle to the added element or `null` if the element wasn't added because it broke a constraint
      */
-    fun addEx(
+    fun insert(
         element: E,
     ): Handle<E>?
 
