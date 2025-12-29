@@ -196,17 +196,17 @@ class LinkedList_tests {
     }
 
     /**
-     * Test the [MutableStableList.insert] method implementation.
+     * Test the [MutableStableList.append] method implementation.
      */
     @Test
-    fun test_insert() {
+    fun test_append() {
         val linkedList = linkedListOf(
             Fruit.Banana,
             Fruit.Orange,
             Fruit.Pineapple,
         )
 
-        val addedElementHandle = linkedList.insert(Fruit.Banana)
+        val appendedElementHandle = linkedList.append(Fruit.Banana)
 
         StableListTestUtils.verifyIntegrity(linkedList)
 
@@ -222,7 +222,7 @@ class LinkedList_tests {
 
         assertEquals(
             expected = Fruit.Banana,
-            actual = linkedList.getVia(handle = addedElementHandle),
+            actual = linkedList.getVia(handle = appendedElementHandle),
         )
     }
 

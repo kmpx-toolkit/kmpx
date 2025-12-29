@@ -132,13 +132,13 @@ class LinkedList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
     }
 
     /**
-     * Adds the specified element to the end of this list in exchange for a handle.
+     * Appends an element to the end of the list in exchange for a handle.
      *
      * Guarantees constant time complexity.
      *
-     * @return the handle to the added element.
+     * @return the handle to the appended element.
      */
-    override fun insert(
+    override fun append(
         element: E,
     ): Handle<E> {
         val appendedNode = linkedPath.append(element)

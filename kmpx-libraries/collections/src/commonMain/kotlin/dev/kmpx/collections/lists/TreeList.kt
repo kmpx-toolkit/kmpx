@@ -123,19 +123,19 @@ class TreeList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
     override fun add(
         element: E,
     ): Boolean {
-        insert(element = element)
+        append(element = element)
 
         return true
     }
 
     /**
-     * Adds the specified element to the end of this list in exchange for a handle.
+     * Appends an element to the end of the list in exchange for a handle.
      *
      * Guarantees logarithmic time complexity.
      *
-     * @return the handle to the added element.
+     * @return the handle to the appended element.
      */
-    override fun insert(
+    override fun append(
         element: E,
     ): Handle<E> {
         val freeLocation = elementTree.getSideMostFreeLocation(

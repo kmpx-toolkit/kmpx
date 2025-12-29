@@ -10,12 +10,35 @@ import dev.kmpx.collections.StableCollection.Handle
  */
 interface MutableStableList<E> : MutableList<E>, MutableStableCollection<E>, StableList<E> {
     /**
+     * Adds the specified element to the list in exchange for a handle by appending it at the end of the list. When
+     * working with [MutableStableList] instances, prefer using the [append] method explicitly.
+     *
+     * Guarantees logarithmic time complexity or better.
+     *
+     * @return the handle to the added element.
+     */
+    override fun insert(
+        element: E,
+    ): Handle<E> = append(element = element)
+
+    /**
      * Inserts an element into the list at the specified [index] in exchange for a handle.
      *
      * @return the handle to the added element.
      */
     fun insertAt(
         index: Int,
+        element: E,
+    ): Handle<E>
+
+    /**
+     * Appends an element to the end of the list in exchange for a handle.
+     *
+     * Guarantees logarithmic time complexity or better.
+     *
+     * @return the handle to the appended element.
+     */
+    fun append(
         element: E,
     ): Handle<E>
 
