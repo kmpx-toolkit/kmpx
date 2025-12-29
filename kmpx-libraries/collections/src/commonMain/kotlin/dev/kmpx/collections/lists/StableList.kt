@@ -19,7 +19,7 @@ interface StableList<out E> : StableCollection<E>, List<E> {
      *
      * @return the handle to the element or `null` if the list does not contain such element
      */
-    fun findEx(
+    fun resolveFirst(
         element: @UnsafeVariance E,
     ): Handle<@UnsafeVariance E>?
 
@@ -30,7 +30,7 @@ interface StableList<out E> : StableCollection<E>, List<E> {
      *
      * @return the handle to the element or `null` if the index is out of bounds
      */
-    fun getEx(
+    fun resolveAt(
         index: Int,
     ): Handle<@UnsafeVariance E>?
 
@@ -39,9 +39,9 @@ interface StableList<out E> : StableCollection<E>, List<E> {
      *
      * Guarantees linear time complexity or better.
      *
-     * @return the index of the element or null if the corresponding element has already been removed
+     * @return the index of the element.
      */
     fun indexOfVia(
         handle: Handle<@UnsafeVariance E>,
-    ): Int?
+    ): Int
 }

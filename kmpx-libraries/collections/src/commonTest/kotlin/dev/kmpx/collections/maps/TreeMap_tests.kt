@@ -120,14 +120,14 @@ class TreeMap_tests {
     }
 
     @Test
-    fun test_addEntryEx_duplicate() {
+    fun test_insertEntry_duplicate() {
         val map = treeMapOf(
             10 to "a",
             20 to "b",
         )
 
         assertNull(
-            actual = map.addEntryEx(
+            actual = map.insertEntry(
                 key = 10,
                 value = "x",
             ),
@@ -150,14 +150,14 @@ class TreeMap_tests {
     }
 
     @Test
-    fun test_addEntryEx_nonDuplicate() {
+    fun test_insertEntry_nonDuplicate() {
         val map = treeMapOf(
             10 to "a",
             20 to "b",
         )
 
         val entryHandle = assertNotNull(
-            actual = map.addEntryEx(
+            actual = map.insertEntry(
                 key = 15,
                 value = "c",
             ),

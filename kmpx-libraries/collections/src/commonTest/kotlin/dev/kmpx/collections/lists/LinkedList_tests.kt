@@ -10,7 +10,7 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 @Suppress("ClassName")
-class TreeList_tests {
+class LinkedList_tests {
     private enum class Fruit {
         Apple, Raspberry, Banana, Orange, Kiwi, Mango, Pineapple, Strawberry, Watermelon, Grape,
     }
@@ -20,12 +20,12 @@ class TreeList_tests {
      */
     @Test
     fun test_initial() {
-        val treeList = treeListOf<Fruit>()
+        val linkedList = linkedListOf<Fruit>()
 
-        StableListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(linkedList)
 
         assertTrue(
-            treeList.isEmpty(),
+            linkedList.isEmpty(),
         )
     }
 
@@ -34,7 +34,7 @@ class TreeList_tests {
      */
     @Test
     fun test_get() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Banana,
             Fruit.Orange,
             Fruit.Kiwi,
@@ -44,17 +44,17 @@ class TreeList_tests {
 
         assertEquals(
             expected = Fruit.Banana,
-            actual = treeList[0],
+            actual = linkedList[0],
         )
 
         assertEquals(
             expected = Fruit.Kiwi,
-            actual = treeList[2],
+            actual = linkedList[2],
         )
 
         assertEquals(
             expected = Fruit.Pineapple,
-            actual = treeList[4],
+            actual = linkedList[4],
         )
     }
 
@@ -63,19 +63,19 @@ class TreeList_tests {
      */
     @Test
     fun test_resolveAt_withinBounds() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Banana,
             Fruit.Orange,
             Fruit.Kiwi,
         )
 
         val handle = assertNotNull(
-            actual = treeList.resolveAt(1),
+            actual = linkedList.resolveAt(1),
         )
 
         assertEquals(
             expected = Fruit.Orange,
-            actual = treeList.getVia(handle),
+            actual = linkedList.getVia(handle),
         )
     }
 
@@ -84,14 +84,14 @@ class TreeList_tests {
      */
     @Test
     fun test_resolveAt_outsideBounds() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Banana,
             Fruit.Orange,
             Fruit.Kiwi,
         )
 
         assertNull(
-            actual = treeList.resolveAt(3),
+            actual = linkedList.resolveAt(3),
         )
     }
 
@@ -100,7 +100,7 @@ class TreeList_tests {
      */
     @Test
     fun test_set() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Banana,
             Fruit.Orange,
             Fruit.Kiwi,
@@ -108,13 +108,13 @@ class TreeList_tests {
             Fruit.Pineapple,
         )
 
-        treeList[1] = Fruit.Raspberry
+        linkedList[1] = Fruit.Raspberry
 
-        StableListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(linkedList)
 
         assertEquals(
             expected = Fruit.Raspberry,
-            actual = treeList[1],
+            actual = linkedList[1],
         )
     }
 
@@ -123,19 +123,19 @@ class TreeList_tests {
      */
     @Test
     fun test_add_append_empty() {
-        val treeList = treeListOf<Fruit>()
+        val linkedList = linkedListOf<Fruit>()
 
         assertTrue(
-            actual = treeList.add(Fruit.Grape),
+            actual = linkedList.add(Fruit.Grape),
         )
 
-        StableListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(linkedList)
 
         assertEquals(
             expected = listOf(
                 Fruit.Grape,
             ),
-            actual = treeList,
+            actual = linkedList,
         )
     }
 
@@ -144,16 +144,16 @@ class TreeList_tests {
      */
     @Test
     fun test_add_append_nonEmpty() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Grape,
             Fruit.Strawberry,
         )
 
         assertTrue(
-            actual = treeList.add(Fruit.Orange),
+            actual = linkedList.add(Fruit.Orange),
         )
 
-        StableListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(linkedList)
 
         assertEquals(
             expected = listOf(
@@ -161,7 +161,7 @@ class TreeList_tests {
                 Fruit.Strawberry,
                 Fruit.Orange,
             ),
-            actual = treeList,
+            actual = linkedList,
         )
     }
 
@@ -170,7 +170,7 @@ class TreeList_tests {
      */
     @Test
     fun test_add_append_duplicate() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Grape,
             Fruit.Strawberry,
             Fruit.Apple,
@@ -178,10 +178,10 @@ class TreeList_tests {
         )
 
         assertTrue(
-            actual = treeList.add(Fruit.Apple),
+            actual = linkedList.add(Fruit.Apple),
         )
 
-        StableListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(linkedList)
 
         assertEquals(
             expected = listOf(
@@ -191,7 +191,7 @@ class TreeList_tests {
                 Fruit.Mango,
                 Fruit.Apple,
             ),
-            actual = treeList,
+            actual = linkedList,
         )
     }
 
@@ -200,15 +200,15 @@ class TreeList_tests {
      */
     @Test
     fun test_append() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Banana,
             Fruit.Orange,
             Fruit.Pineapple,
         )
 
-        val appendedElementHandle = treeList.append(Fruit.Banana)
+        val appendedElementHandle = linkedList.append(Fruit.Banana)
 
-        StableListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(linkedList)
 
         assertEquals(
             expected = listOf(
@@ -217,12 +217,12 @@ class TreeList_tests {
                 Fruit.Pineapple,
                 Fruit.Banana,
             ),
-            actual = treeList,
+            actual = linkedList,
         )
 
         assertEquals(
             expected = Fruit.Banana,
-            actual = treeList.getVia(handle = appendedElementHandle),
+            actual = linkedList.getVia(handle = appendedElementHandle),
         )
     }
 
@@ -231,18 +231,18 @@ class TreeList_tests {
      */
     @Test
     fun test_add_atIndex_first() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Grape,
             Fruit.Strawberry,
             Fruit.Orange,
         )
 
-        treeList.add(
+        linkedList.add(
             index = 0,
             element = Fruit.Apple,
         )
 
-        StableListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(linkedList)
 
         assertEquals(
             expected = listOf(
@@ -251,7 +251,7 @@ class TreeList_tests {
                 Fruit.Strawberry,
                 Fruit.Orange,
             ),
-            actual = treeList,
+            actual = linkedList,
         )
     }
 
@@ -260,19 +260,19 @@ class TreeList_tests {
      */
     @Test
     fun test_add_atIndex_middle() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Watermelon,
             Fruit.Orange,
         )
 
-        treeList.add(
+        linkedList.add(
             index = 2,
             element = Fruit.Apple,
         )
 
-        StableListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(linkedList)
 
         assertEquals(
             expected = listOf(
@@ -282,7 +282,7 @@ class TreeList_tests {
                 Fruit.Watermelon,
                 Fruit.Orange,
             ),
-            actual = treeList,
+            actual = linkedList,
         )
     }
 
@@ -291,19 +291,19 @@ class TreeList_tests {
      */
     @Test
     fun test_add_atIndex_duplicate() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Watermelon,
             Fruit.Orange,
         )
 
-        treeList.add(
+        linkedList.add(
             index = 2,
             element = Fruit.Watermelon,
         )
 
-        StableListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(linkedList)
 
         assertEquals(
             expected = listOf(
@@ -313,7 +313,7 @@ class TreeList_tests {
                 Fruit.Watermelon,
                 Fruit.Orange,
             ),
-            actual = treeList,
+            actual = linkedList,
         )
     }
 
@@ -322,18 +322,18 @@ class TreeList_tests {
      */
     @Test
     fun test_add_atIndex_last() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Orange,
         )
 
-        treeList.add(
+        linkedList.add(
             index = 2,
             element = Fruit.Apple,
         )
 
-        StableListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(linkedList)
 
         assertEquals(
             expected = listOf(
@@ -342,7 +342,7 @@ class TreeList_tests {
                 Fruit.Apple,
                 Fruit.Orange,
             ),
-            actual = treeList,
+            actual = linkedList,
         )
     }
 
@@ -351,18 +351,18 @@ class TreeList_tests {
      */
     @Test
     fun test_add_atIndex_onePastLast() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Orange,
         )
 
-        treeList.add(
+        linkedList.add(
             index = 3,
             element = Fruit.Apple,
         )
 
-        StableListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(linkedList)
 
         assertEquals(
             expected = listOf(
@@ -371,7 +371,7 @@ class TreeList_tests {
                 Fruit.Orange,
                 Fruit.Apple,
             ),
-            actual = treeList,
+            actual = linkedList,
         )
     }
 
@@ -380,18 +380,18 @@ class TreeList_tests {
      */
     @Test
     fun test_insertAt_single() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Grape,
             Fruit.Strawberry,
             Fruit.Orange,
         )
 
-        val addedElementHandle = treeList.insertAt(
+        val addedElementHandle = linkedList.insertAt(
             index = 1,
             element = Fruit.Apple,
         )
 
-        StableListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(linkedList)
 
         assertEquals(
             expected = listOf(
@@ -400,12 +400,12 @@ class TreeList_tests {
                 Fruit.Strawberry,
                 Fruit.Orange,
             ),
-            actual = treeList,
+            actual = linkedList,
         )
 
         assertEquals(
             expected = Fruit.Apple,
-            actual = treeList.getVia(handle = addedElementHandle),
+            actual = linkedList.getVia(handle = addedElementHandle),
         )
     }
 
@@ -414,7 +414,7 @@ class TreeList_tests {
      */
     @Test
     fun test_insertAt_multiple() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Strawberry,
             // +Mango
             Fruit.Kiwi,
@@ -426,25 +426,25 @@ class TreeList_tests {
             Fruit.Orange,
         )
 
-        treeList.insertAt(
+        linkedList.insertAt(
             index = 5,
             element = Fruit.Kiwi,
         )
 
-        StableListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(linkedList)
 
-        treeList.insertAt(
+        linkedList.insertAt(
             index = 3,
             element = Fruit.Pineapple,
         )
 
-        StableListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(linkedList)
 
-        treeList.insertAt(
+        linkedList.insertAt(
             index = 1,
             element = Fruit.Mango,
         )
-        StableListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(linkedList)
 
         assertEquals(
             expected = listOf(
@@ -458,7 +458,7 @@ class TreeList_tests {
                 Fruit.Kiwi,
                 Fruit.Orange,
             ),
-            actual = treeList,
+            actual = linkedList,
         )
     }
 
@@ -467,13 +467,13 @@ class TreeList_tests {
      */
     @Test
     fun test_addAllAt() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Orange,
         )
 
-        treeList.addAllAt(
+        linkedList.addAllAt(
             index = 2,
             elements = listOf(
                 Fruit.Pineapple,
@@ -482,7 +482,7 @@ class TreeList_tests {
             ),
         )
 
-        StableListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(linkedList)
 
         assertEquals(
             expected = listOf(
@@ -493,7 +493,7 @@ class TreeList_tests {
                 Fruit.Raspberry,
                 Fruit.Orange,
             ),
-            actual = treeList,
+            actual = linkedList,
         )
     }
 
@@ -502,22 +502,22 @@ class TreeList_tests {
      */
     @Test
     fun test_removeAt_first() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Orange,
         )
 
-        treeList.removeAt(0)
+        linkedList.removeAt(0)
 
-        StableListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(linkedList)
 
         assertEquals(
             expected = listOf(
                 Fruit.Grape,
                 Fruit.Orange,
             ),
-            actual = treeList,
+            actual = linkedList,
         )
     }
 
@@ -526,22 +526,22 @@ class TreeList_tests {
      */
     @Test
     fun test_removeAt_middle() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Strawberry,
             Fruit.Kiwi,
             Fruit.Orange,
         )
 
-        treeList.removeAt(1)
+        linkedList.removeAt(1)
 
-        StableListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(linkedList)
 
         assertEquals(
             expected = listOf(
                 Fruit.Strawberry,
                 Fruit.Orange,
             ),
-            actual = treeList,
+            actual = linkedList,
         )
     }
 
@@ -550,22 +550,22 @@ class TreeList_tests {
      */
     @Test
     fun test_removeAt_last() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Orange,
         )
 
-        treeList.removeAt(2)
+        linkedList.removeAt(2)
 
-        StableListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(linkedList)
 
         assertEquals(
             expected = listOf(
                 Fruit.Strawberry,
                 Fruit.Grape,
             ),
-            actual = treeList,
+            actual = linkedList,
         )
     }
 
@@ -574,7 +574,7 @@ class TreeList_tests {
      */
     @Test
     fun test_removeAt_pastLast() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Orange,
@@ -582,11 +582,11 @@ class TreeList_tests {
 
         assertIs<IndexOutOfBoundsException>(
             assertFails {
-                treeList.removeAt(3)
+                linkedList.removeAt(3)
             },
         )
 
-        StableListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(linkedList)
 
         assertEquals(
             expected = listOf(
@@ -594,7 +594,7 @@ class TreeList_tests {
                 Fruit.Grape,
                 Fruit.Orange,
             ),
-            actual = treeList,
+            actual = linkedList,
         )
     }
 
@@ -603,26 +603,26 @@ class TreeList_tests {
      */
     @Test
     fun test_remove_contained() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Strawberry,
             Fruit.Grape,
             Fruit.Orange,
         )
 
         assertTrue(
-            actual = treeList.remove(
+            actual = linkedList.remove(
                 Fruit.Strawberry,
             ),
         )
 
-        StableListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(linkedList)
 
         assertEquals(
             expected = listOf(
                 Fruit.Grape,
                 Fruit.Orange,
             ),
-            actual = treeList,
+            actual = linkedList,
         )
     }
 
@@ -631,17 +631,17 @@ class TreeList_tests {
      */
     @Test
     fun test_remove_nonContained() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Strawberry,
             Fruit.Kiwi,
             Fruit.Orange,
         )
 
         assertFalse(
-            actual = treeList.remove(Fruit.Apple),
+            actual = linkedList.remove(Fruit.Apple),
         )
 
-        StableListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(linkedList)
 
         assertEquals(
             expected = listOf(
@@ -649,7 +649,7 @@ class TreeList_tests {
                 Fruit.Kiwi,
                 Fruit.Orange,
             ),
-            actual = treeList,
+            actual = linkedList,
         )
     }
 
@@ -658,25 +658,25 @@ class TreeList_tests {
      */
     @Test
     fun test_removeVia() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Strawberry,
             Fruit.Kiwi,
             Fruit.Orange,
         )
 
-        val addedElementHandle = treeList.insertAt(
+        val addedElementHandle = linkedList.insertAt(
             index = 2,
             element = Fruit.Mango,
         )
 
         assertEquals(
             expected = Fruit.Mango,
-            actual = treeList.removeVia(
+            actual = linkedList.removeVia(
                 handle = addedElementHandle,
             ),
         )
 
-        StableListTestUtils.verifyIntegrity(treeList)
+        StableListTestUtils.verifyIntegrity(linkedList)
 
         assertEquals(
             expected = listOf(
@@ -684,7 +684,7 @@ class TreeList_tests {
                 Fruit.Kiwi,
                 Fruit.Orange,
             ),
-            actual = treeList,
+            actual = linkedList,
         )
     }
 
@@ -693,18 +693,18 @@ class TreeList_tests {
      */
     @Test
     fun test_indexOfVia() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Strawberry,
             Fruit.Kiwi,
             Fruit.Orange,
             Fruit.Grape,
         )
 
-        val elementHandle = treeList.resolveFirst(Fruit.Orange)!!
+        val elementHandle = linkedList.resolveFirst(Fruit.Orange)!!
 
         assertEquals(
             expected = 2,
-            actual = treeList.indexOfVia(
+            actual = linkedList.indexOfVia(
                 handle = elementHandle,
             ),
         )
@@ -715,7 +715,7 @@ class TreeList_tests {
      */
     @Test
     fun test_resolveFirst() {
-        val treeList = treeListOf(
+        val linkedList = linkedListOf(
             Fruit.Strawberry,
             Fruit.Kiwi,
             Fruit.Orange,
@@ -723,17 +723,71 @@ class TreeList_tests {
         )
 
         val handle = assertNotNull(
-            treeList.resolveFirst(Fruit.Kiwi),
+            linkedList.resolveFirst(Fruit.Kiwi),
         )
 
         assertEquals(
             expected = Fruit.Kiwi,
-            actual = treeList.getVia(handle = handle),
+            actual = linkedList.getVia(handle = handle),
         )
 
         assertEquals(
             expected = 1,
-            actual = treeList.indexOfVia(handle = handle),
+            actual = linkedList.indexOfVia(handle = handle),
+        )
+    }
+
+    /**
+     * Test the [LinkedList.appendAllRelinking] method implementation.
+     */
+    @Test
+    fun test_appendAllRelinking() {
+        val firstLinkedList = linkedListOf(
+            Fruit.Banana,
+            Fruit.Orange,
+            Fruit.Pineapple,
+        )
+
+        val firstHandle = firstLinkedList.resolveFirst(Fruit.Orange)
+
+        val secondLinkedList = linkedListOf(
+            Fruit.Mango,
+            Fruit.Kiwi,
+        )
+
+        val secondHandle = secondLinkedList.resolveFirst(Fruit.Kiwi)
+
+        firstLinkedList.appendAllRelinking(secondLinkedList)
+
+        StableListTestUtils.verifyIntegrity(firstLinkedList)
+        StableListTestUtils.verifyIntegrity(secondLinkedList)
+
+        assertEquals(
+            expected = listOf(
+                Fruit.Banana,
+                Fruit.Orange,
+                Fruit.Pineapple,
+                Fruit.Mango,
+                Fruit.Kiwi,
+            ),
+            actual = firstLinkedList,
+        )
+
+        assertEquals(
+            expected = emptyList(),
+            actual = secondLinkedList,
+        )
+
+        val newHandles = firstLinkedList.handles.toList()
+
+        assertEquals(
+            expected = firstHandle,
+            actual = newHandles[1],
+        )
+
+        assertEquals(
+            expected = secondHandle,
+            actual = newHandles[4],
         )
     }
 }

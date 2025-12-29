@@ -18,7 +18,7 @@ interface MutableStableCollection<E> : MutableCollection<E>, StableCollection<E>
      *
      * @return the handle to the added element or `null` if the element wasn't added because it broke a constraint
      */
-    fun addEx(
+    fun insert(
         element: E,
     ): Handle<E>?
 
@@ -27,9 +27,9 @@ interface MutableStableCollection<E> : MutableCollection<E>, StableCollection<E>
      *
      * Guarantees logarithmic time complexity or better.
      *
-     * @return the element that has been removed, or null if the corresponding element has been removed earlier
+     * @return the element that has been removed.
      */
     fun removeVia(
         handle: Handle<E>,
-    ): E?
+    ): E
 }

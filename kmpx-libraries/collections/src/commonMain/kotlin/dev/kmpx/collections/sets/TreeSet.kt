@@ -39,16 +39,16 @@ class TreeSet<E : Comparable<E>> internal constructor() : AbstractMutableSet<E>(
         return node.pack()
     }
 
-    override fun getVia(handle: Handle<E>): E? {
-        val node = handle.unpack() ?: return null
+    override fun getVia(handle: Handle<E>): E {
+        val node = handle.unpack() ?: throw IllegalArgumentException("Handle is invalid: $handle")
         return node.payload
     }
 
     override fun add(
         element: E,
-    ): Boolean = addEx(element) != null
+    ): Boolean = insert(element) != null
 
-    override fun addEx(element: E): Handle<E>? {
+    override fun insert(element: E): Handle<E>? {
         val location = elementTree.find(element)
 
         val existingNode = elementTree.resolve(location = location)
@@ -75,8 +75,10 @@ class TreeSet<E : Comparable<E>> internal constructor() : AbstractMutableSet<E>(
         return true
     }
 
-    override fun removeVia(handle: Handle<E>): E? {
-        val node = handle.unpack() ?: return null
+    override fun removeVia(
+        handle: Handle<E>,
+    ): E {
+        val node = handle.unpack() ?: throw IllegalArgumentException("Handle is invalid: $handle")
 
         val removedElement = node.payload
 

@@ -12,7 +12,7 @@ import kotlin.test.assertEquals
 @Suppress("ClassName")
 class OrderedBinaryTree_directNaturalLookup_tests {
     @Test
-    fun testFind() {
+    fun test_find() {
         val tree: OrderedBinaryTree<Int> = OrderedBinaryTree.load(
             rootData = NodeData(
                 payload = 100,

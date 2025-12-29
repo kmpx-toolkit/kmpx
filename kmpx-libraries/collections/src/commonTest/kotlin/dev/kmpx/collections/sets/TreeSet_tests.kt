@@ -2,7 +2,9 @@ package dev.kmpx.collections.sets
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFails
 import kotlin.test.assertFalse
+import kotlin.test.assertIs
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
@@ -10,7 +12,7 @@ import kotlin.test.assertTrue
 @Suppress("ClassName")
 class TreeSet_tests {
     @Test
-    fun testInitial() {
+    fun test_initial() {
         val set = treeSetOf<Int>()
 
         set.verifyContent(
@@ -20,7 +22,7 @@ class TreeSet_tests {
     }
 
     @Test
-    fun testLookup() {
+    fun test_lookup() {
         val set = treeSetOf(
             10, 20, 30, 40,
         )
@@ -36,7 +38,7 @@ class TreeSet_tests {
     }
 
     @Test
-    fun testAdd_empty() {
+    fun test_add_empty() {
         val set = treeSetOf<Int>()
 
         assertTrue(
@@ -50,7 +52,7 @@ class TreeSet_tests {
     }
 
     @Test
-    fun testAdd_nonEmpty() {
+    fun test_add_nonEmpty() {
         val set = treeSetOf<Int>()
 
         set.addAll(
@@ -72,13 +74,13 @@ class TreeSet_tests {
     }
 
     @Test
-    fun testAddEx_duplicate() {
+    fun test_insert_duplicate() {
         val set = treeSetOf(
             10, 15, 20, 30,
         )
 
         assertNull(
-            actual = set.addEx(
+            actual = set.insert(
                 element = 20,
             ),
         )
@@ -90,13 +92,13 @@ class TreeSet_tests {
     }
 
     @Test
-    fun testAddEx_nonDuplicate() {
+    fun test_insert_nonDuplicate() {
         val set = treeSetOf(
             10, 15, 20, 30,
         )
 
         val handle = assertNotNull(
-            actual = set.addEx(
+            actual = set.insert(
                 element = 25,
             ),
         )
@@ -113,7 +115,7 @@ class TreeSet_tests {
     }
 
     @Test
-    fun testRemove() {
+    fun test_remove() {
         val set = treeSetOf<Int>()
 
         set.addAll(
@@ -153,7 +155,7 @@ class TreeSet_tests {
     }
 
     @Test
-    fun testRemoveVia() {
+    fun test_removeVia() {
         val set = treeSetOf(
             10, 15, 20, 30,
         )
@@ -167,12 +169,16 @@ class TreeSet_tests {
             actual = set.removeVia(handle = handle15),
         )
 
-        assertNull(
-            actual = set.getVia(handle = handle15),
+        assertIs<IllegalArgumentException>(
+            assertFails {
+                set.getVia(handle = handle15)
+            },
         )
 
-        assertNull(
-            actual = set.removeVia(handle = handle15),
+        assertIs<IllegalArgumentException>(
+            assertFails {
+                set.removeVia(handle = handle15)
+            },
         )
 
         set.verifyContent(
@@ -182,7 +188,7 @@ class TreeSet_tests {
     }
 
     @Test
-    fun testRemove_notContained() {
+    fun test_remove_notContained() {
         val set = treeSetOf<Int>()
 
         set.addAll(

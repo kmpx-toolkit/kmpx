@@ -2,6 +2,7 @@ package dev.kmpx.collections.lists
 
 import dev.kmpx.collections.StableCollection.Handle
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
 object StableListTestUtils {
@@ -19,12 +20,23 @@ object StableListTestUtils {
                 message = "Inconsistency in handle resolution for element $iteratedElement: handle resolved to $resolvedElement",
             )
 
-            val gotHandle: Handle<E>? = list.getEx(index)
+            val gotHandle: Handle<E> = assertNotNull(
+                actual = list.resolveAt(index),
+                message = "Inconsistency in getEx() for element $iteratedElement at index $index: expected handle $iteratedHandle, got null",
+            )
 
             assertEquals(
                 expected = iteratedHandle,
                 actual = gotHandle,
                 message = "Inconsistency in getEx() for element $iteratedElement at index $index: expected handle $iteratedHandle, got $gotHandle",
+            )
+
+            val gotElement = list.getVia(gotHandle)
+
+            assertEquals(
+                expected = iteratedElement,
+                actual = gotElement,
+                message = "Inconsistency in getVia() for element $iteratedElement at index $index: expected element $iteratedElement, got $gotElement",
             )
 
             val foundIndex: Int? = list.indexOfVia(iteratedHandle)
@@ -41,7 +53,7 @@ object StableListTestUtils {
         val iteratedSize = index
 
         assertNull(
-            actual = list.getEx(iteratedSize),
+            actual = list.resolveAt(iteratedSize),
             message = "Inconsistency in getEx() bounds checking: accessing index $iteratedSize did not return null",
         )
 

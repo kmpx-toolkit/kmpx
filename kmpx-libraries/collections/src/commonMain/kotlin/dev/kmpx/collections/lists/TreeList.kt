@@ -32,13 +32,13 @@ class TreeList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
     override val handles: Sequence<Handle<E>>
         get() = elementTree.traverse().map { it.pack() }
 
-    override fun findEx(
+    override fun resolveFirst(
         element: E,
     ): Handle<E>? = elementTree.traverse().find { node ->
         node.payload == element
     }?.pack()
 
-    override fun getEx(
+    override fun resolveAt(
         index: Int,
     ): Handle<E>? {
         val node = elementTree.select(index = index) ?: return null
@@ -68,8 +68,8 @@ class TreeList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
      */
     override fun getVia(
         handle: Handle<E>,
-    ): E? {
-        val node = handle.unpack() ?: return null
+    ): E {
+        val node = handle.unpack() ?: throw IllegalArgumentException("Handle is invalid: $handle")
 
         return node.payload
     }
@@ -101,8 +101,8 @@ class TreeList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
     override fun setVia(
         handle: Handle<E>,
         element: E,
-    ): E? {
-        val node = handle.unpack() ?: return null
+    ): E {
+        val node = handle.unpack() ?: throw IllegalArgumentException("Handle is invalid: $handle")
 
         val previousElement = node.payload
 
@@ -123,19 +123,19 @@ class TreeList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
     override fun add(
         element: E,
     ): Boolean {
-        addEx(element = element)
+        append(element = element)
 
         return true
     }
 
     /**
-     * Adds the specified element to the end of this list in exchange for a handle.
+     * Appends an element to the end of the list in exchange for a handle.
      *
      * Guarantees logarithmic time complexity.
      *
-     * @return the handle to the added element.
+     * @return the handle to the appended element.
      */
-    override fun addEx(
+    override fun append(
         element: E,
     ): Handle<E> {
         val freeLocation = elementTree.getSideMostFreeLocation(
@@ -159,7 +159,7 @@ class TreeList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
         index: Int,
         element: E,
     ) {
-        addAtEx(
+        insertAt(
             index = index,
             element = element,
         )
@@ -220,7 +220,7 @@ class TreeList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
      *
      * @return the handle to the added element.
      */
-    override fun addAtEx(
+    override fun insertAt(
         index: Int,
         element: E,
     ): Handle<E> {
@@ -276,8 +276,8 @@ class TreeList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
      */
     override fun removeVia(
         handle: Handle<E>,
-    ): E? {
-        val node = handle.unpack() ?: return null
+    ): E {
+        val node = handle.unpack() ?: throw IllegalArgumentException("Handle is invalid: $handle")
 
         return elementTree.takeOut(node = node)
     }
@@ -292,8 +292,8 @@ class TreeList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
      */
     override fun indexOfVia(
         handle: Handle<E>,
-    ): Int? {
-        val node = handle.unpack() ?: return null
+    ): Int {
+        val node = handle.unpack() ?: throw IllegalArgumentException("Handle is invalid: $handle")
 
         return elementTree.getRank(node = node)
     }

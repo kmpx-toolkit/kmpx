@@ -102,7 +102,7 @@ class TreeMap<K : Comparable<K>, V> internal constructor(
         }
     }
 
-    override fun addEntryEx(
+    override fun insertEntry(
         key: K,
         value: V,
     ): EntryHandle<K, V>? {
