@@ -376,17 +376,17 @@ class LinkedList_tests {
     }
 
     /**
-     * Test the [MutableStableList.addAtEx] method implementation (adding a single element).
+     * Test the [MutableStableList.insertAt] method implementation (adding a single element).
      */
     @Test
-    fun test_addAtEx_single() {
+    fun test_insertAt_single() {
         val linkedList = linkedListOf(
             Fruit.Grape,
             Fruit.Strawberry,
             Fruit.Orange,
         )
 
-        val addedElementHandle = linkedList.addAtEx(
+        val addedElementHandle = linkedList.insertAt(
             index = 1,
             element = Fruit.Apple,
         )
@@ -410,10 +410,10 @@ class LinkedList_tests {
     }
 
     /**
-     * Test the [MutableStableList.addAtEx] method implementation (adding multiple elements).
+     * Test the [MutableStableList.insertAt] method implementation (adding multiple elements).
      */
     @Test
-    fun test_addAtEx_multiple() {
+    fun test_insertAt_multiple() {
         val linkedList = linkedListOf(
             Fruit.Strawberry,
             // +Mango
@@ -426,21 +426,21 @@ class LinkedList_tests {
             Fruit.Orange,
         )
 
-        linkedList.addAtEx(
+        linkedList.insertAt(
             index = 5,
             element = Fruit.Kiwi,
         )
 
         StableListTestUtils.verifyIntegrity(linkedList)
 
-        linkedList.addAtEx(
+        linkedList.insertAt(
             index = 3,
             element = Fruit.Pineapple,
         )
 
         StableListTestUtils.verifyIntegrity(linkedList)
 
-        linkedList.addAtEx(
+        linkedList.insertAt(
             index = 1,
             element = Fruit.Mango,
         )
@@ -664,7 +664,7 @@ class LinkedList_tests {
             Fruit.Orange,
         )
 
-        val addedElementHandle = linkedList.addAtEx(
+        val addedElementHandle = linkedList.insertAt(
             index = 2,
             element = Fruit.Mango,
         )

@@ -14,7 +14,7 @@ interface MutableStableList<E> : MutableList<E>, MutableStableCollection<E>, Sta
      *
      * @return the handle to the added element.
      */
-    fun addAtEx(
+    fun insertAt(
         index: Int,
         element: E,
     ): Handle<E>

@@ -376,17 +376,17 @@ class TreeList_tests {
     }
 
     /**
-     * Test the [MutableStableList.addAtEx] method implementation (adding a single element).
+     * Test the [MutableStableList.insertAt] method implementation (adding a single element).
      */
     @Test
-    fun test_addAtEx_single() {
+    fun test_insertAt_single() {
         val treeList = treeListOf(
             Fruit.Grape,
             Fruit.Strawberry,
             Fruit.Orange,
         )
 
-        val addedElementHandle = treeList.addAtEx(
+        val addedElementHandle = treeList.insertAt(
             index = 1,
             element = Fruit.Apple,
         )
@@ -410,10 +410,10 @@ class TreeList_tests {
     }
 
     /**
-     * Test the [MutableStableList.addAtEx] method implementation (adding multiple elements).
+     * Test the [MutableStableList.insertAt] method implementation (adding multiple elements).
      */
     @Test
-    fun test_addAtEx_multiple() {
+    fun test_insertAt_multiple() {
         val treeList = treeListOf(
             Fruit.Strawberry,
             // +Mango
@@ -426,21 +426,21 @@ class TreeList_tests {
             Fruit.Orange,
         )
 
-        treeList.addAtEx(
+        treeList.insertAt(
             index = 5,
             element = Fruit.Kiwi,
         )
 
         StableListTestUtils.verifyIntegrity(treeList)
 
-        treeList.addAtEx(
+        treeList.insertAt(
             index = 3,
             element = Fruit.Pineapple,
         )
 
         StableListTestUtils.verifyIntegrity(treeList)
 
-        treeList.addAtEx(
+        treeList.insertAt(
             index = 1,
             element = Fruit.Mango,
         )
@@ -664,7 +664,7 @@ class TreeList_tests {
             Fruit.Orange,
         )
 
-        val addedElementHandle = treeList.addAtEx(
+        val addedElementHandle = treeList.insertAt(
             index = 2,
             element = Fruit.Mango,
         )

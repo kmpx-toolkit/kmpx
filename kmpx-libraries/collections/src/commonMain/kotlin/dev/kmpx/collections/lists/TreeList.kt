@@ -159,7 +159,7 @@ class TreeList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
         index: Int,
         element: E,
     ) {
-        addAtEx(
+        insertAt(
             index = index,
             element = element,
         )
@@ -220,7 +220,7 @@ class TreeList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
      *
      * @return the handle to the added element.
      */
-    override fun addAtEx(
+    override fun insertAt(
         index: Int,
         element: E,
     ): Handle<E> {
