@@ -36,7 +36,7 @@ class LinkedList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
         node.payload == element
     }?.pack()
 
-    override fun getEx(
+    override fun resolveAt(
         index: Int,
     ): Handle<E>? {
         if (index !in 0..<mutableSize) {

@@ -38,7 +38,7 @@ class TreeList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
         node.payload == element
     }?.pack()
 
-    override fun getEx(
+    override fun resolveAt(
         index: Int,
     ): Handle<E>? {
         val node = elementTree.select(index = index) ?: return null

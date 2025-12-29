@@ -19,7 +19,7 @@ object StableListTestUtils {
                 message = "Inconsistency in handle resolution for element $iteratedElement: handle resolved to $resolvedElement",
             )
 
-            val gotHandle: Handle<E>? = list.getEx(index)
+            val gotHandle: Handle<E>? = list.resolveAt(index)
 
             assertEquals(
                 expected = iteratedHandle,
@@ -41,7 +41,7 @@ object StableListTestUtils {
         val iteratedSize = index
 
         assertNull(
-            actual = list.getEx(iteratedSize),
+            actual = list.resolveAt(iteratedSize),
             message = "Inconsistency in getEx() bounds checking: accessing index $iteratedSize did not return null",
         )
 

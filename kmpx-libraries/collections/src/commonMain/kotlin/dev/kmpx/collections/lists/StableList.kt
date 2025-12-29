@@ -30,7 +30,7 @@ interface StableList<out E> : StableCollection<E>, List<E> {
      *
      * @return the handle to the element or `null` if the index is out of bounds
      */
-    fun getEx(
+    fun resolveAt(
         index: Int,
     ): Handle<@UnsafeVariance E>?
 
