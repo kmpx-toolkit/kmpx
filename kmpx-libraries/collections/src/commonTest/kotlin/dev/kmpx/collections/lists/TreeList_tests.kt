@@ -6,6 +6,7 @@ import kotlin.test.assertFails
 import kotlin.test.assertFalse
 import kotlin.test.assertIs
 import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 @Suppress("ClassName")
@@ -54,6 +55,43 @@ class TreeList_tests {
         assertEquals(
             expected = Fruit.Pineapple,
             actual = treeList[4],
+        )
+    }
+
+    /**
+     * Test the [StableList.resolveAt] method implementation (within bounds).
+     */
+    @Test
+    fun test_resolveAt_withinBounds() {
+        val treeList = treeListOf(
+            Fruit.Banana,
+            Fruit.Orange,
+            Fruit.Kiwi,
+        )
+
+        val handle = assertNotNull(
+            actual = treeList.resolveAt(1),
+        )
+
+        assertEquals(
+            expected = Fruit.Orange,
+            actual = treeList.getVia(handle),
+        )
+    }
+
+    /**
+     * Test the [StableList.resolveAt] method implementation (outside bounds).
+     */
+    @Test
+    fun test_resolveAt_outsideBounds() {
+        val treeList = treeListOf(
+            Fruit.Banana,
+            Fruit.Orange,
+            Fruit.Kiwi,
+        )
+
+        assertNull(
+            actual = treeList.resolveAt(3),
         )
     }
 

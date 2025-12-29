@@ -59,6 +59,43 @@ class LinkedList_tests {
     }
 
     /**
+     * Test the [StableList.resolveAt] method implementation (within bounds).
+     */
+    @Test
+    fun test_resolveAt_withinBounds() {
+        val linkedList = linkedListOf(
+            Fruit.Banana,
+            Fruit.Orange,
+            Fruit.Kiwi,
+        )
+
+        val handle = assertNotNull(
+            actual = linkedList.resolveAt(1),
+        )
+
+        assertEquals(
+            expected = Fruit.Orange,
+            actual = linkedList.getVia(handle),
+        )
+    }
+
+    /**
+     * Test the [StableList.resolveAt] method implementation (outside bounds).
+     */
+    @Test
+    fun test_resolveAt_outsideBounds() {
+        val linkedList = linkedListOf(
+            Fruit.Banana,
+            Fruit.Orange,
+            Fruit.Kiwi,
+        )
+
+        assertNull(
+            actual = linkedList.resolveAt(3),
+        )
+    }
+
+    /**
      * Test the [MutableList.set] method implementation.
      */
     @Test
