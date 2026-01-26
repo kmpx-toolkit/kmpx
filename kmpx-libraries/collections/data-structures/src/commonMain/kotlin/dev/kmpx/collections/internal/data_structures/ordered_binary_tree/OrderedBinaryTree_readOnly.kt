@@ -21,14 +21,18 @@ fun <PayloadT> OrderedBinaryTree<PayloadT>.resolve(
 ): Node<PayloadT>? = when (location) {
     RootLocation -> rootNode
 
-    is RelativeLocation<PayloadT> -> {
-        val parent = location.parentNode
-        val side = location.side
+    is RelativeLocation<PayloadT> -> resolveRelative(location = location)
+}
 
-        parent.getChild(
-            side = side,
-        )
-    }
+fun <PayloadT> OrderedBinaryTree<PayloadT>.resolveRelative(
+    location: RelativeLocation<PayloadT>,
+): Node<PayloadT>? {
+    val parent = location.parentNode
+    val side = location.side
+
+    return parent.getChild(
+        side = side,
+    )
 }
 
 /**
@@ -62,15 +66,13 @@ fun <PayloadT> Node<PayloadT>.getChildLocation(
     side = side,
 )
 
-fun <PayloadT> Node<PayloadT>.getLeftChildLocation(): RelativeLocation<PayloadT> =
-    getChildLocation(
-        side = OrderedBinaryTree.Side.Left,
-    )
+fun <PayloadT> Node<PayloadT>.getLeftChildLocation(): RelativeLocation<PayloadT> = getChildLocation(
+    side = OrderedBinaryTree.Side.Left,
+)
 
-fun <PayloadT> Node<PayloadT>.getRightChildLocation(): RelativeLocation<PayloadT> =
-    getChildLocation(
-        side = OrderedBinaryTree.Side.Right,
-    )
+fun <PayloadT> Node<PayloadT>.getRightChildLocation(): RelativeLocation<PayloadT> = getChildLocation(
+    side = OrderedBinaryTree.Side.Right,
+)
 
 fun <PayloadT> Node<PayloadT>.getChildSide(
     childNode: Node<PayloadT>,
@@ -94,8 +96,7 @@ fun <PayloadT> Node<PayloadT>.getChildSide(
     }
 }
 
-fun <PayloadT> Node<PayloadT>.locate(): OrderedBinaryTree.Location<PayloadT> =
-    locateRelatively() ?: RootLocation.cast()
+fun <PayloadT> Node<PayloadT>.locate(): OrderedBinaryTree.Location<PayloadT> = locateRelatively() ?: RootLocation.cast()
 
 /**
  * @return A relative location of the node associated with [this@locateRelatively] in the tree, or null if the node is the root of
