@@ -1,6 +1,9 @@
 package dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup
 
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.OrderedBinaryTree
+import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.OrderedBinaryTree.Node
+import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.insert
+import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.resolve
 
 /**
  * Finds the location of the [payload] in a binary tree, assuming that the payloads are fully comparable and that the
@@ -13,6 +16,25 @@ fun <PayloadT : Comparable<PayloadT>> OrderedBinaryTree<PayloadT>.find(
         locatedPayload = payload,
     ),
 )
+
+fun <PayloadT: Comparable<PayloadT>> OrderedBinaryTree<PayloadT>.insertFindingLocation(
+    payload: PayloadT,
+): Node<PayloadT>? {
+    val location = find(payload)
+
+    val existingNode = resolve(location = location)
+
+    if (existingNode != null) {
+        return null
+    }
+
+    val insertedNode = insert(
+        location = location,
+        payload = payload,
+    )
+
+    return insertedNode
+}
 
 private class IntrinsicOrderNavigator<PayloadT : Comparable<PayloadT>>(
     private val locatedPayload: PayloadT,

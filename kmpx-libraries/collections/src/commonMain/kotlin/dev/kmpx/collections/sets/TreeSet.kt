@@ -2,8 +2,8 @@ package dev.kmpx.collections.sets
 
 import dev.kmpx.collections.StableCollection.Handle
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.OrderedBinaryTree
-import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.insert
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.find
+import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.insertFindingLocation
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.remove
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.resolve
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.traverse
@@ -49,18 +49,9 @@ class TreeSet<E : Comparable<E>> internal constructor() : AbstractMutableSet<E>(
     ): Boolean = insert(element) != null
 
     override fun insert(element: E): Handle<E>? {
-        val location = elementTree.find(element)
-
-        val existingNode = elementTree.resolve(location = location)
-
-        if (existingNode != null) {
-            return null
-        }
-
-        val insertedNode = elementTree.insert(
-            location = location,
+        val insertedNode = elementTree.insertFindingLocation(
             payload = element,
-        )
+        ) ?: return null
 
         return insertedNode.pack()
     }

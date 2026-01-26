@@ -92,7 +92,6 @@ fun <PayloadT> OrderedBinaryTree<PayloadT>.remove(
     }
 }
 
-
 fun <PayloadT> OrderedBinaryTree<PayloadT>.insert(
     location: OrderedBinaryTree.Location<PayloadT>,
     payload: PayloadT,
@@ -110,7 +109,6 @@ fun <PayloadT> OrderedBinaryTree<PayloadT>.insert(
 
     return attachedNode
 }
-
 
 private fun <PayloadT> OrderedBinaryTree<PayloadT>.cutOffLeafAndRebalance(
     leafNode: Node<PayloadT>,
