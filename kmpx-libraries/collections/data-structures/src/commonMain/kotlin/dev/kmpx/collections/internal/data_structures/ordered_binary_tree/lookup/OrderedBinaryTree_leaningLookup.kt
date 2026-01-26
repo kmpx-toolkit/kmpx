@@ -7,10 +7,12 @@ import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.resolve
 
 /**
  * Finds the location of a node in a binary tree by a comparator bound to the searched payload. Assumes that the tree's
- * structural order agrees with the order defined by the comparator.
+ * structural order agrees with the order defined by the comparator, but doesn't require that order to be strict.
  *
  * In the case where multiple existing payloads are equal order-wise to the searched payload, the [leanSide] parameter
- * defines which side to lean to when searching for the utmost payload equal order-wise.
+ * defines which side to lean to when searching for the utmost payload equal order-wise. If it's known that the tree's
+ * order is strict (never containing multiple payloads equal order-wise), [findWith] should be used instead for better
+ * performance and simplicity.
  *
  * In the case when no payload equal order-wise to the searched payload exists in the tree, the empty location where
  * such payload could be inserted is returned.
