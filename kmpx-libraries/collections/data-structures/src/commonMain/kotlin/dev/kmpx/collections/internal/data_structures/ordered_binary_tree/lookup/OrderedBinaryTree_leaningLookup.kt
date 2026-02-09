@@ -39,15 +39,13 @@ private tailrec fun <PayloadT> OrderedBinaryTree<PayloadT>.findWithLeaningRecurs
 ): OrderedBinaryTree.Location<PayloadT> {
     val resolvedNode: OrderedBinaryTree.Node<PayloadT> = resolve(
         location = location,
-    ) ?: return run {
-        when (bestFoundNode) {
+    ) ?: return when (bestFoundNode) {
             // We didn't find any node equal-order wise, so let's return the location appropriate for insertion
             null -> location
 
             // We found at least one node equal-order wise, so let's return its location
             else -> bestFoundNode.locate()
         }
-    }
 
     val comparisonResult: Int = comparator.compare(resolvedNode.payload)
 
