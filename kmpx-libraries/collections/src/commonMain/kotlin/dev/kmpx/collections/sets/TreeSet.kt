@@ -4,7 +4,7 @@ import dev.kmpx.collections.StableCollection.Handle
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.OrderedBinaryTree
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.insert
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.BoundComparator
-import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.findWith
+import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.findExactWith
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.remove
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.resolve
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.traverse
@@ -35,7 +35,7 @@ class TreeSet<E : Comparable<E>> internal constructor() : AbstractMutableSet<E>(
         get() = elementTree.traverse().map { it.pack() }
 
     override fun lookup(element: E): Handle<E>? {
-        val location = elementTree.findWith(
+        val location = elementTree.findExactWith(
             comparator = BoundComparator.compareTo(boundElement = element),
         )
 
@@ -54,7 +54,7 @@ class TreeSet<E : Comparable<E>> internal constructor() : AbstractMutableSet<E>(
     ): Boolean = insert(element) != null
 
     override fun insert(element: E): Handle<E>? {
-        val location = elementTree.findWith(
+        val location = elementTree.findExactWith(
             comparator = BoundComparator.compareTo(boundElement = element),
         )
 
@@ -95,7 +95,7 @@ class TreeSet<E : Comparable<E>> internal constructor() : AbstractMutableSet<E>(
     }
 
     override fun contains(element: E): Boolean {
-        val location = elementTree.findWith(
+        val location = elementTree.findExactWith(
             comparator = BoundComparator.compareTo(boundElement = element),
         )
 

@@ -3,7 +3,7 @@ package dev.kmpx.collections.maps
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.OrderedBinaryTree
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.insert
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.BoundComparator
-import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.findWith
+import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.findExactWith
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.remove
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.resolve
 import dev.kmpx.collections.internal.iterators.OrderedBinaryTreeIterator
@@ -163,7 +163,7 @@ class TreeMap<K : Comparable<K>, V> internal constructor(
     private fun findByKey(
         key: K,
     ): Pair<EntryLocation<K, V>, EntryNode<K, V>?> {
-        val location = entryTree.findWith(
+        val location = entryTree.findExactWith(
             comparator = BoundComparator.compareBy(
                 boundKey = key,
                 keySelector = MutableMap.MutableEntry<K, V>::key,

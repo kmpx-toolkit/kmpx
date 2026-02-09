@@ -11,16 +11,16 @@ import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.resolve
  *
  * In the case where multiple existing payloads are equal order-wise to the searched payload, the [leanSide] parameter
  * defines which side to lean to when searching for the utmost payload equal order-wise. If it's known that the tree's
- * order is strict (never containing multiple payloads equal order-wise), [findWith] should be used instead for better
+ * order is strict (never containing multiple payloads equal order-wise), [findExactWith] should be used instead for better
  * performance and simplicity.
  *
  * In the case when no payload equal order-wise to the searched payload exists in the tree, the empty location where
  * such payload could be inserted is returned.
  */
-fun <PayloadT> OrderedBinaryTree<PayloadT>.findWithLeaning(
+fun <PayloadT> OrderedBinaryTree<PayloadT>.findLeaningWith(
     comparator: BoundComparator<PayloadT>,
     leanSide: OrderedBinaryTree.Side,
-): OrderedBinaryTree.Location<PayloadT> = findWithLeaningRecursive(
+): OrderedBinaryTree.Location<PayloadT> = findLeaningWithRecursive(
     comparator = comparator,
     leanSide = leanSide,
     location = OrderedBinaryTree.RootLocation.cast(),
@@ -31,7 +31,7 @@ fun <PayloadT> OrderedBinaryTree<PayloadT>.findWithLeaning(
  * Starting from the given [location], search for the location of searched payload using the given [comparator],
  * leaning to the given [leanSide] in case of multiple payloads equal order-wise.
  */
-private tailrec fun <PayloadT> OrderedBinaryTree<PayloadT>.findWithLeaningRecursive(
+private tailrec fun <PayloadT> OrderedBinaryTree<PayloadT>.findLeaningWithRecursive(
     comparator: BoundComparator<PayloadT>,
     leanSide: OrderedBinaryTree.Side,
     location: OrderedBinaryTree.Location<PayloadT>,
@@ -53,7 +53,7 @@ private tailrec fun <PayloadT> OrderedBinaryTree<PayloadT>.findWithLeaningRecurs
         // (resolved payload < searched payload)
         comparisonResult < 0 -> {
             // Turn right, discard the resolved node
-            return findWithLeaningRecursive(
+            return findLeaningWithRecursive(
                 comparator = comparator,
                 leanSide = leanSide,
                 location = resolvedNode.getChildLocation(
@@ -66,7 +66,7 @@ private tailrec fun <PayloadT> OrderedBinaryTree<PayloadT>.findWithLeaningRecurs
         // (resolved payload > searched payload)
         comparisonResult > 0 -> {
             // Turn left, discard the resolved node
-            return findWithLeaningRecursive(
+            return findLeaningWithRecursive(
                 comparator = comparator,
                 leanSide = leanSide,
                 location = resolvedNode.getChildLocation(
@@ -79,7 +79,7 @@ private tailrec fun <PayloadT> OrderedBinaryTree<PayloadT>.findWithLeaningRecurs
         // (resolved payload = searched payload) [order-wise]
         else -> {
             // Turn in the lean direction, consider the found node the best one so far
-            return findWithLeaningRecursive(
+            return findLeaningWithRecursive(
                 comparator = comparator,
                 leanSide = leanSide,
                 location = resolvedNode.getChildLocation(
