@@ -63,7 +63,7 @@ private tailrec fun <PayloadT> OrderedBinaryTree<PayloadT>.findLeaningWithRecurs
             )
         }
 
-        // (resolved payload > searched payload)
+        // (searched payload < resolved payload)
         comparisonResult > 0 -> {
             // Turn left, discard the resolved node
             return findLeaningWithRecursive(

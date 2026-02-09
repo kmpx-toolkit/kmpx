@@ -47,7 +47,7 @@ private tailrec fun <PayloadT> OrderedBinaryTree<PayloadT>.findExactWithRecursiv
             )
         }
 
-        // (resolved payload > searched payload)
+        // (searched payload < resolved payload)
         comparisonResult > 0 -> {
             // Turn left
             return findExactWithRecursive(
