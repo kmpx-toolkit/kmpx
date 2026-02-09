@@ -342,4 +342,146 @@ class TreeMap_tests {
             controlKeys = setOf(30, 40),
         )
     }
+
+    /**
+     * Test that [SortedMap.floorEntry] returns the correct entry when the key is exactly present in the map (should
+     * return that entry, not a different one).
+     */
+    @Test
+    fun test_floorEntry_exactKeyPresent() {
+        val map = treeMapOf(
+            10 to "a",
+            20 to "b",
+            30 to "c",
+        )
+
+        val entry = assertNotNull(
+            actual = map.floorEntry(20),
+        )
+
+        assertEquals(
+            expected = 20,
+            actual = entry.key,
+        )
+
+        assertEquals(
+            expected = "b",
+            actual = entry.value,
+        )
+    }
+
+    /**
+     * Test that [SortedMap.floorEntry] returns the correct entry when the key is not present in the map, but there are
+     * keys lower than it (should return the entry with the greatest key that is still lower than the given key).
+     */
+    @Test
+    fun test_floorEntry_lowerKeyPresent() {
+        val map = treeMapOf(
+            10 to "a",
+            20 to "b",
+            30 to "c",
+        )
+
+        val entry = assertNotNull(
+            actual = map.floorEntry(25),
+        )
+
+        assertEquals(
+            expected = 20,
+            actual = entry.key,
+        )
+
+        assertEquals(
+            expected = "b",
+            actual = entry.value,
+        )
+    }
+
+    /**
+     * Test that [SortedMap.floorEntry] returns null when the key is not present in the map and there are no keys lower
+     * than it (should return null since there is no floor entry).
+     */
+    @Test
+    fun test_floorEntry_noFloorKeyPresent() {
+        val map = treeMapOf(
+            10 to "a",
+            20 to "b",
+            30 to "c",
+        )
+
+        assertNull(
+            actual = map.floorEntry(5),
+        )
+    }
+
+    /**
+     * Test that [SortedMap.ceilingEntry] returns the correct entry when the key is exactly present in the map (should
+     * return that entry, not a different one).
+     */
+    @Test
+    fun test_ceilingEntry_exactKeyPresent() {
+        val map = treeMapOf(
+            10 to "a",
+            20 to "b",
+            30 to "c",
+        )
+
+        val entry = assertNotNull(
+            actual = map.ceilingEntry(20),
+        )
+
+        assertEquals(
+            expected = 20,
+            actual = entry.key,
+        )
+
+        assertEquals(
+            expected = "b",
+            actual = entry.value,
+        )
+    }
+
+    /**
+     * Test that [SortedMap.ceilingEntry] returns the correct entry when the key is not present in the map, but there
+     * are keys higher than it (should return the entry with the smallest key that is still higher than the given key).
+     */
+    @Test
+    fun test_ceilingEntry_higherKeyPresent() {
+        val map = treeMapOf(
+            10 to "a",
+            20 to "b",
+            30 to "c",
+        )
+
+        val entry = assertNotNull(
+            actual = map.ceilingEntry(15),
+        )
+
+        assertEquals(
+            expected = 20,
+            actual = entry.key,
+        )
+
+        assertEquals(
+            expected = "b",
+            actual = entry.value,
+        )
+    }
+
+    /**
+     * Test that [SortedMap.ceilingEntry] returns null when the key is not present in the map and there are no keys
+     * higher than it (should return null since there is no ceiling entry).
+     */
+    @Test
+    fun test_ceilingEntry_noCeilingKeyPresent() {
+        val map = treeMapOf(
+            10 to "a",
+            20 to "b",
+            30 to "c",
+        )
+
+        assertNull(
+            actual = map.ceilingEntry(35),
+        )
+    }
 }
