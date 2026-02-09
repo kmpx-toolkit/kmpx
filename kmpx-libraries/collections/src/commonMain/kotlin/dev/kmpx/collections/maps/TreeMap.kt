@@ -1,9 +1,13 @@
 package dev.kmpx.collections.maps
 
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.OrderedBinaryTree
+import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.getInOrderPredecessor
+import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.getInOrderSuccessor
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.insert
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.BoundComparator
-import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.findWith
+import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.findCeilWith
+import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.findExactWith
+import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.findFloorWith
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.remove
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.resolve
 import dev.kmpx.collections.internal.iterators.OrderedBinaryTreeIterator
@@ -18,7 +22,7 @@ import kotlin.jvm.JvmInline
  */
 class TreeMap<K : Comparable<K>, V> internal constructor(
     private val entryTree: OrderedBinaryTree<MutableMap.MutableEntry<K, V>> = OrderedBinaryTree.create(),
-) : AbstractMutableStableMap<K, V>() {
+) : AbstractMutableStableMap<K, V>(), MutableSortedMap<K, V> {
     internal class MutableMapEntry<K, V>(
         override val key: K,
         initialValue: V,
@@ -163,7 +167,7 @@ class TreeMap<K : Comparable<K>, V> internal constructor(
     private fun findByKey(
         key: K,
     ): Pair<EntryLocation<K, V>, EntryNode<K, V>?> {
-        val location = entryTree.findWith(
+        val location = entryTree.findExactWith(
             comparator = BoundComparator.compareBy(
                 boundKey = key,
                 keySelector = MutableMap.MutableEntry<K, V>::key,
@@ -176,6 +180,35 @@ class TreeMap<K : Comparable<K>, V> internal constructor(
 
         return Pair(location, existingNode)
     }
+
+    override fun floorEntry(
+        key: K,
+    ): MutableMap.MutableEntry<K, V>? {
+        val floorNode = entryTree.findFloorWith(
+            comparator = BoundComparator.compareBy(
+                boundKey = key,
+                keySelector = MutableMap.MutableEntry<K, V>::key,
+            ),
+        )
+
+        return floorNode?.payload
+    }
+
+    override fun ceilingEntry(
+        key: K,
+    ): MutableMap.MutableEntry<K, V>? {
+        val ceilNode = entryTree.findCeilWith(
+            comparator = BoundComparator.compareBy(
+                boundKey = key,
+                keySelector = MutableMap.MutableEntry<K, V>::key,
+            ),
+        )
+
+        return ceilNode?.payload
+    }
+
+    override val sortedValues: List<V>
+        get() = TODO("Not yet implemented")
 }
 
 fun <K : Comparable<K>, V> treeMapOf(

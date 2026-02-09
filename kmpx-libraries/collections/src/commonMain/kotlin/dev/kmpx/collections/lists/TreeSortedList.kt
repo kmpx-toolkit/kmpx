@@ -7,7 +7,7 @@ import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.getRank
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.insert
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.insertRelative
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.bind
-import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.findWithLeaning
+import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.findLeaningWith
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.remove
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.resolve
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.resolveRelative
@@ -96,7 +96,7 @@ class TreeSortedList<E>(
 
     override fun predictIndexOf(newElement: E): Int {
         // Find the location where the element is (or would be if it was present)
-        val location = elementTree.findWithLeaning(
+        val location = elementTree.findLeaningWith(
             comparator = comparator.bind(newElement),
             leanSide = OrderedBinaryTree.Side.Right,
         )
@@ -219,7 +219,7 @@ class TreeSortedList<E>(
         payload: E,
     ): OrderedBinaryTree.Node<E>? {
         // Find the location of the first element equal order-wise to the element we want to remove
-        val location = elementTree.findWithLeaning(
+        val location = elementTree.findLeaningWith(
             comparator = comparator.bind(payload),
             leanSide = OrderedBinaryTree.Side.Left,
         )
@@ -246,7 +246,7 @@ class TreeSortedList<E>(
         payload: E,
     ): OrderedBinaryTree.Node<E> {
         // Search for the last instance of the element
-        val location = elementTree.findWithLeaning(
+        val location = elementTree.findLeaningWith(
             comparator = comparator.bind(payload),
             leanSide = OrderedBinaryTree.Side.Right,
         )

@@ -10,14 +10,14 @@ import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.resolve
  *
  * The first node considered equal will be returned, which means that this operator will give non-deterministic results
  * in the case of multiple existing payloads equal order-wise. If it's known that the tree's order is non-strict,
- * [findWithLeaning] should be used instead to guarantee deterministic results.
+ * [findLeaningWith] should be used instead to guarantee deterministic results.
  *
  * In the case when no payload equal order-wise to the searched payload exists in the tree, the empty location where
  * such payload could be inserted is returned.
  */
-fun <PayloadT> OrderedBinaryTree<PayloadT>.findWith(
+fun <PayloadT> OrderedBinaryTree<PayloadT>.findExactWith(
     comparator: BoundComparator<PayloadT>,
-): OrderedBinaryTree.Location<PayloadT> = findWithRecursive(
+): OrderedBinaryTree.Location<PayloadT> = findExactWithRecursive(
     comparator = comparator,
     location = OrderedBinaryTree.RootLocation.cast(),
 )
@@ -25,7 +25,7 @@ fun <PayloadT> OrderedBinaryTree<PayloadT>.findWith(
 /**
  * Starting from the given [location], search for the location of searched payload using the given [comparator].
  */
-private tailrec fun <PayloadT> OrderedBinaryTree<PayloadT>.findWithRecursive(
+private tailrec fun <PayloadT> OrderedBinaryTree<PayloadT>.findExactWithRecursive(
     comparator: BoundComparator<PayloadT>,
     location: OrderedBinaryTree.Location<PayloadT>,
 ): OrderedBinaryTree.Location<PayloadT> {
@@ -39,7 +39,7 @@ private tailrec fun <PayloadT> OrderedBinaryTree<PayloadT>.findWithRecursive(
         // (resolved payload < searched payload)
         comparisonResult < 0 -> {
             // Turn right
-            return findWithRecursive(
+            return findExactWithRecursive(
                 comparator = comparator,
                 location = resolvedNode.getChildLocation(
                     side = OrderedBinaryTree.Side.Right,
@@ -47,10 +47,10 @@ private tailrec fun <PayloadT> OrderedBinaryTree<PayloadT>.findWithRecursive(
             )
         }
 
-        // (resolved payload > searched payload)
+        // (searched payload < resolved payload)
         comparisonResult > 0 -> {
             // Turn left
-            return findWithRecursive(
+            return findExactWithRecursive(
                 comparator = comparator,
                 location = resolvedNode.getChildLocation(
                     side = OrderedBinaryTree.Side.Left,
