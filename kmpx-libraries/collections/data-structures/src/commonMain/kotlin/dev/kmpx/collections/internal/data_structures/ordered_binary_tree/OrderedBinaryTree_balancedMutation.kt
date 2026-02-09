@@ -3,6 +3,11 @@ package dev.kmpx.collections.internal.data_structures.ordered_binary_tree
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.OrderedBinaryTree.Node
 import dev.kmpx.collections.internal.utils.assert
 
+/**
+ * Removes the specified [node] from the tree, rebalancing it as necessary.
+ *
+ * @return the in-order predecessor of the removed node, or `null` if there is none
+ */
 fun <PayloadT> OrderedBinaryTree<PayloadT>.remove(
     node: Node<PayloadT>,
 ): Node<PayloadT>? {
@@ -92,7 +97,6 @@ fun <PayloadT> OrderedBinaryTree<PayloadT>.remove(
     }
 }
 
-
 fun <PayloadT> OrderedBinaryTree<PayloadT>.insert(
     location: OrderedBinaryTree.Location<PayloadT>,
     payload: PayloadT,
@@ -110,7 +114,6 @@ fun <PayloadT> OrderedBinaryTree<PayloadT>.insert(
 
     return attachedNode
 }
-
 
 private fun <PayloadT> OrderedBinaryTree<PayloadT>.cutOffLeafAndRebalance(
     leafNode: Node<PayloadT>,

@@ -11,6 +11,7 @@ import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.insertR
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.select
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.takeOut
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.traverse
+import dev.kmpx.collections.lists.TreeList.TreeListHandle
 import kotlin.jvm.JvmInline
 
 /**
@@ -322,7 +323,7 @@ fun <E> treeListOf(
 }
 
 private fun <E> Handle<E>.unpack(): OrderedBinaryTree.Node<E>? {
-    this as? TreeList.TreeListHandle ?: throw IllegalArgumentException(
+    this as? TreeListHandle ?: throw IllegalArgumentException(
         "Handle is not a TreeListHandle: $this"
     )
 
@@ -332,6 +333,6 @@ private fun <E> Handle<E>.unpack(): OrderedBinaryTree.Node<E>? {
     }
 }
 
-private fun <E> OrderedBinaryTree.Node<E>.pack(): Handle<E> = TreeList.TreeListHandle(
+private fun <E> OrderedBinaryTree.Node<E>.pack(): Handle<E> = TreeListHandle(
     node = this,
 )
