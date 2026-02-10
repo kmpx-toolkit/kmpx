@@ -65,7 +65,7 @@ class TreeMap<K : Comparable<K>, V> internal constructor(
             get() = entryTree.size
 
         override fun iterator(): MutableIterator<MutableMap.MutableEntry<K, V>> =
-            OrderedBinaryTreeIterator.iterate(tree = entryTree)
+            OrderedBinaryTreeIterator(tree = entryTree)
 
         override fun add(element: MutableMap.MutableEntry<K, V>): Boolean {
             // Following the behavior of the built-in `MutableMap.entries`

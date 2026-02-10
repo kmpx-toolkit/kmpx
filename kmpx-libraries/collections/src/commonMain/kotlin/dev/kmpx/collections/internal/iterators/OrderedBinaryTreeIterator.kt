@@ -7,31 +7,23 @@ import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.hasInOr
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.isEmpty
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.remove
 
-internal class OrderedBinaryTreeIterator<out PayloadT> private constructor(
+internal class OrderedBinaryTreeIterator<out PayloadT> internal constructor(
     /**
      * The tree being iterated over.
      */
     private val tree: OrderedBinaryTree<PayloadT>,
+) : MutableIterator<PayloadT> {
     /**
      * The handle to the _current_ node, which is a baseline for determining the next node in the iteration order. If
      * it's `null`, it means that the iteration is at its initial point (either `next` hasn't been called yet, or every
      * `next` call was followed by a `remove` call).
      */
-    private var currentNode: OrderedBinaryTree.Node<PayloadT>?,
+    private var currentNode: OrderedBinaryTree.Node<PayloadT>? = null
+
     /**
      * Indicates whether the most recent `next` call has already been followed by a `remove` call.
      */
-    private var wasNodeRemoved: Boolean,
-) : MutableIterator<PayloadT> {
-    companion object {
-        fun <PayloadT> iterate(
-            tree: OrderedBinaryTree<PayloadT>,
-        ): MutableIterator<PayloadT> = OrderedBinaryTreeIterator(
-            tree = tree,
-            currentNode = null,
-            wasNodeRemoved = false,
-        )
-    }
+    private var wasNodeRemoved: Boolean = false
 
     override fun remove() {
         if (wasNodeRemoved) {

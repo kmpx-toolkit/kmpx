@@ -33,7 +33,7 @@ class TreeSet<E : Comparable<E>> internal constructor() : AbstractMutableSet<E>(
     override val size: Int
         get() = elementTree.size
 
-    override fun iterator(): MutableIterator<E> = OrderedBinaryTreeIterator.iterate(
+    override fun iterator(): MutableIterator<E> = OrderedBinaryTreeIterator(
         tree = elementTree,
     )
 

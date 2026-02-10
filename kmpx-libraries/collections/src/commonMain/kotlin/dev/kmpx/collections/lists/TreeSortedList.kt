@@ -31,7 +31,7 @@ class TreeSortedList<E>(
 
     private val elementTree = OrderedBinaryTree.create<E>()
 
-    override fun iterator(): MutableIterator<E> = OrderedBinaryTreeIterator.iterate(
+    override fun iterator(): MutableIterator<E> = OrderedBinaryTreeIterator(
         tree = elementTree,
     )
 
