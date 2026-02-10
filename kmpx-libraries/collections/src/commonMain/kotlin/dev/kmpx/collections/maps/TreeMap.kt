@@ -1,8 +1,7 @@
 package dev.kmpx.collections.maps
 
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.OrderedBinaryTree
-import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.getInOrderPredecessor
-import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.getInOrderSuccessor
+import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.getRank
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.insert
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.BoundComparator
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.findCeilWith
@@ -10,8 +9,11 @@ import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.findFloorWith
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.remove
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.resolve
+import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.select
 import dev.kmpx.collections.internal.iterators.OrderedBinaryTreeIterator
 import dev.kmpx.collections.maps.StableMap.EntryHandle
+import dev.kmpx.collections.sets.MutableSortedSet
+import dev.kmpx.collections.sets.SortedSet
 import kotlin.jvm.JvmInline
 
 /**
@@ -206,6 +208,51 @@ class TreeMap<K : Comparable<K>, V> internal constructor(
 
         return ceilNode?.payload
     }
+
+    override fun selectEntry(entryRank: Int): Map.Entry<K, V>? {
+        val node = entryTree.select(index = entryRank) ?: return null
+        return node.payload
+    }
+
+    override fun findKeyRank(key: K): SortedMap.KeyRankResult {
+        val location = entryTree.findExactWith(
+            comparator = BoundComparator.compareBy(
+                boundKey = key,
+                keySelector = MutableMap.MutableEntry<K, V>::key,
+            ),
+        )
+
+        val resolvedNode = entryTree.resolve(location = location)
+
+        return when {
+            resolvedNode != null -> SortedMap.KeyRankResult(
+                keyRank = entryTree.getRank(node = resolvedNode),
+                kind = SortedMap.KeyRankKind.Existing,
+            )
+
+            else -> SortedMap.KeyRankResult(
+                keyRank = when (location) {
+                    OrderedBinaryTree.RootLocation -> 0
+
+                    is OrderedBinaryTree.RelativeLocation -> {
+                        val potentialParentRank = entryTree.getRank(location.parentNode)
+
+                        when (location.side) {
+                            OrderedBinaryTree.Side.Left -> potentialParentRank
+                            OrderedBinaryTree.Side.Right -> potentialParentRank + 1
+                        }
+                    }
+                },
+                kind = SortedMap.KeyRankKind.Potential,
+            )
+        }
+    }
+
+    override val sortedEntries: SortedSet<Map.Entry<K, V>>
+        get() = TODO("Not yet implemented")
+
+    override val sortedKeys: MutableSortedSet<K>
+        get() = TODO("Not yet implemented")
 
     override val sortedValues: List<V>
         get() = TODO("Not yet implemented")
