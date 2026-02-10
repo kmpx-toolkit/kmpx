@@ -1,8 +1,6 @@
 package dev.kmpx.collections.maps
 
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.OrderedBinaryTree
-import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.getInOrderPredecessor
-import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.getInOrderSuccessor
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.insert
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.BoundComparator
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.findCeilWith
@@ -10,8 +8,14 @@ import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.findFloorWith
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.remove
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.resolve
+import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.select
 import dev.kmpx.collections.internal.iterators.OrderedBinaryTreeIterator
+import dev.kmpx.collections.SortedCollections.RankResult
+import dev.kmpx.collections.findRank
+import dev.kmpx.collections.internal.iterators.AbstractOrderedBinaryTreeIterator
 import dev.kmpx.collections.maps.StableMap.EntryHandle
+import dev.kmpx.collections.sets.MutableSortedSet
+import dev.kmpx.collections.sets.SortedSet
 import kotlin.jvm.JvmInline
 
 /**
@@ -62,7 +66,7 @@ class TreeMap<K : Comparable<K>, V> internal constructor(
             get() = entryTree.size
 
         override fun iterator(): MutableIterator<MutableMap.MutableEntry<K, V>> =
-            OrderedBinaryTreeIterator.iterate(tree = entryTree)
+            OrderedBinaryTreeIterator(tree = entryTree)
 
         override fun add(element: MutableMap.MutableEntry<K, V>): Boolean {
             // Following the behavior of the built-in `MutableMap.entries`
@@ -207,8 +211,170 @@ class TreeMap<K : Comparable<K>, V> internal constructor(
         return ceilNode?.payload
     }
 
-    override val sortedValues: List<V>
-        get() = TODO("Not yet implemented")
+    override fun selectEntry(entryRank: Int): Map.Entry<K, V>? {
+        val node = entryTree.select(index = entryRank) ?: return null
+        return node.payload
+    }
+
+    override fun findKeyRank(key: K): RankResult = entryTree.findRank(
+         comparator = BoundComparator.compareBy(
+             boundKey = key,
+             keySelector = MutableMap.MutableEntry<K, V>::key,
+         ),
+     )
+
+    override val sortedEntries: SortedSet<Map.Entry<K, V>>
+        get() = object : AbstractSet<Map.Entry<K, V>>(), SortedSet<Map.Entry<K, V>> {
+            override val size: Int
+                get() = entryTree.size
+
+            override fun iterator(): Iterator<Map.Entry<K, V>> =
+                object : AbstractOrderedBinaryTreeIterator<MutableMap.MutableEntry<K, V>, Map.Entry<K, V>>(
+                    tree = entryTree,
+                ) {
+                    override fun extract(payload: MutableMap.MutableEntry<K, V>): Map.Entry<K, V> = payload
+                }
+
+            override fun floor(element: Map.Entry<K, V>): Map.Entry<K, V>? {
+                val floorNode = entryTree.findFloorWith(
+                    comparator = BoundComparator.compareBy(
+                        boundKey = element.key,
+                        keySelector = MutableMap.MutableEntry<K, V>::key,
+                    ),
+                )
+
+                return floorNode?.payload
+            }
+
+            override fun ceiling(element: Map.Entry<K, V>): Map.Entry<K, V>? {
+                val ceilNode = entryTree.findCeilWith(
+                    comparator = BoundComparator.compareBy(
+                        boundKey = element.key,
+                        keySelector = MutableMap.MutableEntry<K, V>::key,
+                    ),
+                )
+
+                return ceilNode?.payload
+            }
+
+            override fun select(rank: Int): Map.Entry<K, V>? = entryTree.select(index = rank)?.payload
+
+            override fun findRank(element: Map.Entry<K, V>): RankResult = entryTree.findRank(
+                comparator = BoundComparator.compareBy(
+                    boundKey = element.key,
+                    keySelector = MutableMap.MutableEntry<K, V>::key,
+                ),
+            )
+
+            override val asList: List<Map.Entry<K, V>>
+                get() = object : AbstractList<Map.Entry<K, V>>() {
+                    override fun iterator(): Iterator<Map.Entry<K, V>> =
+                        object : AbstractOrderedBinaryTreeIterator<MutableMap.MutableEntry<K, V>, Map.Entry<K, V>>(
+                            tree = entryTree,
+                        ) {
+                            override fun extract(payload: MutableMap.MutableEntry<K, V>): Map.Entry<K, V> = payload
+                        }
+
+                    override val size: Int
+                        get() = entryTree.size
+
+                    override fun get(
+                        index: Int,
+                    ): Map.Entry<K, V> {
+                        val node = entryTree.select(index = index) ?: throw IndexOutOfBoundsException(
+                            "Index $index is out of bounds for size ${size}."
+                        )
+
+                        return node.payload
+                    }
+                }
+        }
+
+    override val sortedKeys: MutableSortedSet<K> = object : AbstractMutableSet<K>(), MutableSortedSet<K> {
+        override val size: Int
+            get() = entryTree.size
+
+        override fun iterator(): MutableIterator<K> = _iterator()
+
+        @Suppress("FunctionName")
+        private fun _iterator(): MutableIterator<K> =
+            object : AbstractOrderedBinaryTreeIterator<MutableMap.MutableEntry<K, V>, K>(
+                tree = entryTree,
+            ) {
+                override fun extract(payload: MutableMap.MutableEntry<K, V>): K = payload.key
+            }
+
+        override fun add(element: K): Boolean {
+            throw UnsupportedOperationException()
+        }
+
+        override fun floor(element: K): K? = entryTree.findFloorWith(
+            comparator = BoundComparator.compareBy(
+                boundKey = element,
+                keySelector = MutableMap.MutableEntry<K, V>::key,
+            ),
+        )?.payload?.key
+
+        override fun ceiling(element: K): K? = entryTree.findCeilWith(
+            comparator = BoundComparator.compareBy(
+                boundKey = element,
+                keySelector = MutableMap.MutableEntry<K, V>::key,
+            ),
+        )?.payload?.key
+
+        override fun select(rank: Int): K? = entryTree.select(index = rank)?.payload?.key
+
+        override fun findRank(element: K): RankResult = entryTree.findRank(
+            comparator = BoundComparator.compareBy(
+                boundKey = element,
+                keySelector = MutableMap.MutableEntry<K, V>::key,
+            ),
+        )
+
+        override val asList: List<K>
+            get() = object : AbstractList<K>() {
+                override fun iterator(): Iterator<K> = _iterator()
+
+                override val size: Int
+                    get() = entryTree.size
+
+                override fun get(
+                    index: Int,
+                ): K {
+                    val node = entryTree.select(index = index) ?: throw IndexOutOfBoundsException(
+                        "Index $index is out of bounds for size ${size}."
+                    )
+
+                    val entry: MutableMap.MutableEntry<K, V> = node.payload
+
+                    return entry.key
+                }
+            }
+    }
+
+    override val sortedValues: List<V> = object : AbstractList<V>() {
+        override fun iterator(): Iterator<V> =
+            object : AbstractOrderedBinaryTreeIterator<MutableMap.MutableEntry<K, V>, V>(
+                tree = entryTree,
+            ) {
+                override fun extract(payload: MutableMap.MutableEntry<K, V>): V = payload.value
+            }
+
+        override val size: Int
+            get() = entryTree.size
+
+        override fun get(
+            index: Int,
+        ): V {
+            val node = entryTree.select(index = index) ?: throw IndexOutOfBoundsException(
+                "Index $index is out of bounds for size ${size}."
+            )
+
+            val entry: MutableMap.MutableEntry<K, V> = node.payload
+
+            return entry.value
+        }
+    }
 }
 
 fun <K : Comparable<K>, V> treeMapOf(

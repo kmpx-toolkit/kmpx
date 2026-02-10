@@ -11,6 +11,7 @@ import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.insertR
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.select
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.takeOut
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.traverse
+import dev.kmpx.collections.internal.iterators.OrderedBinaryTreeIterator
 import dev.kmpx.collections.lists.TreeList.TreeListHandle
 import kotlin.jvm.JvmInline
 
@@ -32,6 +33,10 @@ class TreeList<E>() : AbstractMutableList<E>(), MutableStableList<E> {
 
     override val handles: Sequence<Handle<E>>
         get() = elementTree.traverse().map { it.pack() }
+
+    override fun iterator(): MutableIterator<E> = OrderedBinaryTreeIterator(
+        tree = elementTree,
+    )
 
     override fun resolveFirst(
         element: E,

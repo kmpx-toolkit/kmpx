@@ -4,11 +4,16 @@ import dev.kmpx.collections.StableCollection.Handle
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.OrderedBinaryTree
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.insert
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.BoundComparator
+import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.findCeilWith
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.findExactWith
+import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.findFloorWith
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.remove
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.resolve
+import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.select
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.traverse
 import dev.kmpx.collections.internal.iterators.OrderedBinaryTreeIterator
+import dev.kmpx.collections.SortedCollections.RankResult
+import dev.kmpx.collections.findRank
 import kotlin.jvm.JvmInline
 
 /**
@@ -16,7 +21,8 @@ import kotlin.jvm.JvmInline
  *
  * @param E the type of elements contained in the collection
  */
-class TreeSet<E : Comparable<E>> internal constructor() : AbstractMutableSet<E>(), MutableStableSet<E> {
+class TreeSet<E : Comparable<E>> internal constructor() : AbstractMutableSet<E>(), MutableStableSet<E>,
+    MutableSortedSet<E> {
     @JvmInline
     internal value class TreeSetHandle<E> internal constructor(
         internal val node: OrderedBinaryTree.Node<E>,
@@ -27,7 +33,7 @@ class TreeSet<E : Comparable<E>> internal constructor() : AbstractMutableSet<E>(
     override val size: Int
         get() = elementTree.size
 
-    override fun iterator(): MutableIterator<E> = OrderedBinaryTreeIterator.iterate(
+    override fun iterator(): MutableIterator<E> = OrderedBinaryTreeIterator(
         tree = elementTree,
     )
 
@@ -101,6 +107,60 @@ class TreeSet<E : Comparable<E>> internal constructor() : AbstractMutableSet<E>(
 
         return elementTree.resolve(location = location) != null
     }
+
+    override fun floor(
+        element: E,
+    ): E? {
+        val floorNode = elementTree.findFloorWith(
+            comparator = BoundComparator.compareTo(boundElement = element),
+        ) ?: return null
+
+        return floorNode.payload
+    }
+
+    override fun ceiling(
+        element: E,
+    ): E? {
+        val ceilingNode = elementTree.findCeilWith(
+            comparator = BoundComparator.compareTo(boundElement = element),
+        ) ?: return null
+
+        return ceilingNode.payload
+    }
+
+    override fun select(
+        rank: Int,
+    ): E? {
+        val node = elementTree.select(index = rank) ?: return null
+
+        return node.payload
+    }
+
+    override fun findRank(
+        element: E,
+    ): RankResult = elementTree.findRank(
+        comparator = BoundComparator.compareTo(boundElement = element),
+    )
+
+    override val asList: List<E>
+        get() = object : AbstractList<E>() {
+            override fun iterator(): Iterator<E> = OrderedBinaryTreeIterator(
+                tree = elementTree,
+            )
+
+            override val size: Int
+                get() = elementTree.size
+
+            override fun get(
+                index: Int,
+            ): E {
+                val node = elementTree.select(index = index) ?: throw IndexOutOfBoundsException(
+                    "Index $index is out of bounds for size ${size}."
+                )
+
+                return node.payload
+            }
+        }
 }
 
 fun <E : Comparable<E>> treeSetOf(
