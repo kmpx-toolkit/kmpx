@@ -2,6 +2,8 @@ package dev.kmpx.collections.maps
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import dev.kmpx.collections.SortedCollections.RankResult
+import dev.kmpx.collections.SortedCollections.RankKind
 
 @Suppress("ClassName")
 class TreeMap_findKeyRank_tests {
@@ -12,9 +14,9 @@ class TreeMap_findKeyRank_tests {
         val result = map.findKeyRank(key = 10)
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 0,
-                kind = SortedMap.KeyRankKind.Potential,
+            expected = RankResult(
+                rank = 0,
+                kind = RankKind.Potential,
             ),
             actual = result,
         )
@@ -26,41 +28,41 @@ class TreeMap_findKeyRank_tests {
 
         // Test each key has correct rank
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 0,
-                kind = SortedMap.KeyRankKind.Existing,
+            expected = RankResult(
+                rank = 0,
+                kind = RankKind.Existing,
             ),
             actual = map.findKeyRank(key = 10),
         )
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 1,
-                kind = SortedMap.KeyRankKind.Existing,
+            expected = RankResult(
+                rank = 1,
+                kind = RankKind.Existing,
             ),
             actual = map.findKeyRank(key = 20),
         )
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 2,
-                kind = SortedMap.KeyRankKind.Existing,
+            expected = RankResult(
+                rank = 2,
+                kind = RankKind.Existing,
             ),
             actual = map.findKeyRank(key = 30),
         )
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 3,
-                kind = SortedMap.KeyRankKind.Existing,
+            expected = RankResult(
+                rank = 3,
+                kind = RankKind.Existing,
             ),
             actual = map.findKeyRank(key = 40),
         )
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 4,
-                kind = SortedMap.KeyRankKind.Existing,
+            expected = RankResult(
+                rank = 4,
+                kind = RankKind.Existing,
             ),
             actual = map.findKeyRank(key = 50),
         )
@@ -73,9 +75,9 @@ class TreeMap_findKeyRank_tests {
         val result = map.findKeyRank(key = 5)
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 0,
-                kind = SortedMap.KeyRankKind.Potential,
+            expected = RankResult(
+                rank = 0,
+                kind = RankKind.Potential,
             ),
             actual = result,
         )
@@ -87,36 +89,36 @@ class TreeMap_findKeyRank_tests {
 
         // Key 15 would be inserted at rank 1 (between 10 and 20)
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 1,
-                kind = SortedMap.KeyRankKind.Potential,
+            expected = RankResult(
+                rank = 1,
+                kind = RankKind.Potential,
             ),
             actual = map.findKeyRank(key = 15),
         )
 
         // Key 25 would be inserted at rank 2 (between 20 and 30)
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 2,
-                kind = SortedMap.KeyRankKind.Potential,
+            expected = RankResult(
+                rank = 2,
+                kind = RankKind.Potential,
             ),
             actual = map.findKeyRank(key = 25),
         )
 
         // Key 35 would be inserted at rank 3 (between 30 and 40)
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 3,
-                kind = SortedMap.KeyRankKind.Potential,
+            expected = RankResult(
+                rank = 3,
+                kind = RankKind.Potential,
             ),
             actual = map.findKeyRank(key = 35),
         )
 
         // Key 45 would be inserted at rank 4 (between 40 and 50)
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 4,
-                kind = SortedMap.KeyRankKind.Potential,
+            expected = RankResult(
+                rank = 4,
+                kind = RankKind.Potential,
             ),
             actual = map.findKeyRank(key = 45),
         )
@@ -129,9 +131,9 @@ class TreeMap_findKeyRank_tests {
         val result = map.findKeyRank(key = 55)
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 5,
-                kind = SortedMap.KeyRankKind.Potential,
+            expected = RankResult(
+                rank = 5,
+                kind = RankKind.Potential,
             ),
             actual = result,
         )
@@ -144,9 +146,9 @@ class TreeMap_findKeyRank_tests {
         val result = map.findKeyRank(key = 20)
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 0,
-                kind = SortedMap.KeyRankKind.Existing,
+            expected = RankResult(
+                rank = 0,
+                kind = RankKind.Existing,
             ),
             actual = result,
         )
@@ -159,9 +161,9 @@ class TreeMap_findKeyRank_tests {
         val result = map.findKeyRank(key = 10)
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 0,
-                kind = SortedMap.KeyRankKind.Potential,
+            expected = RankResult(
+                rank = 0,
+                kind = RankKind.Potential,
             ),
             actual = result,
         )
@@ -174,9 +176,9 @@ class TreeMap_findKeyRank_tests {
         val result = map.findKeyRank(key = 30)
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 1,
-                kind = SortedMap.KeyRankKind.Potential,
+            expected = RankResult(
+                rank = 1,
+                kind = RankKind.Potential,
             ),
             actual = result,
         )
@@ -188,9 +190,9 @@ class TreeMap_findKeyRank_tests {
 
         // Verify key 30 exists at rank 2
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 2,
-                kind = SortedMap.KeyRankKind.Existing,
+            expected = RankResult(
+                rank = 2,
+                kind = RankKind.Existing,
             ),
             actual = map.findKeyRank(key = 30),
         )
@@ -200,26 +202,26 @@ class TreeMap_findKeyRank_tests {
 
         // Verify key 30 is now potential at rank 2
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 2,
-                kind = SortedMap.KeyRankKind.Potential,
+            expected = RankResult(
+                rank = 2,
+                kind = RankKind.Potential,
             ),
             actual = map.findKeyRank(key = 30),
         )
 
         // Verify other keys have shifted ranks
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 2,
-                kind = SortedMap.KeyRankKind.Existing,
+            expected = RankResult(
+                rank = 2,
+                kind = RankKind.Existing,
             ),
             actual = map.findKeyRank(key = 40),
         )
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 3,
-                kind = SortedMap.KeyRankKind.Existing,
+            expected = RankResult(
+                rank = 3,
+                kind = RankKind.Existing,
             ),
             actual = map.findKeyRank(key = 50),
         )
@@ -231,9 +233,9 @@ class TreeMap_findKeyRank_tests {
 
         // Verify key 30 would be at rank 2
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 2,
-                kind = SortedMap.KeyRankKind.Potential,
+            expected = RankResult(
+                rank = 2,
+                kind = RankKind.Potential,
             ),
             actual = map.findKeyRank(key = 30),
         )
@@ -243,26 +245,26 @@ class TreeMap_findKeyRank_tests {
 
         // Verify key 30 now exists at rank 2
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 2,
-                kind = SortedMap.KeyRankKind.Existing,
+            expected = RankResult(
+                rank = 2,
+                kind = RankKind.Existing,
             ),
             actual = map.findKeyRank(key = 30),
         )
 
         // Verify other keys have shifted ranks
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 3,
-                kind = SortedMap.KeyRankKind.Existing,
+            expected = RankResult(
+                rank = 3,
+                kind = RankKind.Existing,
             ),
             actual = map.findKeyRank(key = 40),
         )
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 4,
-                kind = SortedMap.KeyRankKind.Existing,
+            expected = RankResult(
+                rank = 4,
+                kind = RankKind.Existing,
             ),
             actual = map.findKeyRank(key = 50),
         )
@@ -277,9 +279,9 @@ class TreeMap_findKeyRank_tests {
 
         // Verify rank stays the same after value update
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 1,
-                kind = SortedMap.KeyRankKind.Existing,
+            expected = RankResult(
+                rank = 1,
+                kind = RankKind.Existing,
             ),
             actual = map.findKeyRank(key = 20),
         )
@@ -290,41 +292,41 @@ class TreeMap_findKeyRank_tests {
         val map = treeMapOf(10 to "a", 20 to "b")
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 0,
-                kind = SortedMap.KeyRankKind.Existing,
+            expected = RankResult(
+                rank = 0,
+                kind = RankKind.Existing,
             ),
             actual = map.findKeyRank(key = 10),
         )
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 1,
-                kind = SortedMap.KeyRankKind.Existing,
+            expected = RankResult(
+                rank = 1,
+                kind = RankKind.Existing,
             ),
             actual = map.findKeyRank(key = 20),
         )
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 0,
-                kind = SortedMap.KeyRankKind.Potential,
+            expected = RankResult(
+                rank = 0,
+                kind = RankKind.Potential,
             ),
             actual = map.findKeyRank(key = 5),
         )
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 1,
-                kind = SortedMap.KeyRankKind.Potential,
+            expected = RankResult(
+                rank = 1,
+                kind = RankKind.Potential,
             ),
             actual = map.findKeyRank(key = 15),
         )
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 2,
-                kind = SortedMap.KeyRankKind.Potential,
+            expected = RankResult(
+                rank = 2,
+                kind = RankKind.Potential,
             ),
             actual = map.findKeyRank(key = 25),
         )
@@ -339,9 +341,9 @@ class TreeMap_findKeyRank_tests {
         // Verify all existing keys have correct ranks
         keys.forEachIndexed { index, key ->
             assertEquals(
-                expected = SortedMap.KeyRankResult(
-                    keyRank = index,
-                    kind = SortedMap.KeyRankKind.Existing,
+                expected = RankResult(
+                    rank = index,
+                    kind = RankKind.Existing,
                 ),
                 actual = map.findKeyRank(key = key),
                 message = "Failed for key $key at expected rank $index",
@@ -350,25 +352,25 @@ class TreeMap_findKeyRank_tests {
 
         // Verify potential keys between existing ones
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 0,
-                kind = SortedMap.KeyRankKind.Potential,
+            expected = RankResult(
+                rank = 0,
+                kind = RankKind.Potential,
             ),
             actual = map.findKeyRank(key = 1),
         )
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 5,
-                kind = SortedMap.KeyRankKind.Potential,
+            expected = RankResult(
+                rank = 5,
+                kind = RankKind.Potential,
             ),
             actual = map.findKeyRank(key = 50),
         )
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 10,
-                kind = SortedMap.KeyRankKind.Potential,
+            expected = RankResult(
+                rank = 10,
+                kind = RankKind.Potential,
             ),
             actual = map.findKeyRank(key = 100),
         )
@@ -387,41 +389,41 @@ class TreeMap_findKeyRank_tests {
 
         // Verify ranks are based on sorted key order, not insertion order
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 0,
-                kind = SortedMap.KeyRankKind.Existing,
+            expected = RankResult(
+                rank = 0,
+                kind = RankKind.Existing,
             ),
             actual = map.findKeyRank(key = 10),
         )
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 1,
-                kind = SortedMap.KeyRankKind.Existing,
+            expected = RankResult(
+                rank = 1,
+                kind = RankKind.Existing,
             ),
             actual = map.findKeyRank(key = 20),
         )
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 2,
-                kind = SortedMap.KeyRankKind.Existing,
+            expected = RankResult(
+                rank = 2,
+                kind = RankKind.Existing,
             ),
             actual = map.findKeyRank(key = 30),
         )
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 3,
-                kind = SortedMap.KeyRankKind.Existing,
+            expected = RankResult(
+                rank = 3,
+                kind = RankKind.Existing,
             ),
             actual = map.findKeyRank(key = 40),
         )
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 4,
-                kind = SortedMap.KeyRankKind.Existing,
+            expected = RankResult(
+                rank = 4,
+                kind = RankKind.Existing,
             ),
             actual = map.findKeyRank(key = 50),
         )
@@ -437,42 +439,42 @@ class TreeMap_findKeyRank_tests {
 
         // Verify existing keys have correct ranks
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 0,
-                kind = SortedMap.KeyRankKind.Existing,
+            expected = RankResult(
+                rank = 0,
+                kind = RankKind.Existing,
             ),
             actual = map.findKeyRank(key = 10),
         )
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 1,
-                kind = SortedMap.KeyRankKind.Existing,
+            expected = RankResult(
+                rank = 1,
+                kind = RankKind.Existing,
             ),
             actual = map.findKeyRank(key = 30),
         )
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 2,
-                kind = SortedMap.KeyRankKind.Existing,
+            expected = RankResult(
+                rank = 2,
+                kind = RankKind.Existing,
             ),
             actual = map.findKeyRank(key = 50),
         )
 
         // Verify removed keys are now potential
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 1,
-                kind = SortedMap.KeyRankKind.Potential,
+            expected = RankResult(
+                rank = 1,
+                kind = RankKind.Potential,
             ),
             actual = map.findKeyRank(key = 20),
         )
 
         assertEquals(
-            expected = SortedMap.KeyRankResult(
-                keyRank = 2,
-                kind = SortedMap.KeyRankKind.Potential,
+            expected = RankResult(
+                rank = 2,
+                kind = RankKind.Potential,
             ),
             actual = map.findKeyRank(key = 40),
         )
@@ -487,12 +489,12 @@ class TreeMap_findKeyRank_tests {
             val rankResult = map.findKeyRank(key = key)
 
             assertEquals(
-                expected = SortedMap.KeyRankKind.Existing,
+                expected = RankKind.Existing,
                 actual = rankResult.kind,
                 message = "Key $key should exist",
             )
 
-            val entry = map.selectEntry(entryRank = rankResult.keyRank)
+            val entry = map.selectEntry(entryRank = rankResult.rank)
 
             assertEquals(
                 expected = key,
@@ -511,11 +513,11 @@ class TreeMap_findKeyRank_tests {
         val rankResult = map.findKeyRank(key = key)
 
         assertEquals(
-            expected = SortedMap.KeyRankKind.Potential,
+            expected = RankKind.Potential,
             actual = rankResult.kind,
         )
 
-        val entry = map.selectEntry(entryRank = rankResult.keyRank)
+        val entry = map.selectEntry(entryRank = rankResult.rank)
 
         // The entry at the potential rank should be the ceiling
         assertEquals(

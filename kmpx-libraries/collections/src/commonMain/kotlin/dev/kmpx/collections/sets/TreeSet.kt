@@ -2,7 +2,6 @@ package dev.kmpx.collections.sets
 
 import dev.kmpx.collections.StableCollection.Handle
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.OrderedBinaryTree
-import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.getRank
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.insert
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.BoundComparator
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.lookup.findCeilWith
@@ -13,6 +12,8 @@ import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.resolve
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.select
 import dev.kmpx.collections.internal.data_structures.ordered_binary_tree.traverse
 import dev.kmpx.collections.internal.iterators.OrderedBinaryTreeIterator
+import dev.kmpx.collections.SortedCollections.RankResult
+import dev.kmpx.collections.findRank
 import kotlin.jvm.JvmInline
 
 /**
@@ -137,40 +138,9 @@ class TreeSet<E : Comparable<E>> internal constructor() : AbstractMutableSet<E>(
 
     override fun findRank(
         element: E,
-    ): SortedSet.ElementRankResult {
-        val location = elementTree.findExactWith(
-            comparator = BoundComparator.compareTo(boundElement = element),
-        )
-
-        val resolvedNode = elementTree.resolve(location = location)
-
-        when {
-            resolvedNode != null -> {
-                val resolvedNodeRank = elementTree.getRank(node = resolvedNode)
-
-                return SortedSet.ElementRankResult(
-                    elementRank = resolvedNodeRank,
-                    kind = SortedSet.ElementRankKind.Existing,
-                )
-            }
-
-            else -> return SortedSet.ElementRankResult(
-                elementRank = when (location) {
-                    OrderedBinaryTree.RootLocation -> 0
-
-                    is OrderedBinaryTree.RelativeLocation -> {
-                        val potentialParentRank = elementTree.getRank(location.parentNode)
-
-                        when (location.side) {
-                            OrderedBinaryTree.Side.Left -> potentialParentRank
-                            OrderedBinaryTree.Side.Right -> potentialParentRank + 1
-                        }
-                    }
-                },
-                kind = SortedSet.ElementRankKind.Potential,
-            )
-        }
-    }
+    ): RankResult = elementTree.findRank(
+        comparator = BoundComparator.compareTo(boundElement = element),
+    )
 
     override val asList: List<E>
         get() = TODO("Not yet implemented")

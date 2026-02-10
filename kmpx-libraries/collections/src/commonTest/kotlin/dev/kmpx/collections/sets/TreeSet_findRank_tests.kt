@@ -1,5 +1,7 @@
 package dev.kmpx.collections.sets
 
+import dev.kmpx.collections.SortedCollections.RankKind
+import dev.kmpx.collections.SortedCollections.RankResult
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -12,9 +14,9 @@ class TreeSet_findRank_tests {
         val result = set.findRank(element = 10)
 
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 0,
-                kind = SortedSet.ElementRankKind.Potential,
+            expected = RankResult(
+                rank = 0,
+                kind = RankKind.Potential,
             ),
             actual = result,
         )
@@ -26,41 +28,41 @@ class TreeSet_findRank_tests {
 
         // Test each element has correct rank
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 0,
-                kind = SortedSet.ElementRankKind.Existing,
+            expected = RankResult(
+                rank = 0,
+                kind = RankKind.Existing,
             ),
             actual = set.findRank(element = 10),
         )
 
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 1,
-                kind = SortedSet.ElementRankKind.Existing,
+            expected = RankResult(
+                rank = 1,
+                kind = RankKind.Existing,
             ),
             actual = set.findRank(element = 20),
         )
 
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 2,
-                kind = SortedSet.ElementRankKind.Existing,
+            expected = RankResult(
+                rank = 2,
+                kind = RankKind.Existing,
             ),
             actual = set.findRank(element = 30),
         )
 
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 3,
-                kind = SortedSet.ElementRankKind.Existing,
+            expected = RankResult(
+                rank = 3,
+                kind = RankKind.Existing,
             ),
             actual = set.findRank(element = 40),
         )
 
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 4,
-                kind = SortedSet.ElementRankKind.Existing,
+            expected = RankResult(
+                rank = 4,
+                kind = RankKind.Existing,
             ),
             actual = set.findRank(element = 50),
         )
@@ -73,9 +75,9 @@ class TreeSet_findRank_tests {
         val result = set.findRank(element = 5)
 
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 0,
-                kind = SortedSet.ElementRankKind.Potential,
+            expected = RankResult(
+                rank = 0,
+                kind = RankKind.Potential,
             ),
             actual = result,
         )
@@ -87,36 +89,36 @@ class TreeSet_findRank_tests {
 
         // Element 15 would be inserted at rank 1 (between 10 and 20)
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 1,
-                kind = SortedSet.ElementRankKind.Potential,
+            expected = RankResult(
+                rank = 1,
+                kind = RankKind.Potential,
             ),
             actual = set.findRank(element = 15),
         )
 
         // Element 25 would be inserted at rank 2 (between 20 and 30)
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 2,
-                kind = SortedSet.ElementRankKind.Potential,
+            expected = RankResult(
+                rank = 2,
+                kind = RankKind.Potential,
             ),
             actual = set.findRank(element = 25),
         )
 
         // Element 35 would be inserted at rank 3 (between 30 and 40)
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 3,
-                kind = SortedSet.ElementRankKind.Potential,
+            expected = RankResult(
+                rank = 3,
+                kind = RankKind.Potential,
             ),
             actual = set.findRank(element = 35),
         )
 
         // Element 45 would be inserted at rank 4 (between 40 and 50)
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 4,
-                kind = SortedSet.ElementRankKind.Potential,
+            expected = RankResult(
+                rank = 4,
+                kind = RankKind.Potential,
             ),
             actual = set.findRank(element = 45),
         )
@@ -129,9 +131,9 @@ class TreeSet_findRank_tests {
         val result = set.findRank(element = 55)
 
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 5,
-                kind = SortedSet.ElementRankKind.Potential,
+            expected = RankResult(
+                rank = 5,
+                kind = RankKind.Potential,
             ),
             actual = result,
         )
@@ -144,9 +146,9 @@ class TreeSet_findRank_tests {
         val result = set.findRank(element = 20)
 
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 0,
-                kind = SortedSet.ElementRankKind.Existing,
+            expected = RankResult(
+                rank = 0,
+                kind = RankKind.Existing,
             ),
             actual = result,
         )
@@ -159,9 +161,9 @@ class TreeSet_findRank_tests {
         val result = set.findRank(element = 10)
 
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 0,
-                kind = SortedSet.ElementRankKind.Potential,
+            expected = RankResult(
+                rank = 0,
+                kind = RankKind.Potential,
             ),
             actual = result,
         )
@@ -174,9 +176,9 @@ class TreeSet_findRank_tests {
         val result = set.findRank(element = 30)
 
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 1,
-                kind = SortedSet.ElementRankKind.Potential,
+            expected = RankResult(
+                rank = 1,
+                kind = RankKind.Potential,
             ),
             actual = result,
         )
@@ -188,9 +190,9 @@ class TreeSet_findRank_tests {
 
         // Verify element 30 exists at rank 2
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 2,
-                kind = SortedSet.ElementRankKind.Existing,
+            expected = RankResult(
+                rank = 2,
+                kind = RankKind.Existing,
             ),
             actual = set.findRank(element = 30),
         )
@@ -200,26 +202,26 @@ class TreeSet_findRank_tests {
 
         // Verify element 30 is now potential at rank 2
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 2,
-                kind = SortedSet.ElementRankKind.Potential,
+            expected = RankResult(
+                rank = 2,
+                kind = RankKind.Potential,
             ),
             actual = set.findRank(element = 30),
         )
 
         // Verify other elements have shifted ranks
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 2,
-                kind = SortedSet.ElementRankKind.Existing,
+            expected = RankResult(
+                rank = 2,
+                kind = RankKind.Existing,
             ),
             actual = set.findRank(element = 40),
         )
 
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 3,
-                kind = SortedSet.ElementRankKind.Existing,
+            expected = RankResult(
+                rank = 3,
+                kind = RankKind.Existing,
             ),
             actual = set.findRank(element = 50),
         )
@@ -231,9 +233,9 @@ class TreeSet_findRank_tests {
 
         // Verify element 30 would be at rank 2
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 2,
-                kind = SortedSet.ElementRankKind.Potential,
+            expected = RankResult(
+                rank = 2,
+                kind = RankKind.Potential,
             ),
             actual = set.findRank(element = 30),
         )
@@ -243,26 +245,26 @@ class TreeSet_findRank_tests {
 
         // Verify element 30 now exists at rank 2
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 2,
-                kind = SortedSet.ElementRankKind.Existing,
+            expected = RankResult(
+                rank = 2,
+                kind = RankKind.Existing,
             ),
             actual = set.findRank(element = 30),
         )
 
         // Verify other elements have shifted ranks
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 3,
-                kind = SortedSet.ElementRankKind.Existing,
+            expected = RankResult(
+                rank = 3,
+                kind = RankKind.Existing,
             ),
             actual = set.findRank(element = 40),
         )
 
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 4,
-                kind = SortedSet.ElementRankKind.Existing,
+            expected = RankResult(
+                rank = 4,
+                kind = RankKind.Existing,
             ),
             actual = set.findRank(element = 50),
         )
@@ -273,41 +275,41 @@ class TreeSet_findRank_tests {
         val set = treeSetOf(10, 20)
 
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 0,
-                kind = SortedSet.ElementRankKind.Existing,
+            expected = RankResult(
+                rank = 0,
+                kind = RankKind.Existing,
             ),
             actual = set.findRank(element = 10),
         )
 
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 1,
-                kind = SortedSet.ElementRankKind.Existing,
+            expected = RankResult(
+                rank = 1,
+                kind = RankKind.Existing,
             ),
             actual = set.findRank(element = 20),
         )
 
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 0,
-                kind = SortedSet.ElementRankKind.Potential,
+            expected = RankResult(
+                rank = 0,
+                kind = RankKind.Potential,
             ),
             actual = set.findRank(element = 5),
         )
 
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 1,
-                kind = SortedSet.ElementRankKind.Potential,
+            expected = RankResult(
+                rank = 1,
+                kind = RankKind.Potential,
             ),
             actual = set.findRank(element = 15),
         )
 
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 2,
-                kind = SortedSet.ElementRankKind.Potential,
+            expected = RankResult(
+                rank = 2,
+                kind = RankKind.Potential,
             ),
             actual = set.findRank(element = 25),
         )
@@ -323,9 +325,9 @@ class TreeSet_findRank_tests {
         // Verify all existing elements have correct ranks
         elements.forEachIndexed { index, element ->
             assertEquals(
-                expected = SortedSet.ElementRankResult(
-                    elementRank = index,
-                    kind = SortedSet.ElementRankKind.Existing,
+                expected = RankResult(
+                    rank = index,
+                    kind = RankKind.Existing,
                 ),
                 actual = set.findRank(element = element),
                 message = "Failed for element $element at expected rank $index",
@@ -334,25 +336,25 @@ class TreeSet_findRank_tests {
 
         // Verify potential elements between existing ones
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 0,
-                kind = SortedSet.ElementRankKind.Potential,
+            expected = RankResult(
+                rank = 0,
+                kind = RankKind.Potential,
             ),
             actual = set.findRank(element = 1),
         )
 
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 5,
-                kind = SortedSet.ElementRankKind.Potential,
+            expected = RankResult(
+                rank = 5,
+                kind = RankKind.Potential,
             ),
             actual = set.findRank(element = 50),
         )
 
         assertEquals(
-            expected = SortedSet.ElementRankResult(
-                elementRank = 10,
-                kind = SortedSet.ElementRankKind.Potential,
+            expected = RankResult(
+                rank = 10,
+                kind = RankKind.Potential,
             ),
             actual = set.findRank(element = 100),
         )

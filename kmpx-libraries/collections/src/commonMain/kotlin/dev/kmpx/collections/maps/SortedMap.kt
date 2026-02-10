@@ -1,5 +1,7 @@
 package dev.kmpx.collections.maps
 
+import dev.kmpx.collections.SortedCollections.RankKind
+import dev.kmpx.collections.SortedCollections.RankResult
 import dev.kmpx.collections.sets.SortedSet
 
 /**
@@ -7,23 +9,6 @@ import dev.kmpx.collections.sets.SortedSet
  * keys or by a specified comparator.
  */
 interface SortedMap<K : Any, out V> : Map<K, V> {
-    enum class KeyRankKind {
-        /**
-         * Rank of the entry for the given key when that key exists in the map.
-         */
-        Existing,
-
-        /**
-         * Rank where an entry for the given key would be inserted when the key is absent.
-         */
-        Potential,
-    }
-
-    data class KeyRankResult(
-        val keyRank: Int,
-        val kind: KeyRankKind,
-    )
-
     /**
      * Returns the entry with the greatest key that is less than or equal to the given key, or `null` if there is no
      * such entry. The returned entry may have a key equal to the given key if it is present in the map.
@@ -44,10 +29,10 @@ interface SortedMap<K : Any, out V> : Map<K, V> {
 
     /**
      * Finds the rank of the given key in the sorted map. If an entry with this key is present in the map, returns its
-     * rank with [KeyRankKind.Existing]. If the key is not present, returns the rank where an entry with this key would
-     * be inserted with [KeyRankKind.Potential].
+     * rank with [RankKind.Existing]. If the key is not present, returns the rank where an entry with this key would
+     * be inserted with [RankKind.Potential].
      */
-    fun findKeyRank(key: K): KeyRankResult
+    fun findKeyRank(key: K): RankResult
 
     /**
      * Returns a list of the entries in the sorted map, in sorted order by key. The first entry of the list has the

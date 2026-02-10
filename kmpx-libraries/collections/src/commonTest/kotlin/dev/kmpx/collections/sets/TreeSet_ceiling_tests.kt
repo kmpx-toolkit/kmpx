@@ -1,5 +1,6 @@
 package dev.kmpx.collections.sets
 
+import dev.kmpx.collections.SortedCollections.RankKind
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
@@ -540,10 +541,10 @@ class TreeSet_ceiling_tests {
         val element = 25
         val rankResult = set.findRank(element = element)
         val ceilingValue = set.ceiling(element = element)
-        val selectedValue = set.select(rank = rankResult.elementRank)
+        val selectedValue = set.select(rank = rankResult.rank)
 
         assertEquals(
-            expected = SortedSet.ElementRankKind.Potential,
+            expected = RankKind.Potential,
             actual = rankResult.kind,
         )
 

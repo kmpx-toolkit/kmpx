@@ -1,5 +1,6 @@
 package dev.kmpx.collections.sets
 
+import dev.kmpx.collections.SortedCollections.RankKind
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
@@ -279,12 +280,12 @@ class TreeSet_select_tests {
 
             assertEquals(
                 expected = rank,
-                actual = rankResult.elementRank,
+                actual = rankResult.rank,
                 message = "Round trip failed for rank $rank",
             )
 
             assertEquals(
-                expected = SortedSet.ElementRankKind.Existing,
+                expected = RankKind.Existing,
                 actual = rankResult.kind,
                 message = "Element at rank $rank should be Existing",
             )
