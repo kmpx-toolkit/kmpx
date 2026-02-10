@@ -143,7 +143,24 @@ class TreeSet<E : Comparable<E>> internal constructor() : AbstractMutableSet<E>(
     )
 
     override val asList: List<E>
-        get() = TODO("Not yet implemented")
+        get() = object : AbstractList<E>() {
+            override fun iterator(): Iterator<E> = OrderedBinaryTreeIterator(
+                tree = elementTree,
+            )
+
+            override val size: Int
+                get() = elementTree.size
+
+            override fun get(
+                index: Int,
+            ): E {
+                val node = elementTree.select(index = index) ?: throw IndexOutOfBoundsException(
+                    "Index $index is out of bounds for size ${size}."
+                )
+
+                return node.payload
+            }
+        }
 }
 
 fun <E : Comparable<E>> treeSetOf(
